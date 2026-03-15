@@ -1,0 +1,52 @@
+.footer {
+  background: var(--bg-dark);
+  color: white;
+  padding: 3rem 0;
+  position: relative;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-text {
+  margin-bottom: 1rem;
+}
+
+.footer-text p {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.heart-icon {
+  color: var(--accent);
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.footer-year {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.footer-note {
+  margin-top: 1rem;
+}
+
+.footer-note p {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  font-style: italic;
+}

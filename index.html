@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huzaifa Awan - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">HA</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="greeting">Hi, I'm</span>
+                <span class="name">Huzaifa Awan</span>
+            </h1>
+            <p class="hero-subtitle">Software Developer & Creative Problem Solver</p>
+            <p class="hero-description">Building innovative solutions and turning ideas into reality through code.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="Huzaifa_Awan_CV.pdf" target="_blank" class="btn btn-secondary">Download CV</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm a passionate software developer with a keen interest in creating innovative solutions 
+                        and solving complex problems. My work spans across various domains including web development, 
+                        application design, and intelligent systems.
+                    </p>
+                    <p>
+                        I enjoy working on projects that challenge me to think creatively and push the boundaries 
+                        of what's possible with technology. Each project is an opportunity to learn, grow, and make 
+                        a meaningful impact.
+                    </p>
+                </div>
+                <div class="skills">
+                    <h3>Skills & Technologies</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">Web Development</div>
+                        <div class="skill-item">Full-Stack Development</div>
+                        <div class="skill-item">UI/UX Design</div>
+                        <div class="skill-item">Database Management</div>
+                        <div class="skill-item">API Development</div>
+                        <div class="skill-item">Problem Solving</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <p class="section-subtitle">A collection of my recent work and projects</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🚀</div>
+                    <h3 class="project-title">APEX Intelligence</h3>
+                    <p class="project-description">
+                        An intelligent system designed to deliver advanced solutions and cutting-edge technology implementations.
+                    </p>
+                    <a href="APEX INTELLIGENCE0.pdf" target="_blank" class="project-link">
+                        View Project <span>→</span>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🖥️</div>
+                    <h3 class="project-title">Multilingual Website Builder</h3>
+                    <p class="project-description">
+                        A comprehensive platform for building multilingual websites with seamless translation and localization features.
+                    </p>
+                    <a href="Multilingual Website Builder.pdf" target="_blank" class="project-link">
+                        View Project <span>→</span>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">📊</div>
+                    <h3 class="project-title">Multilingual Dashboard</h3>
+                    <p class="project-description">
+                        An intuitive dashboard solution with multilingual support, providing comprehensive data visualization and analytics.
+                    </p>
+                    <a href="Multilingual Dashboard.pdf" target="_blank" class="project-link">
+                        View Project <span>→</span>
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-icon">🛒</div>
+                    <h3 class="project-title">Kiosk System</h3>
+                    <p class="project-description">
+                        An interactive kiosk solution designed for seamless user experience and efficient service delivery.
+                    </p>
+                    <a href="kiosk.pdf" target="_blank" class="project-link">
+                        View Project <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">I'm always open to discussing new projects and opportunities</p>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>Available for opportunities</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <h3>Availability</h3>
+                            <p>Open to freelance & full-time</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Huzaifa Awan. All rights reserved.</p>
+            <p class="footer-note">Built with passion and attention to detail</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
