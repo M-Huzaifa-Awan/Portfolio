@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { 
   FaCode, 
   FaDatabase, 
-  FaMobile, 
   FaCloud, 
   FaPalette, 
   FaRocket,
