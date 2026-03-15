@@ -5,8 +5,10 @@
   justify-content: center;
   position: relative;
   padding: 120px 2rem 80px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0a0e1a 0%, #050810 50%, #0f172a 100%);
   overflow: hidden;
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: inset 0 -2px 20px rgba(0, 255, 255, 0.1);
 }
 
 .hero::before {
@@ -16,9 +18,29 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3), transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.3), transparent 50%);
+  background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1), transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 0, 128, 0.1), transparent 50%),
+              radial-gradient(circle at 50% 20%, rgba(0, 255, 128, 0.08), transparent 50%);
   pointer-events: none;
+  animation: heroGlow 6s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+  0%, 100% {
+    background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 128, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(0, 255, 128, 0.08), transparent 50%);
+  }
+  33% {
+    background: radial-gradient(circle at 20% 50%, rgba(255, 0, 128, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 128, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(0, 255, 255, 0.08), transparent 50%);
+  }
+  66% {
+    background: radial-gradient(circle at 20% 50%, rgba(0, 255, 128, 0.1), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1), transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(255, 0, 128, 0.08), transparent 50%);
+  }
 }
 
 .hero-container {
@@ -39,11 +61,28 @@
 .hero-badge {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--neon-cyan);
   margin-bottom: 1.5rem;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  animation: badgeGlow 3s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+  0%, 100% {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+  33% {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.3);
+  }
+  66% {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
+  }
 }
 
 .badge-text {
@@ -74,13 +113,26 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #fff 0%, #e0e7ff 50%, #c7d2fe 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--neon-cyan);
   font-size: 4.5rem;
   font-weight: 900;
+  text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+  animation: nameGlow 3s ease-in-out infinite;
+}
+
+@keyframes nameGlow {
+  0%, 100% {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 60px var(--neon-cyan);
+  }
+  33% {
+    color: var(--neon-red);
+    text-shadow: 0 0 20px var(--neon-red), 0 0 40px var(--neon-red), 0 0 60px var(--neon-red);
+  }
+  66% {
+    color: var(--neon-green);
+    text-shadow: 0 0 20px var(--neon-green), 0 0 40px var(--neon-green), 0 0 60px var(--neon-green);
+  }
 }
 
 .role {
@@ -122,24 +174,31 @@
 }
 
 .btn-primary {
-  background: white;
-  color: var(--primary);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: var(--neon-cyan);
+  color: #0a0e1a;
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0, 255, 255, 0.3);
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px rgba(0, 255, 255, 0.5);
+  transform: translateY(-2px);
+  background: var(--neon-green);
+  box-shadow: 0 0 30px var(--neon-green), 0 0 60px rgba(0, 255, 128, 0.5);
 }
 
 .btn-secondary {
   background: transparent;
-  color: white;
-  border-color: white;
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .btn-secondary:hover {
-  background: white;
-  color: var(--primary);
+  background: var(--neon-cyan);
+  color: #0a0e1a;
+  box-shadow: 0 0 25px var(--neon-cyan);
 }
 
 .btn-icon {
@@ -155,21 +214,24 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--neon-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--neon-cyan);
   font-size: 1.5rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
 }
 
 .social-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--neon-cyan);
+  color: #0a0e1a;
+  box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px rgba(0, 255, 255, 0.5);
+  transform: translateY(-5px);
 }
 
 .hero-visual {
@@ -181,14 +243,30 @@
   position: absolute;
   width: 120px;
   height: 120px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--neon-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  animation: cardGlow 3s ease-in-out infinite;
+}
+
+@keyframes cardGlow {
+  0%, 100% {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.4), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  33% {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.4), inset 0 0 20px rgba(255, 0, 128, 0.1);
+  }
+  66% {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 20px rgba(0, 255, 128, 0.4), inset 0 0 20px rgba(0, 255, 128, 0.1);
+  }
 }
 
 .card-content {
