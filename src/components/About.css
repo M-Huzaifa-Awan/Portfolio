@@ -1,6 +1,8 @@
 .about {
-  background: var(--bg-secondary);
+  background: var(--bg-dark);
   position: relative;
+  border-top: 2px solid var(--neon-cyan);
+  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);
 }
 
 .container {
@@ -21,9 +23,26 @@
 }
 
 .title-number {
-  color: var(--primary);
+  color: var(--neon-cyan);
   font-size: 2rem;
   font-weight: 700;
+  text-shadow: 0 0 10px var(--neon-cyan);
+  animation: numberGlow 3s ease-in-out infinite;
+}
+
+@keyframes numberGlow {
+  0%, 100% {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+  }
+  33% {
+    color: var(--neon-red);
+    text-shadow: 0 0 10px var(--neon-red);
+  }
+  66% {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px var(--neon-green);
+  }
 }
 
 .about-content {
@@ -52,10 +71,12 @@
 }
 
 .skills-container {
-  background: white;
+  background: rgba(15, 23, 42, 0.6);
   padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
 }
 
 .skills-title {
@@ -72,24 +93,27 @@
 }
 
 .skill-card {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  background: rgba(0, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 2px solid rgba(0, 255, 255, 0.3);
   cursor: pointer;
+  backdrop-filter: blur(5px);
 }
 
 .skill-card:hover {
-  border-color: var(--skill-color);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.1);
+  transform: translateY(-5px);
 }
 
 .skill-icon {
   font-size: 2.5rem;
-  color: var(--skill-color);
+  color: var(--neon-cyan);
   margin-bottom: 0.75rem;
+  filter: drop-shadow(0 0 8px var(--neon-cyan));
 }
 
 .skill-name {
@@ -101,7 +125,8 @@
 .technologies-section {
   margin-top: 5rem;
   padding-top: 4rem;
-  border-top: 2px solid var(--border);
+  border-top: 2px solid var(--neon-cyan);
+  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);
 }
 
 .tech-title {
@@ -119,23 +144,27 @@
 }
 
 .tech-item {
-  background: white;
+  background: rgba(15, 23, 42, 0.6);
   padding: 2rem;
   border-radius: 16px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .tech-item:hover {
-  box-shadow: 0 10px 40px rgba(99, 102, 241, 0.15);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), inset 0 0 20px rgba(0, 255, 255, 0.1);
   transform: translateY(-5px);
 }
 
 .tech-icon {
   font-size: 3rem;
-  color: var(--primary);
+  color: var(--neon-cyan);
   margin-bottom: 1rem;
+  filter: drop-shadow(0 0 10px var(--neon-cyan));
 }
 
 .tech-name {
@@ -148,17 +177,19 @@
 .tech-bar {
   width: 100%;
   height: 8px;
-  background: var(--bg-secondary);
+  background: rgba(0, 255, 255, 0.1);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 0.5rem;
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .tech-progress {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
   border-radius: 10px;
   transition: width 1s ease;
+  box-shadow: 0 0 10px var(--neon-cyan);
 }
 
 .tech-level {

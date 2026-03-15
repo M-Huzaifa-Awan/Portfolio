@@ -5,17 +5,41 @@
   z-index: 1000;
   transition: all 0.3s ease;
   padding: 1rem 0;
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(10, 14, 26, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 4px 30px rgba(0, 255, 255, 0.2), 
+              0 0 20px rgba(0, 255, 255, 0.1),
+              inset 0 -1px 0 rgba(0, 255, 255, 0.3);
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-bottom-color: var(--neon-cyan);
+    box-shadow: 0 4px 30px rgba(0, 255, 255, 0.2), 
+                0 0 20px rgba(0, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 255, 255, 0.3);
+  }
+  33% {
+    border-bottom-color: var(--neon-red);
+    box-shadow: 0 4px 30px rgba(255, 0, 128, 0.2), 
+                0 0 20px rgba(255, 0, 128, 0.1),
+                inset 0 -1px 0 rgba(255, 0, 128, 0.3);
+  }
+  66% {
+    border-bottom-color: var(--neon-green);
+    box-shadow: 0 4px 30px rgba(0, 255, 128, 0.2), 
+                0 0 20px rgba(0, 255, 128, 0.1),
+                inset 0 -1px 0 rgba(0, 255, 128, 0.3);
+  }
 }
 
 .navbar.scrolled {
-  background: rgba(15, 23, 42, 0.98);
+  background: rgba(10, 14, 26, 0.98);
   backdrop-filter: blur(20px);
-  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
   padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  border-bottom-width: 3px;
 }
 
 .nav-container {
