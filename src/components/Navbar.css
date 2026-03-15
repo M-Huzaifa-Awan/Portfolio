@@ -5,13 +5,17 @@
   z-index: 1000;
   transition: all 0.3s ease;
   padding: 1rem 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .navbar.scrolled {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(15, 23, 42, 0.98);
   backdrop-filter: blur(20px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
   padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
 }
 
 .nav-container {
@@ -34,15 +38,40 @@
 }
 
 .logo-text {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00ffff;
+  animation: neonGlow 3s ease-in-out infinite;
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
 }
 
 .logo-dot {
-  color: var(--accent);
-  animation: pulse 2s infinite;
+  animation: colorCycle 3s ease-in-out infinite, pulse 2s infinite;
+}
+
+@keyframes neonGlow {
+  0%, 100% {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  }
+  33% {
+    color: #ff0080;
+    text-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080, 0 0 30px #ff0080;
+  }
+  66% {
+    color: #00ff80;
+    text-shadow: 0 0 10px #00ff80, 0 0 20px #00ff80, 0 0 30px #00ff80;
+  }
+}
+
+@keyframes colorCycle {
+  0%, 100% {
+    color: #00ffff;
+  }
+  33% {
+    color: #ff0080;
+  }
+  66% {
+    color: #00ff80;
+  }
 }
 
 @keyframes pulse {
@@ -60,20 +89,38 @@
 .nav-link {
   position: relative;
   text-decoration: none;
-  color: var(--text-primary);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 500;
   font-size: 1rem;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   padding: 0.5rem 0;
 }
 
 .nav-link:hover {
-  color: var(--primary);
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
 }
 
 .nav-link.active {
-  color: var(--primary);
+  color: #00ffff;
   font-weight: 600;
+  text-shadow: 0 0 10px #00ffff;
+  animation: activeGlow 3s ease-in-out infinite;
+}
+
+@keyframes activeGlow {
+  0%, 100% {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+  }
+  33% {
+    color: #ff0080;
+    text-shadow: 0 0 10px #ff0080;
+  }
+  66% {
+    color: #00ff80;
+    text-shadow: 0 0 10px #00ff80;
+  }
 }
 
 .nav-indicator {
@@ -82,17 +129,39 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: #00ffff;
   border-radius: 2px;
+  box-shadow: 0 0 10px #00ffff;
+  animation: indicatorGlow 3s ease-in-out infinite;
+}
+
+@keyframes indicatorGlow {
+  0%, 100% {
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  }
+  33% {
+    background: #ff0080;
+    box-shadow: 0 0 10px #ff0080, 0 0 20px #ff0080;
+  }
+  66% {
+    background: #00ff80;
+    box-shadow: 0 0 10px #00ff80, 0 0 20px #00ff80;
+  }
 }
 
 .mobile-menu-btn {
   display: none;
   background: none;
   border: none;
-  color: var(--text-primary);
+  color: #00ffff;
   cursor: pointer;
   padding: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+  color: #00ff80;
 }
 
 @media (max-width: 768px) {
@@ -106,14 +175,15 @@
     left: -100%;
     width: 100%;
     height: calc(100vh - 70px);
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(15, 23, 42, 0.98);
     backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: flex-start;
     padding-top: 3rem;
     gap: 2rem;
     transition: left 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.1);
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
   }
 
   .nav-menu.active {

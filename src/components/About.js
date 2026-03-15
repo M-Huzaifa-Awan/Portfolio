@@ -9,10 +9,10 @@ import {
   FaRocket,
   FaReact,
   FaNode,
-  FaPython,
   FaJs,
   FaHtml5,
-  FaCss3Alt
+  FaCss3Alt,
+  FaServer
 } from 'react-icons/fa';
 import './About.css';
 
@@ -30,7 +30,9 @@ const About = () => {
     { name: 'React', icon: <FaReact />, level: 90 },
     { name: 'Node.js', icon: <FaNode />, level: 85 },
     { name: 'JavaScript', icon: <FaJs />, level: 90 },
-    { name: 'Python', icon: <FaPython />, level: 80 },
+    { name: 'C# .NET MVC', icon: <FaCode />, level: 85 },
+    { name: 'MySQL', icon: <FaDatabase />, level: 88 },
+    { name: 'RESTful APIs', icon: <FaServer />, level: 90 },
     { name: 'HTML5', icon: <FaHtml5 />, level: 95 },
     { name: 'CSS3', icon: <FaCss3Alt />, level: 90 },
   ];
