@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { HiArrowDown, HiDownload } from 'react-icons/hi';
+import { HiArrowDown, HiDownload, HiPlay } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import './Hero.css';
 
@@ -105,7 +105,7 @@ const Hero = () => {
               View My Work
             </motion.a>
             <motion.a
-              href="/Huzaifa_Awan_CV.pdf"
+              href="/Huzaifa_Awan_Senior_CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
@@ -114,6 +114,17 @@ const Hero = () => {
             >
               <HiDownload className="btn-icon" />
               Download CV
+            </motion.a>
+            <motion.a
+              href="https://www.loom.com/share/491ea3048e4b4bdba169a1b62529061c"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <HiPlay className="btn-icon" />
+              Watch Introduction
             </motion.a>
           </motion.div>
 

@@ -124,6 +124,13 @@
   border: 1px solid rgba(0, 255, 255, 0.3);
 }
 
+.project-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
 .project-link {
   display: flex;
   align-items: center;
@@ -133,13 +140,25 @@
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
-  margin-top: auto;
   text-shadow: 0 0 10px var(--neon-cyan);
 }
 
 .project-link:hover {
   color: var(--neon-green);
   text-shadow: 0 0 15px var(--neon-green);
+}
+
+.project-link-secondary {
+  color: var(--text-secondary);
+  text-shadow: none;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.project-link-secondary:hover {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px var(--neon-cyan);
+  opacity: 1;
 }
 
 .link-icon {
