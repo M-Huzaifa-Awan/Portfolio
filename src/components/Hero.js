@@ -165,14 +165,19 @@ const Hero = () => {
           }}
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
         >
+          <div className="profile-photo-wrapper">
+            <div className="profile-photo-glow" />
+            <img
+              src="/huzaifa-awan.jpg"
+              alt="Huzaifa Awan"
+              className="profile-photo"
+            />
+          </div>
           <div className="floating-card card-1">
             <div className="card-content">💻</div>
           </div>
           <div className="floating-card card-2">
             <div className="card-content">🚀</div>
-          </div>
-          <div className="floating-card card-3">
-            <div className="card-content">✨</div>
           </div>
         </motion.div>
       </div>

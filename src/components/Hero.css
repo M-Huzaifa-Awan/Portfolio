@@ -237,12 +237,88 @@
 .hero-visual {
   position: relative;
   height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo-wrapper {
+  position: relative;
+  width: 380px;
+  height: 460px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 3px solid var(--neon-cyan);
+  box-shadow:
+    0 0 30px var(--neon-cyan),
+    0 0 60px rgba(0, 255, 255, 0.4),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+  animation: photoGlow 5s ease-in-out infinite;
+}
+
+@keyframes photoGlow {
+  0%, 100% {
+    border-color: var(--neon-cyan);
+    box-shadow:
+      0 0 30px var(--neon-cyan),
+      0 0 60px rgba(0, 255, 255, 0.4),
+      inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+  33% {
+    border-color: var(--neon-red);
+    box-shadow:
+      0 0 30px var(--neon-red),
+      0 0 60px rgba(255, 0, 128, 0.4),
+      inset 0 0 20px rgba(255, 0, 128, 0.1);
+  }
+  66% {
+    border-color: var(--neon-green);
+    box-shadow:
+      0 0 30px var(--neon-green),
+      0 0 60px rgba(0, 255, 128, 0.4),
+      inset 0 0 20px rgba(0, 255, 128, 0.1);
+  }
+}
+
+.profile-photo-glow {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  border-radius: 24px;
+  background: conic-gradient(
+    from 0deg,
+    var(--neon-cyan),
+    var(--neon-red),
+    var(--neon-green),
+    var(--neon-cyan)
+  );
+  filter: blur(30px);
+  opacity: 0.5;
+  z-index: 1;
+  animation: spinGlow 8s linear infinite;
+}
+
+@keyframes spinGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .floating-card {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
+  z-index: 3;
   background: rgba(0, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   border-radius: 20px;
@@ -270,27 +346,20 @@
 }
 
 .card-content {
-  font-size: 3rem;
+  font-size: 2.2rem;
 }
 
 .card-1 {
-  top: 20%;
-  left: 10%;
+  top: 5%;
+  left: 0;
   animation: float 6s ease-in-out infinite;
 }
 
 .card-2 {
-  top: 50%;
-  right: 10%;
+  bottom: 5%;
+  right: 0;
   animation: float 8s ease-in-out infinite;
   animation-delay: -2s;
-}
-
-.card-3 {
-  bottom: 20%;
-  left: 30%;
-  animation: float 7s ease-in-out infinite;
-  animation-delay: -4s;
 }
 
 @keyframes float {
@@ -332,7 +401,22 @@
   }
 
   .hero-visual {
-    display: none;
+    height: 320px;
+    margin-top: 2rem;
+  }
+
+  .profile-photo-wrapper {
+    width: 240px;
+    height: 290px;
+  }
+
+  .floating-card {
+    width: 70px;
+    height: 70px;
+  }
+
+  .card-content {
+    font-size: 1.6rem;
   }
 
   .hero-title {
