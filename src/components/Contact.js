@@ -20,25 +20,56 @@ const Contact = () => {
     });
   };
 
+  const accessKey = process.env.REACT_APP_WEB3FORMS_KEY;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    if (!accessKey) {
+      // Fallback: mailto so the form still does *something* until the env key is set
+      const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      );
+      window.location.href = `mailto:mhuzaifaawan7@gmail.com?subject=${subject}&body=${body}`;
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSubmitStatus(null), 4000);
+      return;
+    }
 
-    // Create mailto link
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:mhuzaifaawan7@gmail.com?subject=${subject}&body=${body}`;
-
-    window.location.href = mailtoLink;
-
-    setSubmitStatus('success');
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '' });
-
-    setTimeout(() => setSubmitStatus(null), 3000);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `Portfolio Contact from ${formData.name}`,
+          from_name: 'Portfolio · huzaifa-awan.com',
+          botcheck: '',
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const contactInfo = [
@@ -230,7 +261,18 @@ const Contact = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  Message sent! Opening your email client...
+                  {accessKey
+                    ? 'Message sent — I\'ll get back to you shortly.'
+                    : 'Message sent! Opening your email client...'}
+                </motion.div>
+              )}
+              {submitStatus === 'error' && (
+                <motion.div
+                  className="submit-message error"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Couldn't send — please email mhuzaifaawan7@gmail.com directly.
                 </motion.div>
               )}
             </form>

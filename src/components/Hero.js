@@ -59,11 +59,14 @@ const Hero = () => {
           animate="visible"
         >
           <motion.div
-            className="hero-badge"
+            className="hero-badge hero-status"
             variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.04 }}
           >
-            <span className="badge-text">Welcome to my Portfolio</span>
+            <span className="status-dot" aria-hidden="true" />
+            <span className="badge-text">
+              Open to senior full-stack roles · US timezones
+            </span>
           </motion.div>
 
           <motion.h1 className="hero-title" variants={itemVariants}>

@@ -1,0 +1,148 @@
+.gh-strip {
+  background: var(--bg-primary);
+  padding: 3rem 0;
+  border-top: 2px solid var(--neon-cyan);
+  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.06);
+}
+
+.gh-strip-inner {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  backdrop-filter: blur(8px);
+}
+
+.gh-strip-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
+}
+
+.gh-pulse {
+  position: relative;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+}
+
+.gh-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.35);
+  animation: ghPulse 1.6s ease-out infinite;
+}
+
+@keyframes ghPulse {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.gh-eyebrow {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+.gh-strip-link {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.gh-strip-link:hover {
+  color: var(--neon-cyan);
+}
+
+.gh-strip-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gh-strip-item {
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.gh-verb {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.gh-target {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.gh-target:hover {
+  text-decoration: underline;
+}
+
+.gh-detail {
+  color: var(--text-secondary);
+  opacity: 0.9;
+}
+
+.gh-time {
+  color: var(--text-secondary);
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+.gh-strip-item.is-skeleton {
+  height: 1.4rem;
+}
+
+.gh-skel {
+  display: block;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 255, 255, 0.04),
+    rgba(0, 255, 255, 0.12),
+    rgba(0, 255, 255, 0.04)
+  );
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: ghSkel 1.5s ease-in-out infinite;
+}
+
+@keyframes ghSkel {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .gh-strip-inner {
+    padding: 1.25rem;
+  }
+  .gh-strip-link {
+    margin-left: 0;
+    width: 100%;
+  }
+}

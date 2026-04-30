@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 import {
   FaReact,
   FaNode,
@@ -29,6 +29,38 @@ import {
   SiVercel,
 } from 'react-icons/si';
 import './About.css';
+
+const StatCard = ({ value, prefix = '', suffix = '', label }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return undefined;
+    const duration = 1100;
+    const start = performance.now();
+    let raf;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setDisplay(Math.round(value * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value]);
+
+  return (
+    <div ref={ref} className="stat-card">
+      <div className="stat-value">
+        {prefix}
+        {display}
+        {suffix}
+      </div>
+      <div className="stat-label">{label}</div>
+    </div>
+  );
+};
 
 const About = () => {
   const stackGroups = [
@@ -86,10 +118,10 @@ const About = () => {
   ];
 
   const stats = [
-    { value: '3+', label: 'Years shipping production' },
-    { value: '95%', label: 'Redis cache hit rate' },
-    { value: '<50ms', label: 'API response under load' },
-    { value: '40%', label: 'Fewer prod incidents' },
+    { value: 3, suffix: '+', label: 'Years shipping production' },
+    { value: 95, suffix: '%', label: 'Redis cache hit rate' },
+    { value: 50, prefix: '<', suffix: 'ms', label: 'API response under load' },
+    { value: 40, suffix: '%', label: 'Fewer prod incidents' },
   ];
 
   const containerVariants = {
@@ -154,10 +186,7 @@ const About = () => {
 
             <div className="about-stats">
               {stats.map((stat) => (
-                <div key={stat.label} className="stat-card">
-                  <div className="stat-value">{stat.value}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
+                <StatCard key={stat.label} {...stat} />
               ))}
             </div>
           </motion.div>

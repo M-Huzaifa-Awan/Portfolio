@@ -91,6 +91,43 @@
   color: white;
 }
 
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.25);
+  animation: none;
+}
+
+.hero-status .badge-text {
+  color: #d1fae5;
+}
+
+.status-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #10b981;
+  position: relative;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.9);
+  flex-shrink: 0;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.45);
+  animation: statusPulse 1.6s ease-out infinite;
+}
+
+@keyframes statusPulse {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
 .hero-title {
   font-size: 4.5rem;
   font-weight: 800;
@@ -402,7 +439,14 @@
 
   .hero-visual {
     height: 320px;
-    margin-top: 2rem;
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-status {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .profile-photo-wrapper {

@@ -3,8 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+import IntroVideo from './components/IntroVideo';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import GitHubStrip from './components/GitHubStrip';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ParticleBackground from './components/ParticleBackground';
@@ -66,8 +68,10 @@ function App() {
             <Navbar />
             <Hero />
             <About />
+            <IntroVideo />
             <Experience />
             <Projects />
+            <GitHubStrip />
             <Contact />
             <Footer />
           </motion.div>

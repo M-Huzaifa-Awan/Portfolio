@@ -220,6 +220,12 @@
   border: 2px solid rgba(16, 185, 129, 0.2);
 }
 
+.submit-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 2px solid rgba(239, 68, 68, 0.25);
+}
+
 @media (max-width: 968px) {
   .contact-content {
     grid-template-columns: 1fr;
