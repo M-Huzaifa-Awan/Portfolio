@@ -71,7 +71,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            <span className="title-number">03.</span>
+            <span className="title-number">04.</span>
             Get In Touch
           </h2>
           <p className="section-subtitle">

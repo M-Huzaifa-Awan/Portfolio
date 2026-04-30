@@ -1,60 +1,111 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  FaCode, 
-  FaDatabase, 
-  FaCloud, 
-  FaPalette, 
-  FaRocket,
+import {
   FaReact,
   FaNode,
   FaJs,
   FaHtml5,
   FaCss3Alt,
-  FaServer
+  FaDatabase,
+  FaDocker,
+  FaGitAlt,
+  FaStripe,
+  FaServer,
+  FaBrain,
 } from 'react-icons/fa';
+import {
+  SiDotnet,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiPostgresql,
+  SiMysql,
+  SiRedis,
+  SiSupabase,
+  SiOpenai,
+  SiFirebase,
+  SiSqlite,
+  SiAzuredevops,
+  SiVercel,
+} from 'react-icons/si';
 import './About.css';
 
 const About = () => {
-  const skills = [
-    { name: 'Web Development', icon: <FaCode />, color: '#6366f1' },
-    { name: 'Full-Stack Development', icon: <FaNode />, color: '#8b5cf6' },
-    { name: 'UI/UX Design', icon: <FaPalette />, color: '#ec4899' },
-    { name: 'Database Management', icon: <FaDatabase />, color: '#10b981' },
-    { name: 'API Development', icon: <FaCloud />, color: '#3b82f6' },
-    { name: 'Problem Solving', icon: <FaRocket />, color: '#f59e0b' },
+  const stackGroups = [
+    {
+      heading: 'Backend',
+      items: [
+        { name: 'C# / .NET 8', icon: <SiDotnet /> },
+        { name: 'ASP.NET Core', icon: <SiDotnet /> },
+        { name: 'Node.js', icon: <FaNode /> },
+        { name: 'REST APIs', icon: <FaServer /> },
+        { name: 'WebSockets', icon: <FaServer /> },
+      ],
+    },
+    {
+      heading: 'Frontend',
+      items: [
+        { name: 'React', icon: <FaReact /> },
+        { name: 'Next.js', icon: <SiNextdotjs /> },
+        { name: 'TypeScript', icon: <SiTypescript /> },
+        { name: 'JavaScript', icon: <FaJs /> },
+        { name: 'Tailwind CSS', icon: <SiTailwindcss /> },
+        { name: 'HTML5', icon: <FaHtml5 /> },
+        { name: 'CSS3', icon: <FaCss3Alt /> },
+      ],
+    },
+    {
+      heading: 'Databases & Caching',
+      items: [
+        { name: 'SQL Server', icon: <FaDatabase /> },
+        { name: 'PostgreSQL', icon: <SiPostgresql /> },
+        { name: 'MySQL', icon: <SiMysql /> },
+        { name: 'Redis', icon: <SiRedis /> },
+        { name: 'Supabase', icon: <SiSupabase /> },
+        { name: 'SQLite', icon: <SiSqlite /> },
+      ],
+    },
+    {
+      heading: 'AI & Integrations',
+      items: [
+        { name: 'Claude API', icon: <FaBrain /> },
+        { name: 'OpenAI API', icon: <SiOpenai /> },
+        { name: 'Stripe', icon: <FaStripe /> },
+        { name: 'Firebase OTP', icon: <SiFirebase /> },
+      ],
+    },
+    {
+      heading: 'DevOps & Tooling',
+      items: [
+        { name: 'Git', icon: <FaGitAlt /> },
+        { name: 'Azure DevOps', icon: <SiAzuredevops /> },
+        { name: 'Docker', icon: <FaDocker /> },
+        { name: 'Vercel', icon: <SiVercel /> },
+      ],
+    },
   ];
 
-  const technologies = [
-    { name: 'React', icon: <FaReact />, level: 90 },
-    { name: 'Node.js', icon: <FaNode />, level: 85 },
-    { name: 'JavaScript', icon: <FaJs />, level: 90 },
-    { name: 'C# .NET MVC', icon: <FaCode />, level: 85 },
-    { name: 'MySQL', icon: <FaDatabase />, level: 88 },
-    { name: 'RESTful APIs', icon: <FaServer />, level: 90 },
-    { name: 'HTML5', icon: <FaHtml5 />, level: 95 },
-    { name: 'CSS3', icon: <FaCss3Alt />, level: 90 },
+  const stats = [
+    { value: '3+', label: 'Years shipping production' },
+    { value: '95%', label: 'Redis cache hit rate' },
+    { value: '<50ms', label: 'API response under load' },
+    { value: '40%', label: 'Fewer prod incidents' },
   ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.08 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.5, ease: 'easeOut' },
     },
   };
 
@@ -82,19 +133,33 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="about-intro">
-              I'm a passionate software developer with a keen interest in creating 
-              innovative solutions and solving complex problems. My work spans across 
-              various domains including web development, application design, and intelligent systems.
+              Senior Full Stack Developer with 3+ years architecting and shipping
+              SaaS platforms, AI-driven applications and payment infrastructure
+              alongside US-based product teams.
             </p>
             <p>
-              I enjoy working on projects that challenge me to think creatively and push 
-              the boundaries of what's possible with technology. Each project is an opportunity 
-              to learn, grow, and make a meaningful impact.
+              I own complex problems end-to-end — database design, API
+              architecture, frontend performance and production monitoring. I've
+              built systems serving 100+ concurrent users with sub-50ms response
+              times and 95% Redis cache hit rates, integrated Claude and OpenAI
+              APIs with structured outputs, and rolled out multilingual
+              experiences (English/Spanish) at scale.
             </p>
             <p>
-              When I'm not coding, you can find me exploring new technologies, contributing 
-              to open-source projects, or sharing knowledge with the developer community.
+              My day-to-day is .NET Core, React, Next.js and TypeScript, but I'll
+              reach for whatever the problem actually needs — WebSockets for live
+              preview, iTextSharp for dynamic PDFs, Stripe for subscriptions,
+              WPF for desktop apps.
             </p>
+
+            <div className="about-stats">
+              {stats.map((stat) => (
+                <div key={stat.label} className="stat-card">
+                  <div className="stat-value">{stat.value}</div>
+                  <div className="stat-label">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -105,27 +170,17 @@ const About = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="skills-container">
-              <h3 className="skills-title">Skills & Expertise</h3>
-              <motion.div
-                className="skills-grid"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    className="skill-card"
-                    variants={itemVariants}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    style={{ '--skill-color': skill.color }}
-                  >
-                    <div className="skill-icon">{skill.icon}</div>
-                    <div className="skill-name">{skill.name}</div>
-                  </motion.div>
-                ))}
-              </motion.div>
+              <h3 className="skills-title">What I Do</h3>
+              <ul className="capability-list">
+                <li>Architect multi-tenant SaaS platforms end-to-end</li>
+                <li>Build real-time experiences with WebSockets &amp; live preview</li>
+                <li>Tune SQL/Redis for sub-50ms responses under concurrent load</li>
+                <li>Integrate Claude / OpenAI with structured outputs &amp; prompt engineering</li>
+                <li>Ship Stripe subscription, one-time and webhook flows</li>
+                <li>Roll out multilingual (i18n) experiences with proper URL routing</li>
+                <li>Generate dynamic PDFs with multilingual content (iTextSharp)</li>
+                <li>Lead legacy refactors that cut tech debt &amp; speed up delivery</li>
+              </ul>
             </div>
           </motion.div>
         </div>
@@ -137,33 +192,33 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <h3 className="tech-title">Technologies I Work With</h3>
-          <div className="tech-grid">
-            {technologies.map((tech, index) => (
+          <h3 className="tech-title">Stack I Ship With</h3>
+
+          <motion.div
+            className="stack-groups"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {stackGroups.map((group) => (
               <motion.div
-                key={index}
-                className="tech-item"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
+                key={group.heading}
+                className="stack-group"
+                variants={itemVariants}
               >
-                <div className="tech-icon">{tech.icon}</div>
-                <div className="tech-name">{tech.name}</div>
-                <div className="tech-bar">
-                  <motion.div
-                    className="tech-progress"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${tech.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
-                  />
+                <h4 className="stack-group-heading">{group.heading}</h4>
+                <div className="stack-chips">
+                  {group.items.map((item) => (
+                    <div key={item.name} className="stack-chip-large">
+                      <span className="stack-chip-icon">{item.icon}</span>
+                      <span className="stack-chip-name">{item.name}</span>
+                    </div>
+                  ))}
                 </div>
-                <div className="tech-level">{tech.level}%</div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

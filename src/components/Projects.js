@@ -9,67 +9,75 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'Apex Synchronia Intelligence Platform',
-      description: 'A next-generation intelligence platform delivering real-time analytics, AI-powered insights, and synchronized data orchestration across enterprise systems.',
-      icon: '🧠',
-      liveUrl: 'https://apex-seven-tau.vercel.app/intelligence',
+      title: 'LEO Multilingual Salon Builder',
+      description:
+        'Real-time multi-tenant website builder powering salon storefronts across the LEO Innovate SaaS platform. WebSocket-driven live preview pushes client-side updates without page refreshes; supports six themes, custom typography, and full English/Spanish i18n with proper URL routing.',
+      image: '/projects/builder/cover.jpg',
+      stack: ['ASP.NET Core', 'React', 'WebSockets', 'i18n', 'Multi-tenant SaaS'],
+      tags: ['SaaS', 'Real-time', 'i18n'],
+      liveUrl: 'https://uat-portal.goleo.app',
+      pdf: 'Multilingual Website Builder.pdf',
       color: '#6366f1',
-      tags: ['AI', 'Intelligence', 'Real-time']
     },
     {
       id: 2,
-      title: 'LEO Innovate Client Portal',
-      description: 'A secure client portal built for LEO Innovate that streamlines onboarding, document management, and client–service communication in a unified workspace.',
-      icon: '🔐',
-      liveUrl: 'https://uat-portal.goleo.app',
-      color: '#3b82f6',
-      tags: ['Portal', 'SaaS', 'Onboarding']
+      title: 'LEO Salon Analytics Dashboard',
+      description:
+        'Bilingual operations dashboard for salon owners — live queue, walk-in traffic, expected earnings, low-stock alerts and reviews. Backed by Redis caching that achieved a 95% hit rate and sub-50ms responses under 100+ concurrent users.',
+      image: '/projects/dashboard/cover.jpg',
+      stack: ['React', '.NET 8', 'SQL Server', 'Redis', 'Recharts'],
+      tags: ['Dashboard', 'Analytics', 'Performance'],
+      pdf: 'Multilingual Dashboard.pdf',
+      color: '#a855f7',
     },
     {
       id: 3,
-      title: 'Affiliate Management System',
-      description: 'An end-to-end affiliate platform with tiered bundles, rank progression, referral tracking, and member dashboards — empowering direct-selling businesses to scale.',
-      icon: '🤝',
-      liveUrl: 'https://affiliate-system-omega.vercel.app',
-      pdf: 'Affiliate System.pdf',
-      color: '#10b981',
-      tags: ['Affiliate', 'MLM', 'Dashboard']
+      title: 'LEO Innovate Onboarding Portal',
+      description:
+        'End-to-end bilingual onboarding wizard — owner info, plan selection, add-ons, business details, branch setup, services, teams, migration and Stripe payment. Firebase OTP verification, save-and-resume across sessions, and dynamic PDF service-agreement generation.',
+      image: '/projects/onboard/cover.jpg',
+      stack: ['React', 'ASP.NET Core', 'Firebase OTP', 'Stripe', 'iTextSharp'],
+      tags: ['Onboarding', 'Stripe', 'OTP'],
+      liveUrl: 'https://uat-portal.goleo.app',
+      pdf: 'Onboarding.pdf',
+      color: '#3b82f6',
     },
     {
       id: 4,
-      title: 'APEX Intelligence',
-      description: 'An intelligent system designed to deliver advanced solutions and cutting-edge technology implementations. Features AI-powered analytics and real-time processing capabilities.',
-      icon: '🚀',
-      pdf: 'APEX INTELLIGENCE0.pdf',
-      color: '#a855f7',
-      tags: ['AI', 'Analytics', 'Real-time']
+      title: 'LEO Self-Service Kiosk',
+      description:
+        'Touch-optimized check-in kiosk for in-salon walk-ins — phone-number lookup with Firebase OTP verification, guest count, walk-in vs reserved flow, service browser and stylist selection. Pairs with a TV queue display for in-store hospitality.',
+      image: '/projects/kiosk/cover.jpg',
+      orientation: 'portrait',
+      stack: ['React', 'PWA', 'Firebase OTP', 'WebSockets'],
+      tags: ['Kiosk', 'PWA', 'Touch'],
+      pdf: 'kiosk.pdf',
+      color: '#f59e0b',
     },
     {
       id: 5,
-      title: 'Multilingual Website Builder',
-      description: 'A comprehensive platform for building multilingual websites with seamless translation and localization features. Supports 50+ languages with automatic content adaptation.',
-      icon: '🌐',
-      pdf: 'Multilingual Website Builder.pdf',
-      color: '#8b5cf6',
-      tags: ['Web', 'i18n', 'CMS']
+      title: 'Apex Synchronia Intelligence',
+      description:
+        'AI-powered analytics platform for affiliate-driven businesses — portfolio overview, revenue trends, territories, configurable metrics and an admin panel. Integrates Claude and OpenAI APIs with structured outputs, prompt engineering and CSV ingestion.',
+      image: '/projects/apex/cover.jpg',
+      stack: ['Next.js', 'Claude API', 'OpenAI', 'Supabase', 'TypeScript'],
+      tags: ['AI', 'Analytics', 'Real-time'],
+      liveUrl: 'https://apex-seven-tau.vercel.app/intelligence',
+      pdf: 'APEX INTELLIGENCE0.pdf',
+      color: '#ef4444',
     },
     {
       id: 6,
-      title: 'Multilingual Dashboard',
-      description: 'An intuitive dashboard solution with multilingual support, providing comprehensive data visualization and analytics. Real-time updates and customizable widgets.',
-      icon: '📊',
-      pdf: 'Multilingual Dashboard.pdf',
-      color: '#ec4899',
-      tags: ['Dashboard', 'Analytics', 'Data Viz']
-    },
-    {
-      id: 7,
-      title: 'Kiosk System',
-      description: 'An interactive kiosk solution designed for seamless user experience and efficient service delivery. Touch-optimized interface with offline capabilities.',
-      icon: '🛒',
-      pdf: 'kiosk.pdf',
-      color: '#f59e0b',
-      tags: ['Kiosk', 'Touch', 'Offline']
+      title: 'Affiliate Management System',
+      description:
+        'Direct-selling platform with tiered bundles, rank progression (Consultant → Director), referral tracking and member dashboards. Stripe subscriptions, one-time payments and webhook handling on a Next.js + Supabase PostgreSQL stack.',
+      image: '/projects/affiliate/cover.jpg',
+      orientation: 'portrait',
+      stack: ['Next.js', 'Supabase', 'Stripe', 'PostgreSQL', 'Tailwind'],
+      tags: ['Affiliate', 'Stripe', 'Dashboard'],
+      liveUrl: 'https://affiliate-system-omega.vercel.app',
+      pdf: 'Affiliate System.pdf',
+      color: '#10b981',
     },
   ];
 
@@ -78,7 +86,7 @@ const Projects = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
@@ -90,7 +98,7 @@ const Projects = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: 'easeOut',
       },
     },
   };
@@ -105,11 +113,11 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">
-            <span className="title-number">02.</span>
+            <span className="title-number">03.</span>
             My Projects
           </h2>
           <p className="section-subtitle">
-            A collection of my recent work showcasing innovation and technical expertise
+            Production work shipped to real users — SaaS, AI, and payments
           </p>
         </motion.div>
 
@@ -118,7 +126,7 @@ const Projects = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
         >
           {projects.map((project, index) => (
             <motion.div
@@ -130,58 +138,60 @@ const Projects = () => {
               whileHover={{ y: -10 }}
               style={{ '--project-color': project.color }}
             >
-              <div className="project-header">
-                <div className="project-icon">{project.icon}</div>
-                <motion.div
-                  className="project-number"
-                  animate={{
-                    scale: hoveredProject === project.id ? 1.2 : 1,
-                  }}
-                >
+              <div
+                className={`project-image ${
+                  project.orientation === 'portrait' ? 'is-portrait' : ''
+                }`}
+              >
+                <img src={project.image} alt={`${project.title} screenshot`} loading="lazy" />
+                <div className="project-image-fade" />
+                <span className="project-number">
                   {String(index + 1).padStart(2, '0')}
-                </motion.div>
+                </span>
               </div>
 
-              <h3 className="project-title">{project.title}</h3>
-              <p className="project-description">{project.description}</p>
+              <div className="project-body">
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-description">{project.description}</p>
 
-              <div className="project-tags">
-                {project.tags.map((tag, tagIndex) => (
-                  <span key={tagIndex} className="project-tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                <div className="project-tags">
+                  {project.stack.map((tech) => (
+                    <span key={tech} className="project-tag">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
 
-              <div className="project-links">
-                {project.liveUrl && (
-                  <motion.a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link"
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <HiGlobe className="link-icon" />
-                    <span>Visit Live Site</span>
-                    <HiExternalLink className="link-icon" />
-                  </motion.a>
-                )}
-                {project.pdf && (
-                  <motion.a
-                    href={`/${project.pdf}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-link project-link-secondary"
-                    whileHover={{ x: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <HiDocument className="link-icon" />
-                    <span>View Project Details</span>
-                    <HiExternalLink className="link-icon" />
-                  </motion.a>
-                )}
+                <div className="project-links">
+                  {project.liveUrl && (
+                    <motion.a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link"
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <HiGlobe className="link-icon" />
+                      <span>Visit Live Site</span>
+                      <HiExternalLink className="link-icon" />
+                    </motion.a>
+                  )}
+                  {project.pdf && (
+                    <motion.a
+                      href={`/${project.pdf}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link project-link-secondary"
+                      whileHover={{ x: 5 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <HiDocument className="link-icon" />
+                      <span>View Case Study (PDF)</span>
+                      <HiExternalLink className="link-icon" />
+                    </motion.a>
+                  )}
+                </div>
               </div>
 
               <motion.div
