@@ -1,5 +1,4 @@
 .projects {
-  background: var(--bg-secondary);
   position: relative;
   border-top: 2px solid var(--neon-cyan);
   box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);

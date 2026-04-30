@@ -119,7 +119,7 @@ const Hero = () => {
               Download CV
             </motion.a>
             <motion.a
-              href="https://www.loom.com/share/491ea3048e4b4bdba169a1b62529061c"
+              href="https://www.youtube.com/watch?v=0eMOzNhqzvY"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
