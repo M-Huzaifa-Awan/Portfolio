@@ -496,29 +496,6 @@
   }
 }
 
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: white;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.scroll-icon {
-  font-size: 1.5rem;
-}
-
-.scroll-indicator span {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
 .hero-inline-photo {
   display: block;
   width: 380px;

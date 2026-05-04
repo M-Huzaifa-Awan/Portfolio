@@ -1,17 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiArrowDown, HiDownload, HiPlay, HiBadgeCheck } from 'react-icons/hi';
+import { HiDownload, HiPlay, HiBadgeCheck } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
-  const scrollToAbout = () => {
-    const element = document.getElementById('about');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const scrollToCertifications = () => {
     const element = document.getElementById('certifications');
     if (element) {
@@ -168,16 +161,6 @@ const Hero = () => {
         </motion.div>
 
       </div>
-
-      <motion.div
-        className="scroll-indicator"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        onClick={scrollToAbout}
-      >
-        <HiArrowDown className="scroll-icon" />
-        <span>Scroll Down</span>
-      </motion.div>
     </section>
   );
 };

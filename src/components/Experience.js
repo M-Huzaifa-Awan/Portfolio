@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiBriefcase, HiLocationMarker, HiCalendar, HiBadgeCheck, HiExternalLink } from 'react-icons/hi';
+import { HiBriefcase, HiLocationMarker, HiCalendar, HiBadgeCheck, HiExternalLink, HiAcademicCap, HiStar } from 'react-icons/hi';
 import './Experience.css';
 
 const Experience = () => {
@@ -129,35 +129,79 @@ const Experience = () => {
         >
           <div className="certifications-header">
             <HiBadgeCheck className="certifications-icon" />
-            <h3 className="certifications-title">Certifications</h3>
+            <h3 className="certifications-title">Education & Certifications</h3>
           </div>
 
-          <a
-            href="/micro1.jpg"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="cert-card"
-            aria-label="View micro1 Full Stack Developer certification"
-          >
-            <div className="cert-image">
-              <img src="/micro1.jpg" alt="micro1 Full Stack Developer Certification" loading="lazy" />
-            </div>
-            <div className="cert-info">
-              <span className="cert-issuer">Certified by micro1</span>
-              <h4 className="cert-name">Full Stack Developer</h4>
-              <p className="cert-description">
-                Officially certified after passing micro1's AI-driven technical interview.
-              </p>
-              <div className="cert-meta">
-                <span className="cert-date">
-                  <HiCalendar /> May 3, 2026
-                </span>
-                <span className="cert-view">
-                  View Certificate <HiExternalLink />
-                </span>
+          <div className="cert-grid">
+            <a
+              href="/Degree.jpeg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cert-card cert-card-featured"
+              aria-label="View NUML Islamabad degree certificate"
+            >
+              <span className="cert-honor-badge">
+                <HiStar /> Brilliant Academic Achiever
+              </span>
+              <div className="cert-image">
+                <img src="/Degree.jpeg" alt="NUML Islamabad — Bachelor's Degree Certificate" loading="lazy" />
               </div>
-            </div>
-          </a>
+              <div className="cert-info">
+                <span className="cert-issuer">
+                  <HiAcademicCap /> NUML Islamabad
+                </span>
+                <h4 className="cert-name">Bachelor's in Software Engineering</h4>
+                <p className="cert-description">
+                  Graduated with a CGPA of 3.72/4.00 (Grade A) and was recognized
+                  by the university with the title <strong>Brilliant Academic Achiever</strong>.
+                </p>
+                <div className="cert-stats">
+                  <span className="cert-stat">
+                    <span className="stat-value">3.72</span>
+                    <span className="stat-label">CGPA / 4.00</span>
+                  </span>
+                  <span className="cert-stat">
+                    <span className="stat-value">A</span>
+                    <span className="stat-label">Grade</span>
+                  </span>
+                </div>
+                <div className="cert-meta">
+                  <span className="cert-view">
+                    View Degree <HiExternalLink />
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="/micro1.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cert-card"
+              aria-label="View micro1 Full Stack Developer certification"
+            >
+              <div className="cert-image">
+                <img src="/micro1.jpg" alt="micro1 Full Stack Developer Certification" loading="lazy" />
+              </div>
+              <div className="cert-info">
+                <span className="cert-issuer">
+                  <HiBadgeCheck /> Certified by micro1
+                </span>
+                <h4 className="cert-name">Full Stack Developer</h4>
+                <p className="cert-description">
+                  Officially certified after passing micro1's AI-driven technical interview.
+                </p>
+                <div className="cert-meta">
+                  <span className="cert-date">
+                    <HiCalendar /> May 3, 2026
+                  </span>
+                  <span className="cert-view">
+                    View Certificate <HiExternalLink />
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
         </motion.div>
       </div>
     </section>
