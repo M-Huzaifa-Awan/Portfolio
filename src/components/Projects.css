@@ -65,40 +65,71 @@
 
 @media (min-width: 900px) {
   .projects-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
-  .project-card {
+
+  /* Landscape cards: span the full row, horizontal split (image | content) */
+  .project-card:not(.is-portrait-card) {
+    grid-column: 1 / -1;
     display: grid;
     grid-template-columns: 1.15fr 1fr;
     grid-template-rows: 1fr;
-    min-height: 380px;
+    min-height: 340px;
+    max-height: 360px;
   }
-  .project-card .project-image {
+  .project-card:not(.is-portrait-card) .project-image {
     aspect-ratio: auto;
     height: 100%;
     border-bottom: none;
     border-right: 1px solid rgba(0, 255, 255, 0.2);
   }
-  .project-card .project-body {
-    padding: 2.25rem 2.5rem;
+  .project-card:not(.is-portrait-card) .project-body {
+    padding: 2rem 2.25rem;
     justify-content: center;
+    overflow: auto;
   }
-  .project-card .project-title {
-    font-size: 1.65rem;
+  .project-card:not(.is-portrait-card) .project-title {
+    font-size: 1.5rem;
+  }
+  .project-card.is-featured {
+    min-height: 360px;
+    max-height: 380px;
   }
   .project-card.is-featured .project-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   /* Alternate image side for visual rhythm. Featured stays image-left. */
-  .project-card:not(.is-featured):nth-of-type(even) {
+  .project-card:not(.is-featured):not(.is-portrait-card):nth-of-type(even) {
     grid-template-columns: 1fr 1.15fr;
   }
-  .project-card:not(.is-featured):nth-of-type(even) .project-image {
+  .project-card:not(.is-featured):not(.is-portrait-card):nth-of-type(even) .project-image {
     order: 2;
     border-right: none;
     border-left: 1px solid rgba(0, 255, 255, 0.2);
+  }
+
+  /* Portrait cards: pair up at the end, half-width each, horizontal layout
+     so the card stays compact like the landscape ones (no oversized image). */
+  .project-card.is-portrait-card {
+    grid-column: span 1;
+    display: grid;
+    grid-template-columns: minmax(180px, 0.8fr) 1fr;
+    grid-template-rows: 1fr;
+    min-height: 340px;
+    max-height: 360px;
+  }
+  .project-card.is-portrait-card .project-image {
+    aspect-ratio: auto;
+    height: 100%;
+    border-bottom: none;
+    border-right: 1px solid rgba(0, 255, 255, 0.2);
+  }
+  .project-card.is-portrait-card .project-body {
+    padding: 1.75rem 1.75rem;
+    justify-content: flex-start;
+    overflow: auto;
   }
 }
 

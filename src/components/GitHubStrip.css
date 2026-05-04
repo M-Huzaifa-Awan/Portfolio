@@ -1,25 +1,18 @@
 .gh-strip {
   background: var(--bg-primary);
-  padding: 3rem 0;
+  padding: 4rem 0 5rem;
   border-top: 2px solid var(--neon-cyan);
   box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.06);
 }
 
-.gh-strip-inner {
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(0, 255, 255, 0.25);
-  border-radius: 16px;
-  padding: 1.5rem 1.75rem;
-  backdrop-filter: blur(8px);
-}
-
 .gh-strip-head {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
   align-items: center;
   gap: 0.7rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
-  padding-bottom: 0.85rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1rem;
   border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
 }
 
@@ -30,6 +23,7 @@
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.85);
+  flex-shrink: 0;
 }
 
 .gh-pulse::after {
@@ -42,7 +36,7 @@
 }
 
 @keyframes ghPulse {
-  0% { transform: scale(0.5); opacity: 0.9; }
+  0%   { transform: scale(0.5); opacity: 0.9; }
   100% { transform: scale(1.7); opacity: 0; }
 }
 
@@ -54,6 +48,14 @@
   text-transform: uppercase;
   color: var(--neon-cyan);
   text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+.gh-strip-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .gh-strip-link {
@@ -72,55 +74,131 @@
   color: var(--neon-cyan);
 }
 
-.gh-strip-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.gh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.gh-card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.gh-strip-item {
-  font-size: 0.93rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-}
-
-.gh-verb {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.gh-target {
-  color: var(--neon-cyan);
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(0, 255, 255, 0.22);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
   text-decoration: none;
-  font-weight: 600;
+  color: inherit;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  backdrop-filter: blur(8px);
+  min-height: 160px;
 }
 
-.gh-target:hover {
-  text-decoration: underline;
+.gh-card:hover {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 22px rgba(0, 255, 255, 0.22);
+  transform: translateY(-3px);
 }
 
-.gh-detail {
+.gh-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+}
+
+.gh-card-icon {
   color: var(--text-secondary);
-  opacity: 0.9;
+  font-size: 1.05rem;
 }
 
-.gh-time {
+.gh-card-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.25);
+}
+
+.gh-card-ext {
+  margin-left: auto;
   color: var(--text-secondary);
-  opacity: 0.65;
-  font-size: 0.85rem;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+  font-size: 1rem;
 }
 
-.gh-strip-item.is-skeleton {
-  height: 1.4rem;
+.gh-card:hover .gh-card-ext {
+  opacity: 1;
+}
+
+.gh-card-desc {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gh-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding-top: 0.65rem;
+  border-top: 1px dashed rgba(0, 255, 255, 0.12);
+}
+
+.gh-card-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.gh-card-lang-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.gh-card-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.gh-card-stat svg {
+  color: var(--neon-cyan);
+  opacity: 0.85;
+}
+
+.gh-card-time {
+  margin-left: auto;
+  opacity: 0.7;
+  font-size: 0.78rem;
+}
+
+.gh-card.is-skeleton {
+  border: 1px dashed rgba(0, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gh-skel {
   display: block;
-  width: 60%;
-  height: 100%;
+  width: 100%;
+  height: 1.4rem;
   background: linear-gradient(
     90deg,
     rgba(0, 255, 255, 0.04),
@@ -138,11 +216,11 @@
 }
 
 @media (max-width: 768px) {
-  .gh-strip-inner {
-    padding: 1.25rem;
+  .gh-strip-head {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
   .gh-strip-link {
     margin-left: 0;
-    width: 100%;
   }
 }

@@ -1,28 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { HiArrowDown, HiDownload, HiPlay } from 'react-icons/hi';
+import { HiArrowDown, HiDownload, HiPlay, HiBadgeCheck } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
   const scrollToAbout = () => {
     const element = document.getElementById('about');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const scrollToCertifications = () => {
+    const element = document.getElementById('certifications');
+    if (element) {
+      const offset = 80;
+      const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   };
 
@@ -71,6 +66,9 @@ const Hero = () => {
 
           <motion.h1 className="hero-title" variants={itemVariants}>
             <span className="greeting">Hi, I'm</span>
+            <span className="hero-inline-photo" aria-hidden="true">
+              <img src="/huzaifa-awan.jpg" alt="" />
+            </span>
             <span className="name">
               <motion.span
                 animate={{
@@ -85,6 +83,15 @@ const Hero = () => {
               >
                 Huzaifa Awan
               </motion.span>
+              <button
+                type="button"
+                className="verified-badge"
+                onClick={scrollToCertifications}
+                aria-label="Certified — view certifications"
+              >
+                <HiBadgeCheck className="verified-icon" aria-hidden="true" />
+                <span className="verified-tooltip">Certified</span>
+              </button>
             </span>
             <span className="role">Software Developer & Creative Problem Solver</span>
           </motion.h1>
@@ -160,29 +167,6 @@ const Hero = () => {
           </motion.div>
         </motion.div>
 
-        <motion.div
-          className="hero-visual"
-          animate={{
-            x: mousePosition.x,
-            y: mousePosition.y,
-          }}
-          transition={{ type: "spring", stiffness: 50, damping: 20 }}
-        >
-          <div className="profile-photo-wrapper">
-            <div className="profile-photo-glow" />
-            <img
-              src="/huzaifa-awan.jpg"
-              alt="Huzaifa Awan"
-              className="profile-photo"
-            />
-          </div>
-          <div className="floating-card card-1">
-            <div className="card-content">💻</div>
-          </div>
-          <div className="floating-card card-2">
-            <div className="card-content">🚀</div>
-          </div>
-        </motion.div>
       </div>
 
       <motion.div

@@ -1,52 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaStar, FaCodeBranch } from 'react-icons/fa';
 import { HiExternalLink } from 'react-icons/hi';
 import './GitHubStrip.css';
 
 const GH_USER = 'M-Huzaifa-Awan';
-const MAX_EVENTS = 4;
-const CACHE_KEY = 'gh-strip-cache-v1';
-const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes — stay nice to the GitHub API
+const MAX_REPOS = 6;
+const CACHE_KEY = 'gh-repos-cache-v1';
+const CACHE_TTL_MS = 30 * 60 * 1000;
 
-const friendlyEvent = (e) => {
-  const repo = e.repo?.name?.split('/')?.[1] || e.repo?.name || 'a repo';
-  switch (e.type) {
-    case 'PushEvent': {
-      const commit = e.payload?.commits?.[e.payload.commits.length - 1];
-      return {
-        verb: 'Pushed',
-        target: repo,
-        detail: commit?.message?.split('\n')[0] || `${e.payload?.size || 0} commits`,
-      };
-    }
-    case 'PullRequestEvent':
-      return {
-        verb: e.payload?.action === 'closed' ? 'Closed PR in' : 'Opened PR in',
-        target: repo,
-        detail: e.payload?.pull_request?.title,
-      };
-    case 'IssuesEvent':
-      return {
-        verb: e.payload?.action === 'closed' ? 'Closed issue in' : 'Opened issue in',
-        target: repo,
-        detail: e.payload?.issue?.title,
-      };
-    case 'CreateEvent':
-      return {
-        verb: `Created ${e.payload?.ref_type || 'something'} in`,
-        target: repo,
-        detail: e.payload?.ref || '',
-      };
-    case 'WatchEvent':
-      return { verb: 'Starred', target: repo, detail: '' };
-    case 'ForkEvent':
-      return { verb: 'Forked', target: repo, detail: '' };
-    case 'PublicEvent':
-      return { verb: 'Made public', target: repo, detail: '' };
-    default:
-      return { verb: e.type.replace('Event', ''), target: repo, detail: '' };
-  }
+// Common GitHub language colors (matches github.com)
+const LANG_COLOR = {
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  'C#': '#178600',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  Python: '#3572A5',
+  Java: '#b07219',
+  Go: '#00ADD8',
+  Dart: '#00B4AB',
+  Vue: '#41b883',
+  Shell: '#89e051',
+  PHP: '#4F5D95',
 };
 
 const timeAgo = (iso) => {
@@ -59,11 +35,12 @@ const timeAgo = (iso) => {
   const d = Math.floor(h / 24);
   if (d < 30) return `${d}d ago`;
   const mo = Math.floor(d / 30);
-  return `${mo}mo ago`;
+  if (mo < 12) return `${mo}mo ago`;
+  return `${Math.floor(mo / 12)}y ago`;
 };
 
 const GitHubStrip = () => {
-  const [events, setEvents] = useState(null);
+  const [repos, setRepos] = useState(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -80,20 +57,36 @@ const GitHubStrip = () => {
     })();
 
     if (cached) {
-      setEvents(cached);
+      setRepos(cached);
       return undefined;
     }
 
-    fetch(`https://api.github.com/users/${GH_USER}/events/public?per_page=15`)
+    fetch(`https://api.github.com/users/${GH_USER}/repos?sort=pushed&per_page=30`)
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((data) => {
         if (cancelled) return;
         const filtered = data
-          .filter((e) =>
-            ['PushEvent', 'PullRequestEvent', 'IssuesEvent', 'CreateEvent', 'PublicEvent'].includes(e.type)
-          )
-          .slice(0, MAX_EVENTS);
-        setEvents(filtered);
+          .filter((r) => !r.fork && !r.archived && !r.private)
+          .sort((a, b) => {
+            // Prioritize starred + recently pushed
+            const score = (r) =>
+              r.stargazers_count * 5 +
+              (Date.now() - new Date(r.pushed_at).getTime() < 1000 * 60 * 60 * 24 * 60 ? 3 : 0);
+            return score(b) - score(a);
+          })
+          .slice(0, MAX_REPOS)
+          .map((r) => ({
+            name: r.name,
+            description: r.description,
+            url: r.html_url,
+            homepage: r.homepage,
+            language: r.language,
+            stars: r.stargazers_count,
+            forks: r.forks_count,
+            pushed_at: r.pushed_at,
+            topics: r.topics || [],
+          }));
+        setRepos(filtered);
         try {
           localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: filtered }));
         } catch (_) {}
@@ -105,7 +98,7 @@ const GitHubStrip = () => {
     };
   }, []);
 
-  if (error || (events && events.length === 0)) return null;
+  if (error || (repos && repos.length === 0)) return null;
 
   return (
     <motion.section
@@ -114,51 +107,74 @@ const GitHubStrip = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.5 }}
-      aria-label="Currently building"
+      aria-label="Recent GitHub repositories"
     >
       <div className="container">
-        <div className="gh-strip-inner">
-          <div className="gh-strip-head">
-            <span className="gh-pulse" aria-hidden="true" />
-            <span className="gh-eyebrow">Currently building</span>
-            <a
-              href={`https://github.com/${GH_USER}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="gh-strip-link"
-            >
-              <FaGithub /> @{GH_USER} <HiExternalLink />
-            </a>
-          </div>
+        <div className="gh-strip-head">
+          <span className="gh-pulse" aria-hidden="true" />
+          <span className="gh-eyebrow">Live from GitHub</span>
+          <h3 className="gh-strip-title">Recent open-source &amp; side projects</h3>
+          <a
+            href={`https://github.com/${GH_USER}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gh-strip-link"
+          >
+            <FaGithub /> @{GH_USER} <HiExternalLink />
+          </a>
+        </div>
 
-          <ul className="gh-strip-list">
-            {!events &&
-              Array.from({ length: 3 }).map((_, i) => (
-                <li key={i} className="gh-strip-item is-skeleton">
-                  <span className="gh-skel" />
-                </li>
-              ))}
+        <div className="gh-grid">
+          {!repos &&
+            Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="gh-card is-skeleton">
+                <span className="gh-skel" />
+              </div>
+            ))}
 
-            {events &&
-              events.map((e) => {
-                const { verb, target, detail } = friendlyEvent(e);
-                return (
-                  <li key={e.id} className="gh-strip-item">
-                    <span className="gh-verb">{verb}</span>{' '}
-                    <a
-                      href={`https://github.com/${e.repo.name}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="gh-target"
-                    >
-                      {target}
-                    </a>
-                    {detail ? <span className="gh-detail"> — {detail}</span> : null}
-                    <span className="gh-time"> · {timeAgo(e.created_at)}</span>
-                  </li>
-                );
-              })}
-          </ul>
+          {repos &&
+            repos.map((r) => (
+              <a
+                key={r.name}
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gh-card"
+              >
+                <div className="gh-card-head">
+                  <FaGithub className="gh-card-icon" />
+                  <span className="gh-card-name">{r.name}</span>
+                  <HiExternalLink className="gh-card-ext" />
+                </div>
+
+                <p className="gh-card-desc">
+                  {r.description || 'No description provided.'}
+                </p>
+
+                <div className="gh-card-footer">
+                  {r.language && (
+                    <span className="gh-card-lang">
+                      <span
+                        className="gh-card-lang-dot"
+                        style={{ background: LANG_COLOR[r.language] || '#8b8b8b' }}
+                      />
+                      {r.language}
+                    </span>
+                  )}
+                  {r.stars > 0 && (
+                    <span className="gh-card-stat">
+                      <FaStar /> {r.stars}
+                    </span>
+                  )}
+                  {r.forks > 0 && (
+                    <span className="gh-card-stat">
+                      <FaCodeBranch /> {r.forks}
+                    </span>
+                  )}
+                  <span className="gh-card-time">Updated {timeAgo(r.pushed_at)}</span>
+                </div>
+              </a>
+            ))}
         </div>
       </div>
     </motion.section>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiBriefcase, HiLocationMarker, HiCalendar } from 'react-icons/hi';
+import { HiBriefcase, HiLocationMarker, HiCalendar, HiBadgeCheck, HiExternalLink } from 'react-icons/hi';
 import './Experience.css';
 
 const Experience = () => {
@@ -118,6 +118,47 @@ const Experience = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          id="certifications"
+          className="certifications"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="certifications-header">
+            <HiBadgeCheck className="certifications-icon" />
+            <h3 className="certifications-title">Certifications</h3>
+          </div>
+
+          <a
+            href="/micro1.jpg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cert-card"
+            aria-label="View micro1 Full Stack Developer certification"
+          >
+            <div className="cert-image">
+              <img src="/micro1.jpg" alt="micro1 Full Stack Developer Certification" loading="lazy" />
+            </div>
+            <div className="cert-info">
+              <span className="cert-issuer">Certified by micro1</span>
+              <h4 className="cert-name">Full Stack Developer</h4>
+              <p className="cert-description">
+                Officially certified after passing micro1's AI-driven technical interview.
+              </p>
+              <div className="cert-meta">
+                <span className="cert-date">
+                  <HiCalendar /> May 3, 2026
+                </span>
+                <span className="cert-view">
+                  View Certificate <HiExternalLink />
+                </span>
+              </div>
+            </div>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
