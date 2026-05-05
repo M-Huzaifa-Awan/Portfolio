@@ -4,16 +4,137 @@
   box-sizing: border-box;
 }
 
-:root {
+:root,
+[data-theme="neon"] {
   --neon-cyan: #00ffff;
   --neon-red: #ff0080;
   --neon-green: #00ff80;
+  --neon-cyan-rgb: 0, 255, 255;
+  --neon-red-rgb: 255, 0, 128;
+  --neon-green-rgb: 0, 255, 128;
   --bg-dark: #0a0e1a;
   --bg-darker: #050810;
   --bg-secondary: #0f172a;
+  --bg-dark-rgb: 10, 14, 26;
+  --bg-secondary-rgb: 15, 23, 42;
+  --overlay-rgb: 2, 6, 18;
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --border: rgba(0, 255, 255, 0.2);
+  --hero-gradient: linear-gradient(135deg, #0a0e1a 0%, #050810 50%, #0f172a 100%);
+  --on-accent: #0a0e1a;
+}
+
+/* Aurora — warm sunset: gold + rose + violet on deep plum */
+[data-theme="aurora"] {
+  --neon-cyan: #fbbf24;
+  --neon-red: #ec4899;
+  --neon-green: #a78bfa;
+  --neon-cyan-rgb: 251, 191, 36;
+  --neon-red-rgb: 236, 72, 153;
+  --neon-green-rgb: 167, 139, 250;
+  --bg-dark: #1a1024;
+  --bg-darker: #0d0613;
+  --bg-secondary: #2a1638;
+  --bg-dark-rgb: 26, 16, 36;
+  --bg-secondary-rgb: 42, 22, 56;
+  --overlay-rgb: 13, 6, 19;
+  --text-primary: #fdf4ff;
+  --text-secondary: rgba(253, 244, 255, 0.72);
+  --border: rgba(251, 191, 36, 0.22);
+  --hero-gradient: linear-gradient(135deg, #1a1024 0%, #0d0613 50%, #2a1638 100%);
+  --on-accent: #1a1024;
+}
+
+/* Crimson — fiery red + orange + amber on wine */
+[data-theme="crimson"] {
+  --neon-cyan: #ef4444;
+  --neon-red: #f97316;
+  --neon-green: #fbbf24;
+  --neon-cyan-rgb: 239, 68, 68;
+  --neon-red-rgb: 249, 115, 22;
+  --neon-green-rgb: 251, 191, 36;
+  --bg-dark: #1a0a0d;
+  --bg-darker: #0a0405;
+  --bg-secondary: #2a1014;
+  --bg-dark-rgb: 26, 10, 13;
+  --bg-secondary-rgb: 42, 16, 20;
+  --overlay-rgb: 10, 4, 5;
+  --text-primary: #fef2f2;
+  --text-secondary: rgba(254, 242, 242, 0.72);
+  --border: rgba(239, 68, 68, 0.22);
+  --hero-gradient: linear-gradient(135deg, #1a0a0d 0%, #0a0405 50%, #2a1014 100%);
+  --on-accent: #1a0a0d;
+}
+
+/* Midnight — refined professional dark: sky + violet + emerald on slate */
+[data-theme="midnight"] {
+  --neon-cyan: #60a5fa;
+  --neon-red: #a78bfa;
+  --neon-green: #34d399;
+  --neon-cyan-rgb: 96, 165, 250;
+  --neon-red-rgb: 167, 139, 250;
+  --neon-green-rgb: 52, 211, 153;
+  --bg-dark: #0f172a;
+  --bg-darker: #020617;
+  --bg-secondary: #1e293b;
+  --bg-dark-rgb: 15, 23, 42;
+  --bg-secondary-rgb: 30, 41, 59;
+  --overlay-rgb: 2, 6, 23;
+  --text-primary: #f1f5f9;
+  --text-secondary: rgba(241, 245, 249, 0.7);
+  --border: rgba(96, 165, 250, 0.22);
+  --hero-gradient: linear-gradient(135deg, #0f172a 0%, #020617 50%, #1e293b 100%);
+  --on-accent: #0f172a;
+}
+
+/* Daylight — light mode: clean white surfaces with vivid accents */
+[data-theme="daylight"] {
+  --neon-cyan: #2563eb;
+  --neon-red: #db2777;
+  --neon-green: #059669;
+  --neon-cyan-rgb: 37, 99, 235;
+  --neon-red-rgb: 219, 39, 119;
+  --neon-green-rgb: 5, 150, 105;
+  --bg-dark: #f8fafc;
+  --bg-darker: #eef2f7;
+  --bg-secondary: #ffffff;
+  --bg-dark-rgb: 248, 250, 252;
+  --bg-secondary-rgb: 255, 255, 255;
+  --overlay-rgb: 255, 255, 255;
+  --text-primary: #0f172a;
+  --text-secondary: rgba(15, 23, 42, 0.7);
+  --border: rgba(37, 99, 235, 0.22);
+  --hero-gradient: linear-gradient(135deg, #f8fafc 0%, #eef2f7 50%, #e2e8f0 100%);
+  --on-accent: #ffffff;
+}
+
+/* Glassmorphism — vibrant colorful blob wallpaper showing through
+   heavily blurred translucent surfaces. Frosted glass aesthetic. */
+[data-theme="glass"] {
+  --neon-cyan: #a855f7;
+  --neon-red: #ec4899;
+  --neon-green: #3b82f6;
+  --neon-cyan-rgb: 168, 85, 247;
+  --neon-red-rgb: 236, 72, 153;
+  --neon-green-rgb: 59, 130, 246;
+  --bg-dark: #0b0a1a;
+  --bg-darker: #050410;
+  --bg-secondary: #14122b;
+  --bg-dark-rgb: 11, 10, 26;
+  --bg-secondary-rgb: 20, 18, 43;
+  --overlay-rgb: 5, 4, 16;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --border: rgba(255, 255, 255, 0.18);
+  --hero-gradient:
+    radial-gradient(circle at 18% 22%, rgba(168, 85, 247, 0.55), transparent 42%),
+    radial-gradient(circle at 82% 28%, rgba(236, 72, 153, 0.5), transparent 42%),
+    radial-gradient(circle at 28% 78%, rgba(59, 130, 246, 0.55), transparent 42%),
+    radial-gradient(circle at 78% 82%, rgba(20, 184, 166, 0.45), transparent 42%),
+    radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.22), transparent 55%),
+    linear-gradient(135deg, #0b0a1a 0%, #050410 100%);
+  --on-accent: #ffffff;
 }
 
 html {
@@ -29,6 +150,7 @@ body {
   background: var(--bg-dark);
   color: var(--text-primary);
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 code {

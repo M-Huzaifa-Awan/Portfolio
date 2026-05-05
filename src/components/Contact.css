@@ -2,7 +2,7 @@
   background: var(--bg-dark);
   position: relative;
   border-top: 2px solid var(--neon-cyan);
-  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);
+  box-shadow: inset 0 2px 20px rgba(var(--neon-cyan-rgb), 0.1);
 }
 
 .contact-content {
@@ -43,10 +43,10 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
   border-radius: 16px;
-  border: 2px solid rgba(0, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.3);
+  box-shadow: 0 0 20px rgba(var(--neon-cyan-rgb), 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
   backdrop-filter: blur(10px);
@@ -54,7 +54,7 @@
 
 .contact-item:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), inset 0 0 20px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(var(--neon-cyan-rgb), 0.4), inset 0 0 20px rgba(var(--neon-cyan-rgb), 0.1);
   transform: translateX(10px);
 }
 
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0a0e1a;
+  color: var(--on-accent);
   font-size: 1.5rem;
   flex-shrink: 0;
   box-shadow: 0 0 20px var(--neon-cyan);
@@ -106,32 +106,32 @@
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  background: rgba(15, 23, 42, 0.6);
-  border: 2px solid rgba(0, 255, 255, 0.3);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--neon-cyan);
   font-size: 1.5rem;
   text-decoration: none;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(var(--neon-cyan-rgb), 0.2);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
 
 .social-icon:hover {
   background: var(--neon-cyan);
-  color: #0a0e1a;
-  box-shadow: 0 0 30px var(--neon-cyan), 0 0 50px rgba(0, 255, 255, 0.5);
+  color: var(--on-accent);
+  box-shadow: 0 0 30px var(--neon-cyan), 0 0 50px rgba(var(--neon-cyan-rgb), 0.5);
   transform: translateY(-5px);
 }
 
 .contact-form-wrapper {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
   padding: 3rem;
   border-radius: 20px;
-  border: 2px solid rgba(0, 255, 255, 0.3);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.3);
+  box-shadow: 0 0 30px rgba(var(--neon-cyan-rgb), 0.2), inset 0 0 30px rgba(var(--neon-cyan-rgb), 0.05);
   backdrop-filter: blur(10px);
 }
 
@@ -148,20 +148,20 @@
 .form-input {
   width: 100%;
   padding: 1rem 1.25rem;
-  border: 2px solid rgba(0, 255, 255, 0.3);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.3);
   border-radius: 12px;
   font-family: inherit;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: rgba(0, 255, 255, 0.05);
+  background: rgba(var(--neon-cyan-rgb), 0.05);
   color: var(--text-primary);
 }
 
 .form-input:focus {
   outline: none;
   border-color: var(--neon-cyan);
-  background: rgba(0, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  background: rgba(var(--neon-cyan-rgb), 0.1);
+  box-shadow: 0 0 20px rgba(var(--neon-cyan-rgb), 0.3), inset 0 0 10px rgba(var(--neon-cyan-rgb), 0.1);
   color: var(--text-primary);
 }
 
@@ -178,7 +178,7 @@
 .submit-btn {
   padding: 1rem 2rem;
   background: var(--neon-cyan);
-  color: #0a0e1a;
+  color: var(--on-accent);
   border: none;
   border-radius: 12px;
   font-size: 1.1rem;
@@ -189,12 +189,12 @@
   justify-content: center;
   gap: 0.75rem;
   transition: all 0.3s ease;
-  box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 25px var(--neon-cyan), 0 0 50px rgba(var(--neon-cyan-rgb), 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
   background: var(--neon-green);
-  box-shadow: 0 0 35px var(--neon-green), 0 0 70px rgba(0, 255, 128, 0.4);
+  box-shadow: 0 0 35px var(--neon-green), 0 0 70px rgba(var(--neon-green-rgb), 0.4);
   transform: translateY(-2px);
 }
 

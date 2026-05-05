@@ -3,7 +3,7 @@
   position: relative;
   padding: 6rem 0;
   border-top: 2px solid var(--neon-cyan);
-  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.08);
+  box-shadow: inset 0 2px 20px rgba(var(--neon-cyan-rgb), 0.08);
 }
 
 .experience .section-subtitle {
@@ -28,11 +28,11 @@
   width: 2px;
   background: linear-gradient(
     to bottom,
-    rgba(0, 255, 255, 0.6),
-    rgba(0, 255, 255, 0.15) 60%,
+    rgba(var(--neon-cyan-rgb), 0.6),
+    rgba(var(--neon-cyan-rgb), 0.15) 60%,
     transparent
   );
-  box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 12px rgba(var(--neon-cyan-rgb), 0.4);
 }
 
 .timeline-item {
@@ -58,13 +58,13 @@
   border: 2px solid var(--neon-cyan);
   color: var(--neon-cyan);
   font-size: 1.1rem;
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 18px rgba(var(--neon-cyan-rgb), 0.5);
   z-index: 2;
 }
 
 .timeline-card {
-  background: rgba(15, 23, 42, 0.6);
-  border: 2px solid rgba(0, 255, 255, 0.25);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.25);
   border-radius: 16px;
   padding: 1.75rem 2rem;
   backdrop-filter: blur(8px);
@@ -73,7 +73,7 @@
 
 .timeline-card:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 28px rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 28px rgba(var(--neon-cyan-rgb), 0.25);
   transform: translateY(-3px);
 }
 
@@ -108,7 +108,7 @@
 .company-name {
   color: var(--neon-cyan);
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+  text-shadow: 0 0 8px rgba(var(--neon-cyan-rgb), 0.3);
 }
 
 .company-sep {
@@ -163,7 +163,7 @@
   left: 0;
   top: 0;
   color: var(--neon-cyan);
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.6);
+  text-shadow: 0 0 6px rgba(var(--neon-cyan-rgb), 0.6);
 }
 
 .timeline-stack {
@@ -171,13 +171,13 @@
   flex-wrap: wrap;
   gap: 0.4rem;
   padding-top: 1rem;
-  border-top: 1px dashed rgba(0, 255, 255, 0.2);
+  border-top: 1px dashed rgba(var(--neon-cyan-rgb), 0.2);
 }
 
 .stack-chip {
   padding: 0.3rem 0.7rem;
-  background: rgba(0, 255, 255, 0.06);
-  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: rgba(var(--neon-cyan-rgb), 0.06);
+  border: 1px solid rgba(var(--neon-cyan-rgb), 0.25);
   border-radius: 18px;
   font-size: 0.78rem;
   font-weight: 500;
@@ -188,7 +188,7 @@
 .certifications {
   margin-top: 4rem;
   padding-top: 3rem;
-  border-top: 1px dashed rgba(0, 255, 255, 0.2);
+  border-top: 1px dashed rgba(var(--neon-cyan-rgb), 0.2);
 }
 
 .certifications-header {
@@ -202,7 +202,7 @@
 .certifications-icon {
   color: var(--neon-cyan);
   font-size: 1.7rem;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(var(--neon-cyan-rgb), 0.6));
 }
 
 .certifications-title {
@@ -227,8 +227,8 @@
   display: grid;
   grid-template-columns: minmax(280px, 1.05fr) 1fr;
   gap: 0;
-  background: rgba(15, 23, 42, 0.6);
-  border: 2px solid rgba(0, 255, 255, 0.25);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.25);
   border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
@@ -239,7 +239,7 @@
 
 .cert-card:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 32px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 32px rgba(var(--neon-cyan-rgb), 0.3);
   transform: translateY(-3px);
 }
 
@@ -267,7 +267,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #fde68a;
-  background: rgba(2, 6, 18, 0.82);
+  background: rgba(var(--overlay-rgb), 0.82);
   border: 1px solid rgba(245, 158, 11, 0.7);
   border-radius: 999px;
   box-shadow: 0 0 16px rgba(245, 158, 11, 0.45);
@@ -285,7 +285,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgba(0, 255, 255, 0.2);
+  border-right: 1px solid rgba(var(--neon-cyan-rgb), 0.2);
   overflow: hidden;
 }
 
@@ -318,7 +318,7 @@
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--neon-cyan);
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.3);
+  text-shadow: 0 0 6px rgba(var(--neon-cyan-rgb), 0.3);
 }
 
 .cert-issuer svg {
@@ -390,7 +390,7 @@
   gap: 0.75rem;
   margin-top: 0.5rem;
   padding-top: 0.85rem;
-  border-top: 1px dashed rgba(0, 255, 255, 0.2);
+  border-top: 1px dashed rgba(var(--neon-cyan-rgb), 0.2);
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
@@ -413,14 +413,14 @@
   gap: 0.35rem;
   color: var(--neon-cyan);
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+  text-shadow: 0 0 8px rgba(var(--neon-cyan-rgb), 0.4);
   transition: gap 0.3s ease;
 }
 
 .cert-card:hover .cert-view {
   gap: 0.6rem;
   color: var(--neon-green);
-  text-shadow: 0 0 8px rgba(0, 255, 128, 0.5);
+  text-shadow: 0 0 8px rgba(var(--neon-green-rgb), 0.5);
 }
 
 @media (max-width: 768px) {
@@ -448,7 +448,7 @@
   }
   .cert-image {
     border-right: none;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(var(--neon-cyan-rgb), 0.2);
     aspect-ratio: 16 / 11;
   }
   .cert-info {

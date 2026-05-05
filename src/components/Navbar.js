@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
+import ThemeToggle from './ThemeToggle';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -102,13 +103,16 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <motion.button
-          className="mobile-menu-btn"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isMobileMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-        </motion.button>
+        <div className="nav-actions">
+          <ThemeToggle />
+          <motion.button
+            className="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileTap={{ scale: 0.9 }}
+          >
+            {isMobileMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+          </motion.button>
+        </div>
       </div>
     </motion.nav>
   );

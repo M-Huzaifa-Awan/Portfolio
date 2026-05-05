@@ -2,7 +2,7 @@
   
   position: relative;
   border-top: 2px solid var(--neon-cyan);
-  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);
+  box-shadow: inset 0 2px 20px rgba(var(--neon-cyan-rgb), 0.1);
 }
 
 .container {
@@ -71,11 +71,11 @@
 }
 
 .skills-container {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(var(--bg-secondary-rgb), 0.6);
   padding: 2.5rem;
   border-radius: 20px;
   border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), inset 0 0 30px rgba(0, 255, 255, 0.05);
+  box-shadow: 0 0 30px rgba(var(--neon-cyan-rgb), 0.2), inset 0 0 30px rgba(var(--neon-cyan-rgb), 0.05);
   backdrop-filter: blur(10px);
 }
 
@@ -93,19 +93,19 @@
 }
 
 .skill-card {
-  background: rgba(0, 255, 255, 0.05);
+  background: rgba(var(--neon-cyan-rgb), 0.05);
   padding: 1.5rem;
   border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease;
-  border: 2px solid rgba(0, 255, 255, 0.3);
+  border: 2px solid rgba(var(--neon-cyan-rgb), 0.3);
   cursor: pointer;
   backdrop-filter: blur(5px);
 }
 
 .skill-card:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), inset 0 0 15px rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 25px rgba(var(--neon-cyan-rgb), 0.4), inset 0 0 15px rgba(var(--neon-cyan-rgb), 0.1);
   transform: translateY(-5px);
 }
 
@@ -123,12 +123,12 @@
 }
 
 .technologies-section {
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(var(--bg-secondary-rgb), 0.55);
   backdrop-filter: blur(10px);
   margin-top: 5rem;
   padding-top: 4rem;
   border: 2px solid var(--neon-cyan);
-  box-shadow: inset 0 2px 20px rgba(0, 255, 255, 0.1);
+  box-shadow: inset 0 2px 20px rgba(var(--neon-cyan-rgb), 0.1);
   border-radius: 20px;
 }
 
@@ -148,8 +148,8 @@
 }
 
 .stat-card {
-  background: rgba(0, 255, 255, 0.05);
-  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: rgba(var(--neon-cyan-rgb), 0.05);
+  border: 1px solid rgba(var(--neon-cyan-rgb), 0.25);
   border-radius: 12px;
   padding: 1rem 1.1rem;
   text-align: center;
@@ -158,7 +158,7 @@
 
 .stat-card:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 18px rgba(var(--neon-cyan-rgb), 0.25);
 }
 
 .stat-value {
@@ -166,7 +166,7 @@
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--neon-cyan);
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  text-shadow: 0 0 10px rgba(var(--neon-cyan-rgb), 0.5);
   line-height: 1.1;
 }
 
@@ -189,7 +189,7 @@
   color: var(--text-secondary);
   font-size: 0.97rem;
   line-height: 1.5;
-  border-bottom: 1px dashed rgba(0, 255, 255, 0.12);
+  border-bottom: 1px dashed rgba(var(--neon-cyan-rgb), 0.12);
 }
 
 .capability-list li:last-child {
@@ -202,7 +202,7 @@
   left: 0;
   top: 0.55rem;
   color: var(--neon-cyan);
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+  text-shadow: 0 0 6px rgba(var(--neon-cyan-rgb), 0.5);
 }
 
 .stack-groups {
@@ -213,8 +213,8 @@
 }
 
 .stack-group {
-  background: rgba(15, 23, 42, 0.5);
-  border: 1px solid rgba(0, 255, 255, 0.2);
+  background: rgba(var(--bg-secondary-rgb), 0.5);
+  border: 1px solid rgba(var(--neon-cyan-rgb), 0.2);
   border-radius: 16px;
   padding: 1.5rem 1.5rem 1.25rem;
   backdrop-filter: blur(8px);
@@ -223,7 +223,7 @@
 
 .stack-group:hover {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 22px rgba(0, 255, 255, 0.18);
+  box-shadow: 0 0 22px rgba(var(--neon-cyan-rgb), 0.18);
 }
 
 .stack-group-heading {
@@ -233,10 +233,10 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--neon-cyan);
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+  text-shadow: 0 0 6px rgba(var(--neon-cyan-rgb), 0.4);
   margin-bottom: 1rem;
   padding-bottom: 0.6rem;
-  border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
+  border-bottom: 1px dashed rgba(var(--neon-cyan-rgb), 0.2);
 }
 
 .stack-chips {
@@ -250,8 +250,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.45rem 0.8rem;
-  background: rgba(0, 255, 255, 0.06);
-  border: 1px solid rgba(0, 255, 255, 0.25);
+  background: rgba(var(--neon-cyan-rgb), 0.06);
+  border: 1px solid rgba(var(--neon-cyan-rgb), 0.25);
   border-radius: 22px;
   font-size: 0.85rem;
   font-weight: 500;
@@ -261,7 +261,7 @@
 
 .stack-chip-large:hover {
   border-color: var(--neon-cyan);
-  background: rgba(0, 255, 255, 0.12);
+  background: rgba(var(--neon-cyan-rgb), 0.12);
   transform: translateY(-2px);
 }
 
@@ -269,7 +269,7 @@
   display: inline-flex;
   font-size: 1.05rem;
   color: var(--neon-cyan);
-  filter: drop-shadow(0 0 4px rgba(0, 255, 255, 0.5));
+  filter: drop-shadow(0 0 4px rgba(var(--neon-cyan-rgb), 0.5));
 }
 
 .stack-chip-name {
