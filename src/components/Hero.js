@@ -60,7 +60,7 @@ const Hero = () => {
           <motion.h1 className="hero-title" variants={itemVariants}>
             <span className="greeting">Hi, I'm</span>
             <span className="hero-inline-photo" aria-hidden="true">
-              <img src="/huzaifa-awan.jpg" alt="" />
+              <img src="/huzaifa-awan.png" alt="" />
             </span>
             <span className="name">
               <motion.span
