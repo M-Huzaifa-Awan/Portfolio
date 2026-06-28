@@ -101,6 +101,22 @@ const projects = [
     color: '#f59e0b',
   },
   {
+    id: 7,
+    title: 'Studio OS',
+    featured: true,
+    headline: 'Custom MCP server · 80+ AI tools',
+    description:
+      'Solo-engineered AI integration platform that lets Claude and other AI assistants control a team\'s tools through a single secure interface. Exposes 80+ tools across ClickUp, Outlook (dual M365 tenants via Microsoft Graph), Apple Health and Oura. Built OAuth 2.0 device-code auth, migrated transport from SSE to Streamable HTTP, and shipped a Windows installer with AES-256-GCM credential encryption. Now in active client delivery.',
+    image: '/projects/studio-os/cover.png',
+    gallery: [
+      { src: '/projects/studio-os/cover.png', caption: 'Architecture — Claude → MCP Server → ClickUp, Outlook, Apple Health, Oura' },
+      { src: '/projects/studio-os/clickup-demo.png', caption: 'Live ClickUp workspace via Studio OS — 11 spaces, 592 open tasks surfaced by Claude' },
+    ],
+    stack: ['FastAPI', 'Python', 'Microsoft Graph', 'Neon PostgreSQL', 'Fly.io'],
+    tags: ['AI', 'MCP', 'API'],
+    color: '#a855f7',
+  },
+  {
     id: 6,
     title: 'Affiliate Management System',
     description:
@@ -121,7 +137,7 @@ const projects = [
   },
 ];
 
-const allFilters = ['All', 'SaaS', 'AI', 'Stripe', 'i18n', 'Real-time', 'Dashboard', 'PWA'];
+const allFilters = ['All', 'AI', 'MCP', 'SaaS', 'Stripe', 'i18n', 'Real-time', 'Dashboard', 'PWA'];
 
 const matchesFilter = (project, filter) => {
   if (filter === 'All') return true;
