@@ -42,7 +42,7 @@ export const THEMES = [
 ];
 
 const THEME_IDS = THEMES.map((t) => t.id);
-const DEFAULT_THEME = 'aurora';
+const DEFAULT_THEME = 'neon';
 
 const ThemeContext = createContext({
   theme: DEFAULT_THEME,
