@@ -1,0 +1,416 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  Boxes,
+  Cloud,
+  Cpu,
+  Layers,
+  RefreshCw,
+  Rocket,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+
+export const SITE = {
+  name: "Muhammad Huzaifa Awan",
+  shortName: "Huzaifa Awan",
+  title: "Senior Full Stack Developer",
+  subtitle:
+    "I build scalable web applications, AI-powered SaaS products, enterprise systems, and modern digital experiences.",
+  email: "mhuzaifaawan7@gmail.com",
+  location: "Remote · Working across US timezones",
+  cv: "/Huzaifa_Awan_Senior_CV.pdf",
+  socials: {
+    github: "https://github.com/M-Huzaifa-Awan",
+    linkedin: "https://www.linkedin.com/in/mhuzaifaawan",
+    upwork: "https://www.upwork.com/freelancers/~01b2cac225f43ef332",
+    email: "mailto:mhuzaifaawan7@gmail.com",
+  },
+  githubUser: "M-Huzaifa-Awan",
+};
+
+export const NAV_LINKS = [
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Work", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact", href: "#contact" },
+];
+
+export const HERO_STATS = [
+  { value: "3+", label: "Years shipping production" },
+  { value: "95%", label: "Redis cache hit rate" },
+  { value: "<50ms", label: "API response under load" },
+  { value: "5.0", label: "Upwork client rating" },
+];
+
+export type Service = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  points: string[];
+};
+
+export const SERVICES: Service[] = [
+  {
+    icon: Boxes,
+    title: "Enterprise Software",
+    description:
+      "Multi-tenant platforms and internal systems built to survive real load, with clean architecture, monitoring, and 5,000+ line refactors that cut technical debt.",
+    points: ["Multi-tenant SaaS", "Domain modelling", "Observability"],
+  },
+  {
+    icon: Rocket,
+    title: "SaaS Development",
+    description:
+      "Zero-to-one product builds covering onboarding, billing, dashboards, and real-time features, shipped end-to-end to paying users.",
+    points: ["Stripe billing", "Onboarding flows", "Realtime dashboards"],
+  },
+  {
+    icon: Sparkles,
+    title: "AI Integration",
+    description:
+      "Claude and OpenAI wired into products with structured outputs, prompt engineering, and a custom MCP server exposing 80+ tools.",
+    points: ["Claude / OpenAI", "MCP servers", "Structured outputs"],
+  },
+  {
+    icon: Workflow,
+    title: "API Development",
+    description:
+      "Well-documented REST and real-time APIs. WebSockets for live preview, webhooks for payments, and contracts your frontend can trust.",
+    points: ["REST & WebSockets", "Webhooks", "Versioned contracts"],
+  },
+  {
+    icon: Cloud,
+    title: "Cloud Architecture",
+    description:
+      "Deploys that scale, using Azure DevOps pipelines, Fly.io, Vercel, Redis caching, and query tuning for sub-50ms responses under concurrency.",
+    points: ["Azure / Fly.io / Vercel", "Redis caching", "CI/CD pipelines"],
+  },
+  {
+    icon: RefreshCw,
+    title: "Legacy Modernization",
+    description:
+      "Migrating aging monoliths to modern full-stack architecture without downtime. 3s page loads brought down to under 500ms, defects resolved at scale.",
+    points: ["Monolith migration", "Perf tuning", "Defect burndown"],
+  },
+];
+
+export type Project = {
+  id: number;
+  title: string;
+  featured?: boolean;
+  headline?: string;
+  description: string;
+  image?: string;
+  orientation?: "portrait" | "landscape";
+  stack: string[];
+  tags: string[];
+  metrics?: { value: string; label: string }[];
+  liveUrl?: string;
+  githubUrl?: string;
+  pdf?: string;
+  color: string;
+};
+
+export const PROJECTS: Project[] = [
+  {
+    id: 1,
+    title: "Apex Synchronia Intelligence",
+    featured: true,
+    headline: "AI-powered intelligence platform",
+    description:
+      "AI analytics platform for affiliate-driven businesses, with portfolio overview, revenue trends, territories, configurable metrics, and an admin panel. Integrates Claude and OpenAI with structured outputs, prompt engineering, and CSV ingestion.",
+    image: "/projects/apex/cover.jpg",
+    stack: ["Next.js", "Claude API", "OpenAI", "Supabase", "TypeScript"],
+    tags: ["AI", "Analytics", "Real-time"],
+    metrics: [
+      { value: "2", label: "LLMs orchestrated" },
+      { value: "Multi", label: "Client roll-up" },
+    ],
+    liveUrl: "https://apex-seven-tau.vercel.app/intelligence",
+    pdf: "/APEX INTELLIGENCE0.pdf",
+    color: "#ef4444",
+  },
+  {
+    id: 7,
+    title: "Studio OS",
+    featured: true,
+    headline: "Custom MCP server · 80+ AI tools",
+    description:
+      "Solo-engineered AI integration platform that lets Claude control a team's tools through one secure interface. Exposes 80+ tools across ClickUp, Outlook (dual M365 tenants via Microsoft Graph), Apple Health, and Oura. OAuth 2.0 device-code auth, an SSE to Streamable HTTP migration, and a Windows installer with AES-256-GCM credential encryption.",
+    image: "/projects/studio-os/cover.png",
+    stack: ["FastAPI", "Python", "Microsoft Graph", "Neon PostgreSQL", "Fly.io"],
+    tags: ["AI", "MCP", "API"],
+    metrics: [
+      { value: "80+", label: "AI tools exposed" },
+      { value: "AES-256", label: "Credential encryption" },
+    ],
+    color: "#a855f7",
+  },
+  {
+    id: 2,
+    title: "LEO Multilingual Salon Builder",
+    description:
+      "Real-time multi-tenant website builder powering salon storefronts across the LEO Innovate SaaS platform. WebSocket-driven live preview pushes updates without refreshes, with six themes, custom typography, and full English and Spanish i18n.",
+    image: "/projects/builder/cover.jpg",
+    stack: ["ASP.NET Core", "React", "WebSockets", "i18n", "Multi-tenant"],
+    tags: ["SaaS", "Real-time", "i18n"],
+    metrics: [
+      { value: "6", label: "Live themes" },
+      { value: "EN/ES", label: "Full i18n" },
+    ],
+    liveUrl: "https://uat-portal.goleo.app",
+    pdf: "/Multilingual Website Builder.pdf",
+    color: "#6366f1",
+  },
+  {
+    id: 3,
+    title: "LEO Salon Analytics Dashboard",
+    description:
+      "Bilingual operations dashboard for salon owners, covering live queue, walk-in traffic, expected earnings, low-stock alerts, and reviews. Backed by Redis caching with a 95% hit rate and sub-50ms responses under 100+ concurrent users.",
+    image: "/projects/dashboard/cover.jpg",
+    stack: ["React", ".NET 8", "SQL Server", "Redis", "Recharts"],
+    tags: ["Dashboard", "Analytics", "Performance"],
+    metrics: [
+      { value: "95%", label: "Cache hit rate" },
+      { value: "<50ms", label: "Response time" },
+    ],
+    pdf: "/Multilingual Dashboard.pdf",
+    color: "#a855f7",
+  },
+  {
+    id: 8,
+    title: "Virginia MLS Solutions",
+    headline: "Real estate listings platform",
+    description:
+      "Real estate platform for Virginia MLS Solutions. Built around nine React pages backed by SQL Server, covering property listings, search, and detail views connected to live data, with a clean, responsive UI and a fast browsing experience.",
+    image: "/projects/virginia-mls/cover.png",
+    stack: ["React", "SQL Server", "REST APIs", ".NET"],
+    tags: ["Real Estate", "Web App", "SQL"],
+    metrics: [
+      { value: "9", label: "React pages" },
+      { value: "SQL", label: "Live data" },
+    ],
+    color: "#14b8a6",
+  },
+  {
+    id: 4,
+    title: "LEO Innovate Onboarding Portal",
+    description:
+      "End-to-end bilingual onboarding wizard covering owner info, plan selection, add-ons, branch setup, services, teams, migration, and Stripe payment. Firebase OTP verification, save-and-resume, and dynamic PDF service-agreement generation.",
+    image: "/projects/onboard/cover.jpg",
+    stack: ["React", "ASP.NET Core", "Firebase OTP", "Stripe", "iTextSharp"],
+    tags: ["Onboarding", "Stripe", "OTP"],
+    metrics: [
+      { value: "9-step", label: "Guided wizard" },
+      { value: "Resume", label: "Across sessions" },
+    ],
+    liveUrl: "https://uat-portal.goleo.app",
+    pdf: "/Onboarding.pdf",
+    color: "#3b82f6",
+  },
+  {
+    id: 9,
+    title: "Network Change Scanner",
+    headline: "Scan. Compare. Detect. Decide.",
+    description:
+      "Desktop application that scans a network, captures a snapshot of the current state, and gives a clear go or no-go decision. On each run it compares against the last stored copy, and if the data has changed it flags exactly what was added, removed, or modified and warns you not to proceed. Built for fast, reliable change detection on a live network.",
+    image: "/projects/network-scanner/cover.png",
+    stack: ["C#", ".NET", "WPF", "Networking"],
+    tags: ["Desktop", "Networking", "Automation"],
+    metrics: [
+      { value: "Go/No-Go", label: "Decision engine" },
+      { value: "Diff", label: "Change detection" },
+    ],
+    color: "#22d3ee",
+  },
+  {
+    id: 5,
+    title: "LEO Self-Service Kiosk",
+    description:
+      "Touch-optimized check-in kiosk for in-salon walk-ins, with phone-number lookup and Firebase OTP, guest count, walk-in vs reserved flow, service browser, and stylist selection. Pairs with a live TV queue display.",
+    image: "/projects/kiosk/cover.jpg",
+    orientation: "portrait",
+    stack: ["React", "PWA", "Firebase OTP", "WebSockets"],
+    tags: ["Kiosk", "PWA", "Touch"],
+    metrics: [
+      { value: "PWA", label: "Offline-ready" },
+      { value: "OTP", label: "Verified check-in" },
+    ],
+    pdf: "/kiosk.pdf",
+    color: "#f59e0b",
+  },
+  {
+    id: 6,
+    title: "Affiliate Management System",
+    description:
+      "Direct-selling platform with tiered bundles, rank progression (Consultant to Director), referral tracking, and member dashboards. Stripe subscriptions, one-time payments, and webhook handling on Next.js and Supabase.",
+    image: "/projects/affiliate/cover.jpg",
+    orientation: "portrait",
+    stack: ["Next.js", "Supabase", "Stripe", "PostgreSQL", "Tailwind"],
+    tags: ["Affiliate", "Stripe", "Dashboard"],
+    metrics: [
+      { value: "Tiered", label: "Rank engine" },
+      { value: "Stripe", label: "Subs + webhooks" },
+    ],
+    liveUrl: "https://affiliate-system-omega.vercel.app",
+    pdf: "/Affiliate System.pdf",
+    color: "#10b981",
+  },
+];
+
+export type TechGroup = { heading: string; items: string[] };
+
+export const TECH_GROUPS: TechGroup[] = [
+  {
+    heading: "Backend",
+    items: ["C#", ".NET Core", ".NET 8", "ASP.NET", "Node.js", "REST APIs", "GraphQL", "SignalR"],
+  },
+  {
+    heading: "Frontend",
+    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
+  },
+  {
+    heading: "Data & Cloud",
+    items: ["SQL Server", "PostgreSQL", "Redis", "Supabase", "Azure", "Docker", "Fly.io", "Vercel"],
+  },
+  {
+    heading: "AI & Payments",
+    items: ["Anthropic", "OpenAI", "MCP", "Stripe", "Firebase OTP", "iTextSharp"],
+  },
+];
+
+// Flat marquee list
+export const TECH_PILLS = [
+  "ASP.NET",
+  ".NET Core",
+  "C#",
+  "React",
+  "Next.js",
+  "Node.js",
+  "TypeScript",
+  "SQL Server",
+  "PostgreSQL",
+  "Azure",
+  "Docker",
+  "Redis",
+  "SignalR",
+  "OpenAI",
+  "Anthropic",
+  "REST APIs",
+  "GraphQL",
+];
+
+export type Role = {
+  company: string;
+  role: string;
+  product: string;
+  period: string;
+  location: string;
+  highlights: string[];
+  stack: string[];
+};
+
+export const EXPERIENCE: Role[] = [
+  {
+    company: "LEO Innovate",
+    role: "Senior Full Stack Developer",
+    product: "SaaS Salon Management Platform",
+    period: "Jun 2024 - Present",
+    location: "Remote · Florida, USA",
+    highlights: [
+      "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
+      "Tuned SQL Server queries and introduced a Redis caching strategy, hitting a 95% cache hit rate and sub-50ms responses under 100+ concurrent users.",
+      "Built the analytics dashboard, TV queue display, and self-service kiosk check-in flow with Firebase OTP verification.",
+      "Led the multilingual (English and Spanish) rollout with proper URL structure, routing, and redirects.",
+      "Drove a 5,000+ line C# refactor that cut technical debt by ~30% and reduced production incidents by 40%.",
+    ],
+    stack: ["ASP.NET Core", "React", ".NET 8", "SQL Server", "Redis", "WebSockets", "Azure DevOps"],
+  },
+  {
+    company: "FABCO Inc. / Divisional Public School",
+    role: "Full Stack Developer",
+    product: "Legacy Migration & Platform Build-out",
+    period: "May 2023 - Sep 2024",
+    location: "Lahore, Pakistan",
+    highlights: [
+      "Led migration of a legacy monolith to a modern full-stack architecture on .NET and JavaScript, now serving 200+ daily active users.",
+      "Optimized the MySQL layer, dropping page loads from 3s to under 500ms via query restructuring and indexing.",
+      "Resolved 50+ legacy defects, improving system reliability by ~40%.",
+      "Designed and built RESTful APIs and responsive frontend interfaces from scratch.",
+    ],
+    stack: [".NET", "JavaScript", "MySQL", "REST APIs", "jQuery", "Bootstrap"],
+  },
+];
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  rating?: number;
+  date?: string;
+  source?: string;
+  endorsements?: string[];
+};
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    quote:
+      "Awan jumped in fast, understood the issue without needing any handholding, and had it fixed within a day. Clean code, no cutting corners. Will definitely hire again for our next sprint.",
+    name: "Verified Upwork Client",
+    role: "Bug fix & sprint work",
+    rating: 5,
+    source: "Upwork",
+    endorsements: [
+      "Reliable",
+      "Solution Oriented",
+      "Clear Communicator",
+      "Accountable for Outcomes",
+      "Detail Oriented",
+    ],
+  },
+  {
+    quote:
+      "Great communication throughout. Delivered exactly what was asked, pixel-perfect. He also flagged a small responsiveness bug I hadn't noticed, which was a nice bonus. Solid developer.",
+    name: "Verified Upwork Client",
+    role: "UI Minor Fixes for Dashboard Design Compliance",
+    rating: 5,
+    date: "May 2026",
+    source: "Upwork",
+  },
+];
+
+// Honest reference note (no fabricated quote).
+export const LEO_REFERENCE =
+  "The CEO at LEO Innovate offered to write a personal letter of recommendation after the salon SaaS platform work. Reference available on request.";
+
+export const CERTS = [
+  {
+    issuer: "NUML Islamabad",
+    name: "B.S. Software Engineering",
+    note: "CGPA 3.72 / 4.00 (Grade A), recognized as a Brilliant Academic Achiever.",
+    href: "/Degree.jpeg",
+    featured: true,
+  },
+  {
+    issuer: "micro1",
+    name: "Certified Full Stack Developer",
+    note: "Certified after passing micro1's AI-driven technical interview.",
+    href: "/micro1.jpg",
+    featured: false,
+  },
+];
+
+export const ABOUT_CAPABILITIES = [
+  "Architect multi-tenant SaaS platforms end-to-end",
+  "Build real-time experiences with WebSockets and live preview",
+  "Tune SQL and Redis for sub-50ms responses under load",
+  "Integrate Claude and OpenAI with structured outputs",
+  "Ship Stripe subscription, one-time, and webhook flows",
+  "Roll out multilingual (i18n) experiences at scale",
+  "Generate dynamic multilingual PDFs (iTextSharp)",
+  "Lead legacy refactors that cut technical debt",
+];
+
+export const PROJECT_ICON: LucideIcon = Layers;
+export const CPU_ICON: LucideIcon = Cpu;
