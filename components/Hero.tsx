@@ -64,7 +64,7 @@ export function Hero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-[72%_top] brightness-[1.14] contrast-[1.03] sm:object-[80%_center] sm:brightness-100 sm:contrast-100 md:animate-float"
+              className="object-cover object-[72%_top] brightness-[1.05] sm:object-[80%_center] sm:brightness-100 md:animate-float"
             />
           </motion.div>
         </motion.div>
@@ -74,11 +74,11 @@ export function Hero() {
           scrim on mobile so the text column reads cleanly under the portrait. */}
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-r from-bg via-bg/55 to-transparent sm:via-bg/85"
+        className="absolute inset-0 z-[1] bg-gradient-to-r from-bg via-bg/70 to-transparent sm:via-bg/85"
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-t from-bg via-bg/45 to-transparent sm:via-transparent sm:to-bg/40"
+        className="absolute inset-0 z-[1] bg-gradient-to-t from-bg via-bg/60 to-transparent sm:via-transparent sm:to-bg/40"
       />
       {/* Warm glow over the face on mobile — stands in for the desktop cursor
           glow so the portrait isn't flat/dim on touch devices. */}
@@ -87,7 +87,7 @@ export function Hero() {
         className="absolute inset-0 z-[1] sm:hidden"
         style={{
           background:
-            "radial-gradient(60% 34% at 72% 20%, rgba(255,138,76,0.22), transparent 70%)",
+            "radial-gradient(58% 32% at 72% 20%, rgba(255,138,76,0.12), transparent 70%)",
         }}
       />
       <div

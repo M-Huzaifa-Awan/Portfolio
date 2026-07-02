@@ -32,7 +32,7 @@ export const SITE = {
 // so these are curated rather than pulled from the public API.
 // TODO: set `totalRepos` to your real total (public + private).
 export const GITHUB_TOTALS = {
-  totalRepos: "40+",
+  totalRepos: "18",
   visibility: "Mostly private",
   stack: "C# · TS",
 };
