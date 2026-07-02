@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import { LogoMark } from "./ui/LogoMark";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -55,10 +56,7 @@ export function Navbar() {
           className="group flex items-center gap-2.5"
           aria-label="Home"
         >
-          <span className="relative grid h-9 w-9 place-items-center rounded-xl bg-accent/15 text-sm font-bold text-accent ring-1 ring-accent/30 transition-transform duration-300 group-hover:scale-105">
-            HA
-            <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-accent shadow-glow-sm" />
-          </span>
+          <LogoMark className="h-9 w-9 transition-transform duration-300 group-hover:scale-110" />
           <span className="hidden text-sm font-semibold tracking-tight sm:block">
             Huzaifa Awan
           </span>

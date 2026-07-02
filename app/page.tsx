@@ -1,4 +1,5 @@
 import { Background } from "@/components/Background";
+import { Loader } from "@/components/Loader";
 import { CursorGlow } from "@/components/CursorGlow";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
@@ -16,6 +17,7 @@ import { Footer } from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      <Loader />
       <Background />
       <CursorGlow />
       <ScrollProgress />

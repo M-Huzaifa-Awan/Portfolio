@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Briefcase, ArrowUp } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import { LogoMark } from "./ui/LogoMark";
 
 const SOCIALS = [
   { icon: Github, href: SITE.socials.github, label: "GitHub" },
@@ -15,10 +16,8 @@ export function Footer() {
       <div className="container-x">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <a href="#home" className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent/15 text-sm font-bold text-accent ring-1 ring-accent/30">
-                HA
-              </span>
+            <a href="#home" className="group flex items-center gap-2.5">
+              <LogoMark className="h-9 w-9 transition-transform duration-300 group-hover:scale-110" />
               <span className="font-heading text-lg font-semibold">
                 Huzaifa Awan
               </span>

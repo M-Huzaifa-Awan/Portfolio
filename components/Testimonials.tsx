@@ -62,56 +62,54 @@ export function Testimonials() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <div className="glass relative overflow-hidden rounded-3xl p-8 sm:p-12">
+        <motion.div layout className="glass rounded-3xl p-7 sm:p-12">
           <div className="flex items-center justify-between">
-            <Quote className="h-10 w-10 text-accent/30" />
+            <Quote className="h-9 w-9 text-accent/30 sm:h-10 sm:w-10" />
             {active.rating && <Stars rating={active.rating} />}
           </div>
 
-          <div className="relative mt-4 min-h-[240px] sm:min-h-[210px]">
-            <AnimatePresence mode="wait">
-              <motion.blockquote
-                key={index}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0"
-              >
-                <p className="text-lg leading-relaxed text-ink sm:text-xl">
-                  &ldquo;{active.quote}&rdquo;
-                </p>
+          <AnimatePresence mode="wait">
+            <motion.blockquote
+              key={index}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35 }}
+              className="mt-4"
+            >
+              <p className="text-base leading-relaxed text-ink sm:text-xl">
+                &ldquo;{active.quote}&rdquo;
+              </p>
 
-                {active.endorsements && (
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {active.endorsements.map((e) => (
-                      <span
-                        key={e}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/[0.08] px-3 py-1 text-xs text-accent"
-                      >
-                        <BadgeCheck className="h-3.5 w-3.5" />
-                        {e}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <footer className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="font-heading font-semibold text-ink">
-                    {active.name}
-                  </span>
-                  <span className="text-sm text-muted">{active.role}</span>
-                  {active.source && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400">
-                      <BadgeCheck className="h-3 w-3" /> {active.source}
-                      {active.date ? ` · ${active.date}` : ""}
+              {active.endorsements && (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {active.endorsements.map((e) => (
+                    <span
+                      key={e}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/[0.08] px-3 py-1 text-xs text-accent"
+                    >
+                      <BadgeCheck className="h-3.5 w-3.5" />
+                      {e}
                     </span>
-                  )}
-                </footer>
-              </motion.blockquote>
-            </AnimatePresence>
-          </div>
-        </div>
+                  ))}
+                </div>
+              )}
+
+              <footer className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                <span className="font-heading font-semibold text-ink">
+                  {active.name}
+                </span>
+                <span className="text-sm text-muted">{active.role}</span>
+                {active.source && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400">
+                    <BadgeCheck className="h-3 w-3" /> {active.source}
+                    {active.date ? ` · ${active.date}` : ""}
+                  </span>
+                )}
+              </footer>
+            </motion.blockquote>
+          </AnimatePresence>
+        </motion.div>
 
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
