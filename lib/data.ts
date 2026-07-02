@@ -28,6 +28,15 @@ export const SITE = {
   githubUser: "M-Huzaifa-Awan",
 };
 
+// GitHub section headline numbers. Most client work is private / under NDA,
+// so these are curated rather than pulled from the public API.
+// TODO: set `totalRepos` to your real total (public + private).
+export const GITHUB_TOTALS = {
+  totalRepos: "40+",
+  visibility: "Mostly private",
+  stack: "C# · TS",
+};
+
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },

@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { GitFork, Github, Star, ArrowUpRight, BookMarked } from "lucide-react";
+import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
-import { SITE } from "@/lib/data";
+import { SITE, GITHUB_TOTALS } from "@/lib/data";
 
 type Repo = {
   name: string;
@@ -106,12 +106,6 @@ export function GitHubActivity() {
     };
   }, []);
 
-  const stats = useMemo(() => {
-    if (!repos) return null;
-    const stars = repos.reduce((s, r) => s + r.stargazers_count, 0);
-    return { stars, repos: repos.length };
-  }, [repos]);
-
   return (
     <Section id="github">
       <SectionHeading
@@ -121,7 +115,7 @@ export function GitHubActivity() {
             Always <span className="text-gradient">building.</span>
           </>
         }
-        description="A snapshot of recent open-source and client-facing work."
+        description="Consistent, everyday commits. Most client work is private and under NDA, but here's a look at the public side."
       />
 
       <div className="mt-14 grid gap-5 lg:grid-cols-[1.2fr_1fr]">
@@ -169,21 +163,27 @@ export function GitHubActivity() {
 
             <div className="mt-auto grid grid-cols-3 gap-3 pt-8">
               {[
-                { label: "Public repos", value: stats ? `${stats.repos}+` : "··" },
-                { label: "Total stars", value: stats ? `${stats.stars}` : "··" },
-                { label: "Primary lang", value: "C# · TS" },
+                { label: "Total repositories", value: GITHUB_TOTALS.totalRepos },
+                { label: "Visibility", value: GITHUB_TOTALS.visibility },
+                { label: "Primary stack", value: GITHUB_TOTALS.stack },
               ].map((s) => (
                 <div
                   key={s.label}
                   className="rounded-2xl border border-line bg-white/[0.02] p-4 text-center"
                 >
-                  <p className="font-heading text-xl font-bold text-accent">
+                  <p className="font-heading text-lg font-bold text-accent sm:text-xl">
                     {s.value}
                   </p>
                   <p className="mt-1 text-[11px] text-muted">{s.label}</p>
                 </div>
               ))}
             </div>
+
+            <p className="mt-4 flex items-center gap-1.5 text-[11px] leading-snug text-muted">
+              <Lock className="h-3 w-3 shrink-0" />
+              Most client work lives in private repos under NDA — only a slice is
+              public.
+            </p>
           </div>
         </Reveal>
 

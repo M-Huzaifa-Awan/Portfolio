@@ -10,21 +10,21 @@ const container = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] },
+    transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
   },
 };
 
 export function Hero() {
-  // Mouse parallax for the portrait
+  // Mouse parallax for the portrait (desktop pointers only)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 20 });
@@ -42,39 +42,43 @@ export function Hero() {
     <section
       id="home"
       onMouseMove={onMouseMove}
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28"
+      className="relative flex min-h-[100svh] items-end overflow-hidden pb-10 pt-24 lg:items-center lg:pb-0 lg:pt-28"
     >
-      {/* Cinematic portrait — full-bleed on the right */}
-      <motion.div
-        aria-hidden
-        style={{ x: imgX, y: imgY }}
-        className="absolute inset-0 z-0"
-      >
+      {/* Cinematic portrait — full-bleed. Nudged up on mobile so the face
+          sits above the text column. */}
+      <div className="absolute inset-0 z-0 -translate-y-[7%] sm:translate-y-0">
         <motion.div
-          initial={{ opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.4, ease: "easeOut" }}
-          className="relative h-full w-full"
+          aria-hidden
+          style={{ x: imgX, y: imgY }}
+          className="absolute inset-0"
         >
-          <Image
-            src="/cover.png"
-            alt="Muhammad Huzaifa Awan"
-            fill
-            priority
-            sizes="100vw"
-            className="animate-float object-cover object-[75%_center] md:object-[80%_center]"
-          />
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.1, ease: "easeOut" }}
+            className="relative h-full w-full"
+          >
+            <Image
+              src="/cover.png"
+              alt="Muhammad Huzaifa Awan"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[72%_top] sm:object-[80%_center] md:animate-float"
+            />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Cinematic gradient overlays for text legibility + warm ambient light */}
+      {/* Gradient overlays: left scrim for text on desktop, strong bottom
+          scrim on mobile so the text column reads cleanly under the portrait. */}
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-r from-bg via-bg/85 to-transparent"
+        className="absolute inset-0 z-[1] bg-gradient-to-r from-bg via-bg/80 to-bg/20 sm:via-bg/85 sm:to-transparent"
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-t from-bg via-transparent to-bg/40"
+        className="absolute inset-0 z-[1] bg-gradient-to-t from-bg via-bg/75 to-transparent sm:via-transparent sm:to-bg/40"
       />
       <div
         aria-hidden
@@ -101,7 +105,7 @@ export function Hero() {
 
           <motion.h1
             variants={item}
-            className="mt-6 text-balance text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl"
+            className="mt-4 text-balance text-[2rem] font-bold leading-[1.06] sm:mt-6 sm:text-6xl lg:text-7xl"
           >
             <span className="block text-ink">Muhammad</span>
             <span className="block text-ink">Huzaifa Awan</span>
@@ -109,22 +113,26 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-5 flex items-center gap-3 text-lg font-medium text-accent sm:text-xl"
+            className="mt-3 flex items-center gap-2.5 text-base font-medium text-accent sm:mt-5 sm:gap-3 sm:text-xl"
           >
-            <Sparkles className="h-5 w-5" />
+            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
             {SITE.title}
           </motion.p>
 
           <motion.p
             variants={item}
-            className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg"
+            className="mt-3 max-w-xl text-sm leading-relaxed text-muted sm:mt-5 sm:text-lg"
           >
-            {SITE.subtitle}
+            <span className="sm:hidden">
+              Scalable web apps, AI-powered SaaS products, and enterprise
+              systems.
+            </span>
+            <span className="hidden sm:inline">{SITE.subtitle}</span>
           </motion.p>
 
           <motion.div
             variants={item}
-            className="mt-9 flex flex-wrap items-center gap-3"
+            className="mt-6 flex flex-wrap items-center gap-3 sm:mt-9"
           >
             <MagneticButton href="#contact" variant="primary">
               Book a Call <ArrowUpRight className="h-4 w-4" />
@@ -145,23 +153,36 @@ export function Hero() {
           {/* Stat row */}
           <motion.dl
             variants={item}
-            className="mt-14 grid max-w-lg grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-4 sm:gap-x-4"
+            className="mt-8 grid max-w-lg grid-cols-2 gap-x-6 gap-y-4 sm:mt-14 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-6"
           >
             {HERO_STATS.map((s) => (
-              <div key={s.label} className="border-l border-line pl-4">
-                <dt className="font-heading text-2xl font-bold text-ink">
+              <div key={s.label} className="border-l border-line pl-3 sm:pl-4">
+                <dt className="font-heading text-xl font-bold text-ink sm:text-2xl">
                   {s.value}
                 </dt>
-                <dd className="mt-1 text-xs leading-snug text-muted">
+                <dd className="mt-0.5 text-[11px] leading-snug text-muted sm:mt-1 sm:text-xs">
                   {s.label}
                 </dd>
               </div>
             ))}
           </motion.dl>
+
+          {/* Credibility chip — inline on mobile, floating on desktop */}
+          <motion.div variants={item} className="mt-6 lg:hidden">
+            <span className="inline-flex items-center gap-2.5 rounded-2xl border border-line bg-white/[0.03] px-3.5 py-2 backdrop-blur-sm">
+              <span className="grid h-7 w-7 place-items-center rounded-lg bg-accent/15 text-accent ring-1 ring-accent/30">
+                <Star className="h-3.5 w-3.5 fill-accent" />
+              </span>
+              <span className="text-xs">
+                <span className="font-semibold text-ink">3.72 / 4.00 CGPA</span>
+                <span className="text-muted"> · Brilliant Academic Achiever</span>
+              </span>
+            </span>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Floating credibility chip */}
+      {/* Floating credibility chip (desktop) */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
