@@ -93,10 +93,11 @@ export function Hero() {
           animate="visible"
           className="max-w-2xl"
         >
-          <motion.div variants={item}>
+          {/* Hidden on mobile but its space is preserved to keep the composition */}
+          <motion.div variants={item} className="invisible sm:visible">
             <span className="eyebrow">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="absolute hidden h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 sm:inline-flex" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               Available for senior roles &amp; freelance
@@ -169,7 +170,7 @@ export function Hero() {
 
           {/* Credibility chip — inline on mobile, floating on desktop */}
           <motion.div variants={item} className="mt-6 lg:hidden">
-            <span className="inline-flex items-center gap-2.5 rounded-2xl border border-line bg-white/[0.03] px-3.5 py-2 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2.5 rounded-2xl border border-line bg-white/[0.05] px-3.5 py-2">
               <span className="grid h-7 w-7 place-items-center rounded-lg bg-accent/15 text-accent ring-1 ring-accent/30">
                 <Star className="h-3.5 w-3.5 fill-accent" />
               </span>

@@ -36,13 +36,12 @@ export function Loader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
         >
-          {/* Ambient bloom */}
+          {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
           <div
             aria-hidden
-            className="pointer-events-none absolute h-[340px] w-[340px] rounded-full blur-[110px]"
-            style={{ background: "rgba(255,107,53,0.18)", animation: "ldr-bloom 2.2s ease-in-out infinite" }}
+            className="pointer-events-none absolute h-[260px] w-[260px] rounded-full blur-[80px]"
+            style={{ background: "rgba(255,107,53,0.2)", animation: "ldr-bloom 2.2s ease-in-out infinite" }}
           />
-          <div className="noise pointer-events-none absolute inset-0 opacity-[0.04]" />
 
           <motion.div
             className="relative"
@@ -54,7 +53,6 @@ export function Loader() {
               viewBox="0 0 200 200"
               fill="none"
               className="relative"
-              style={{ filter: "drop-shadow(0 0 10px rgba(255,107,53,0.35))" }}
             >
               {/* faint track */}
               <path
@@ -74,7 +72,6 @@ export function Loader() {
                 style={{
                   strokeDasharray: "0.3 0.7",
                   animation: "ldr-trace 1.9s linear infinite",
-                  filter: "drop-shadow(0 0 6px rgba(255,138,76,0.8))",
                 }}
               />
               {/* the "A" caret */}
@@ -89,7 +86,6 @@ export function Loader() {
                   strokeDasharray: 1,
                   strokeDashoffset: 1,
                   animation: "ldr-draw 1.2s 0.4s ease forwards, ldr-glow 1.9s 1.6s ease-in-out infinite",
-                  filter: "drop-shadow(0 0 8px rgba(255,107,53,0.7))",
                 }}
               />
               {/* crossbar */}
@@ -103,7 +99,6 @@ export function Loader() {
                   strokeDasharray: 1,
                   strokeDashoffset: 1,
                   animation: "ldr-draw 0.7s 1.3s ease forwards, ldr-glow 1.9s 1.6s ease-in-out infinite",
-                  filter: "drop-shadow(0 0 8px rgba(255,107,53,0.7))",
                 }}
               />
               <defs>
@@ -140,8 +135,8 @@ export function Loader() {
             @keyframes ldr-draw { to { stroke-dashoffset: 0; } }
             @keyframes ldr-progress { from { width: 0%; } to { width: 100%; } }
             @keyframes ldr-bloom {
-              0%, 100% { opacity: 0.55; transform: scale(0.92); }
-              50% { opacity: 1; transform: scale(1.08); }
+              0%, 100% { opacity: 0.5; }
+              50% { opacity: 1; }
             }
             @keyframes ldr-glow {
               0%, 100% { opacity: 0.85; }

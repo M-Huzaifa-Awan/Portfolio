@@ -67,16 +67,24 @@
     @apply mx-auto w-full max-w-content px-6 sm:px-8;
   }
 
-  /* Glass card surface */
+  /* Glass card surface. backdrop-blur only kicks in on larger screens —
+     it is very expensive to composite on mobile Safari and causes scroll jank,
+     so phones get an equivalent solid surface instead. */
   .glass {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.05) 0%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(20, 20, 20, 0.72);
     border: 1px solid var(--line);
+  }
+
+  @media (min-width: 768px) {
+    .glass {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.02) 100%
+      );
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
   }
 
   .card-surface {
@@ -107,6 +115,15 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-pan 6s ease infinite;
+  }
+
+  /* Animating background-position on clipped text repaints every frame.
+     Cheap on desktop, costly across many headings on mobile — freeze it. */
+  @media (max-width: 767px) {
+    .text-gradient {
+      animation: none;
+      background-position: 40% 50%;
+    }
   }
 
   .link-underline {
