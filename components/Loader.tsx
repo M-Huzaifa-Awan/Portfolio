@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HEX = "M100 26 L164 63 L164 137 L100 174 L36 137 L36 63 Z";
-const DURATION = 2000;
+const DURATION = 3400;
 
 export function Loader() {
   const [done, setDone] = useState(false);
@@ -73,7 +73,7 @@ export function Loader() {
                 pathLength={1}
                 style={{
                   strokeDasharray: "0.3 0.7",
-                  animation: "ldr-trace 1.5s linear infinite",
+                  animation: "ldr-trace 1.9s linear infinite",
                   filter: "drop-shadow(0 0 6px rgba(255,138,76,0.8))",
                 }}
               />
@@ -88,7 +88,7 @@ export function Loader() {
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: 1,
-                  animation: "ldr-draw 0.9s 0.25s ease forwards, ldr-glow 1.8s 1.1s ease-in-out infinite",
+                  animation: "ldr-draw 1.2s 0.4s ease forwards, ldr-glow 1.9s 1.6s ease-in-out infinite",
                   filter: "drop-shadow(0 0 8px rgba(255,107,53,0.7))",
                 }}
               />
@@ -102,7 +102,7 @@ export function Loader() {
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: 1,
-                  animation: "ldr-draw 0.5s 0.85s ease forwards, ldr-glow 1.8s 1.1s ease-in-out infinite",
+                  animation: "ldr-draw 0.7s 1.3s ease forwards, ldr-glow 1.9s 1.6s ease-in-out infinite",
                   filter: "drop-shadow(0 0 8px rgba(255,107,53,0.7))",
                 }}
               />
