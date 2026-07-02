@@ -42,6 +42,8 @@ export const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "GitHub", href: "#github" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -61,45 +63,45 @@ export type Service = {
 
 export const SERVICES: Service[] = [
   {
-    icon: Boxes,
-    title: "Enterprise Software",
+    icon: Rocket,
+    title: "SaaS Product Development",
     description:
-      "Multi-tenant platforms and internal systems built to survive real load, with clean architecture, monitoring, and 5,000+ line refactors that cut technical debt.",
-    points: ["Multi-tenant SaaS", "Domain modelling", "Observability"],
+      "Multi-tenant SaaS built end-to-end — onboarding, billing, dashboards and real-time features. Systems serving 100+ concurrent users at sub-50ms with a 95% Redis cache hit rate.",
+    points: ["Multi-tenant", "Onboarding & billing", "Realtime dashboards"],
   },
   {
-    icon: Rocket,
-    title: "SaaS Development",
+    icon: Boxes,
+    title: "MCP Servers & AI Agents",
     description:
-      "Zero-to-one product builds covering onboarding, billing, dashboards, and real-time features, shipped end-to-end to paying users.",
-    points: ["Stripe billing", "Onboarding flows", "Realtime dashboards"],
+      "Custom Model Context Protocol servers that let Claude securely read and write across your real tools. I shipped a production MCP exposing 60+ tools — a capability most senior devs don't have.",
+    points: ["60+ tools exposed", "OAuth 2.0", "ClickUp / Graph / Health"],
   },
   {
     icon: Sparkles,
     title: "AI Integration",
     description:
-      "Claude and OpenAI wired into products with structured outputs, prompt engineering, and a custom MCP server exposing 80+ tools.",
-    points: ["Claude / OpenAI", "MCP servers", "Structured outputs"],
+      "Claude and OpenAI wired into products — structured outputs, prompt engineering, Claude Vision image analysis, and reliable LLM pipelines you can ship to real users.",
+    points: ["Claude / OpenAI", "Claude Vision", "Structured outputs"],
   },
   {
     icon: Workflow,
-    title: "API Development",
+    title: "APIs & Real-Time Systems",
     description:
-      "Well-documented REST and real-time APIs. WebSockets for live preview, webhooks for payments, and contracts your frontend can trust.",
-    points: ["REST & WebSockets", "Webhooks", "Versioned contracts"],
+      "REST and real-time APIs — WebSockets for live preview, Stripe webhooks for payments, and well-documented contracts your frontend can trust.",
+    points: ["REST & WebSockets", "Stripe / webhooks", "Live preview"],
   },
   {
     icon: Cloud,
-    title: "Cloud Architecture",
+    title: "Cloud & DevOps",
     description:
-      "Deploys that scale, using Azure DevOps pipelines, Fly.io, Vercel, Redis caching, and query tuning for sub-50ms responses under concurrency.",
-    points: ["Azure / Fly.io / Vercel", "Redis caching", "CI/CD pipelines"],
+      "Deploys that scale — Azure DevOps, GitHub Actions, Docker, Fly.io and Vercel, with Redis caching and query tuning for fast responses under concurrency.",
+    points: ["CI/CD pipelines", "Docker", "Fly.io / Vercel"],
   },
   {
     icon: RefreshCw,
     title: "Legacy Modernization",
     description:
-      "Migrating aging monoliths to modern full-stack architecture without downtime. 3s page loads brought down to under 500ms, defects resolved at scale.",
+      "Migrate aging monoliths to modern architecture without downtime. I've taken 3s page loads down to under 500ms and resolved 50+ defects to stabilize production.",
     points: ["Monolith migration", "Perf tuning", "Defect burndown"],
   },
 ];
@@ -393,20 +395,35 @@ export const TESTIMONIALS: Testimonial[] = [
 export const LEO_REFERENCE =
   "The CEO at LEO Innovate offered to write a personal letter of recommendation after the salon SaaS platform work. Reference available on request.";
 
-export const CERTS = [
+export type Cert = {
+  issuer: string;
+  name: string;
+  note: string;
+  image: string;
+  icon: "degree" | "award" | "badge";
+};
+
+export const CERTS: Cert[] = [
   {
     issuer: "NUML Islamabad",
-    name: "B.S. Software Engineering",
-    note: "CGPA 3.72 / 4.00 (Grade A), recognized as a Brilliant Academic Achiever.",
-    href: "/Degree.jpeg",
-    featured: true,
+    name: "B.S. Computer Science",
+    note: "Graduated 2026 with a CGPA of 3.72 / 4.00 (Grade A).",
+    image: "/Degree.jpeg",
+    icon: "degree",
+  },
+  {
+    issuer: "NUML Islamabad",
+    name: "Certificate of Merit",
+    note: "Awarded for Brilliant Academic Achievements (BS CS).",
+    image: "/certificate.png",
+    icon: "award",
   },
   {
     issuer: "micro1",
     name: "Certified Full Stack Developer",
     note: "Certified after passing micro1's AI-driven technical interview.",
-    href: "/micro1.jpg",
-    featured: false,
+    image: "/micro1.jpg",
+    icon: "badge",
   },
 ];
 

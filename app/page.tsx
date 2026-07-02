@@ -9,6 +9,7 @@ import { Services } from "@/components/Services";
 import { Projects } from "@/components/Projects";
 import { TechStack } from "@/components/TechStack";
 import { Experience } from "@/components/Experience";
+import { Certifications } from "@/components/Certifications";
 import { Testimonials } from "@/components/Testimonials";
 import { GitHubActivity } from "@/components/GitHubActivity";
 import { Contact } from "@/components/Contact";
@@ -29,6 +30,7 @@ export default function Home() {
         <Projects />
         <TechStack />
         <Experience />
+        <Certifications />
         <Testimonials />
         <GitHubActivity />
         <Contact />

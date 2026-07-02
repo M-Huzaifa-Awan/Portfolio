@@ -63,7 +63,7 @@ export function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((link) => {
             const isActive = active === link.href.slice(1);
             return (
@@ -71,7 +71,7 @@ export function Navbar() {
                 <a
                   href={link.href}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-sm transition-colors duration-200",
+                    "relative rounded-full px-3 py-2 text-sm transition-colors duration-200",
                     isActive
                       ? "text-ink"
                       : "text-muted hover:text-ink",
@@ -103,7 +103,7 @@ export function Navbar() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-white/[0.03] text-ink md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-xl border border-line bg-white/[0.03] text-ink lg:hidden"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

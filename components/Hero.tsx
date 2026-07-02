@@ -180,7 +180,10 @@ export function Hero() {
 
           {/* Credibility chip — inline on mobile, floating on desktop */}
           <motion.div variants={item} className="mt-6 lg:hidden">
-            <span className="inline-flex items-center gap-2.5 rounded-2xl border border-line bg-white/[0.05] px-3.5 py-2">
+            <a
+              href="#certifications"
+              className="group inline-flex items-center gap-2.5 rounded-2xl border border-line bg-white/[0.05] px-3.5 py-2 transition-colors hover:border-accent/40"
+            >
               <span className="grid h-7 w-7 place-items-center rounded-lg bg-accent/15 text-accent ring-1 ring-accent/30">
                 <Star className="h-3.5 w-3.5 fill-accent" />
               </span>
@@ -188,7 +191,8 @@ export function Hero() {
                 <span className="font-semibold text-ink">3.72 / 4.00 CGPA</span>
                 <span className="text-muted"> · Brilliant Academic Achiever</span>
               </span>
-            </span>
+              <ArrowUpRight className="h-4 w-4 text-muted transition-colors group-hover:text-accent" />
+            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -200,7 +204,10 @@ export function Hero() {
         transition={{ delay: 1.1, duration: 0.6 }}
         className="absolute bottom-10 right-6 z-10 hidden lg:block"
       >
-        <div className="glass flex items-center gap-3 rounded-2xl px-4 py-3 shadow-card">
+        <a
+          href="#certifications"
+          className="group glass flex items-center gap-3 rounded-2xl px-4 py-3 shadow-card transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+        >
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-accent/15 text-accent ring-1 ring-accent/30">
             <Star className="h-4 w-4 fill-accent" />
           </span>
@@ -208,7 +215,8 @@ export function Hero() {
             <p className="font-semibold text-ink">3.72 / 4.00 CGPA</p>
             <p className="text-xs text-muted">Brilliant Academic Achiever</p>
           </div>
-        </div>
+          <ArrowUpRight className="h-4 w-4 text-muted transition-colors group-hover:text-accent" />
+        </a>
       </motion.div>
 
       {/* Scroll cue */}

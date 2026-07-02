@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { SpotlightCard } from "./ui/SpotlightCard";
@@ -36,12 +35,9 @@ export function Services() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="flex h-full flex-col p-6 sm:p-7"
               >
-                <div className="flex items-center justify-between">
-                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/12 text-accent ring-1 ring-accent/25 transition-all duration-300 group-hover:shadow-glow-sm">
-                    <service.icon className="h-6 w-6" />
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
-                </div>
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent/12 text-accent ring-1 ring-accent/25 transition-all duration-300 group-hover:shadow-glow-sm">
+                  <service.icon className="h-6 w-6" />
+                </span>
 
                 <h3 className="mt-6 font-heading text-xl font-semibold text-ink">
                   {service.title}

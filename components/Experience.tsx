@@ -2,11 +2,10 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, Calendar, MapPin, GraduationCap, Award } from "lucide-react";
+import { Briefcase, Calendar, MapPin } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
-import { Reveal } from "./ui/Reveal";
-import { EXPERIENCE, CERTS } from "@/lib/data";
+import { EXPERIENCE } from "@/lib/data";
 
 export function Experience() {
   const ref = useRef<HTMLDivElement>(null);
@@ -102,40 +101,6 @@ export function Experience() {
           ))}
         </div>
       </div>
-
-      {/* Education & certifications */}
-      <Reveal className="mt-12">
-        <div className="grid gap-4 sm:grid-cols-2">
-          {CERTS.map((c) => (
-            <a
-              key={c.name}
-              href={c.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-start gap-4 rounded-3xl border border-line bg-white/[0.02] p-6 transition-all duration-300 hover:border-accent/30 hover:bg-white/[0.03]"
-            >
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent/12 text-accent ring-1 ring-accent/25">
-                {c.featured ? (
-                  <GraduationCap className="h-5 w-5" />
-                ) : (
-                  <Award className="h-5 w-5" />
-                )}
-              </span>
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-accent">
-                  {c.issuer}
-                </p>
-                <h4 className="mt-1 font-heading font-semibold text-ink">
-                  {c.name}
-                </h4>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                  {c.note}
-                </p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </Reveal>
     </Section>
   );
 }
