@@ -203,6 +203,7 @@ export const PROJECTS: Project[] = [
     description:
       "Real estate platform for Virginia MLS Solutions. Built around nine React pages backed by SQL Server, covering property listings, search, and detail views connected to live data, with a clean, responsive UI and a fast browsing experience.",
     image: "/projects/virginia-mls/cover.png",
+    mockup: true,
     stack: ["React", "SQL Server", "REST APIs", ".NET"],
     tags: ["Real Estate", "Web App", "SQL"],
     metrics: [
@@ -233,6 +234,7 @@ export const PROJECTS: Project[] = [
     description:
       "Desktop application that scans a network, captures a snapshot of the current state, and gives a clear go or no-go decision. On each run it compares against the last stored copy, and if the data has changed it flags exactly what was added, removed, or modified and warns you not to proceed. Built for fast, reliable change detection on a live network.",
     image: "/projects/network-scanner/cover.png",
+    mockup: true,
     stack: ["C#", ".NET", "WPF", "Networking"],
     tags: ["Desktop", "Networking", "Automation"],
     metrics: [
