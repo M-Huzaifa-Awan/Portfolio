@@ -19,6 +19,11 @@ export const SITE = {
   email: "mhuzaifaawan7@gmail.com",
   location: "Remote · Working across US timezones",
   cv: "/Huzaifa_Awan_Senior_CV.pdf",
+  agency: {
+    name: "Eyrie Digital",
+    role: "Co-Founder & COO",
+    url: "https://www.eyriedigital.com/",
+  },
   socials: {
     github: "https://github.com/M-Huzaifa-Awan",
     linkedin: "https://www.linkedin.com/in/mhuzaifaawan",
@@ -121,6 +126,9 @@ export type Project = {
   githubUrl?: string;
   pdf?: string;
   color: string;
+  /** True when the shown image is a self-made mockup because the real UI,
+   *  screenshots and links are the client's property and can't be shared. */
+  mockup?: boolean;
 };
 
 export const PROJECTS: Project[] = [
@@ -163,8 +171,8 @@ export const PROJECTS: Project[] = [
     title: "LEO Multilingual Salon Builder",
     description:
       "Real-time multi-tenant website builder powering salon storefronts across the LEO Innovate SaaS platform. WebSocket-driven live preview pushes updates without refreshes, with six themes, custom typography, and full English and Spanish i18n.",
-    // Client-owned assets (screenshots/URL/PDF) removed — replace image with a
-    // self-made generic mockup at /projects/builder/mockup.png when ready.
+    image: "/projects/builder/mockup.png",
+    mockup: true,
     stack: ["ASP.NET Core", "React", "WebSockets", "i18n", "Multi-tenant"],
     tags: ["SaaS", "Real-time", "i18n"],
     metrics: [
@@ -178,7 +186,8 @@ export const PROJECTS: Project[] = [
     title: "LEO Salon Analytics Dashboard",
     description:
       "Bilingual operations dashboard for salon owners, covering live queue, walk-in traffic, expected earnings, low-stock alerts, and reviews. Backed by Redis caching with a 95% hit rate and sub-50ms responses under 100+ concurrent users.",
-    // Client-owned assets removed — add /projects/dashboard/mockup.png when ready.
+    image: "/projects/dashboard/mockup.png",
+    mockup: true,
     stack: ["React", ".NET 8", "SQL Server", "Redis", "Recharts"],
     tags: ["Dashboard", "Analytics", "Performance"],
     metrics: [
@@ -207,7 +216,8 @@ export const PROJECTS: Project[] = [
     title: "LEO Innovate Onboarding Portal",
     description:
       "End-to-end bilingual onboarding wizard covering owner info, plan selection, add-ons, branch setup, services, teams, migration, and Stripe payment. Firebase OTP verification, save-and-resume, and dynamic PDF service-agreement generation.",
-    // Client-owned assets removed — add /projects/onboard/mockup.png when ready.
+    image: "/projects/onboard/mockup.png",
+    mockup: true,
     stack: ["React", "ASP.NET Core", "Firebase OTP", "Stripe", "iTextSharp"],
     tags: ["Onboarding", "Stripe", "OTP"],
     metrics: [
@@ -236,7 +246,8 @@ export const PROJECTS: Project[] = [
     title: "LEO Self-Service Kiosk",
     description:
       "Touch-optimized check-in kiosk for in-salon walk-ins, with phone-number lookup and Firebase OTP, guest count, walk-in vs reserved flow, service browser, and stylist selection. Pairs with a live TV queue display.",
-    // Client-owned assets removed — add /projects/kiosk/mockup.png (portrait) when ready.
+    image: "/projects/kiosk/mockup.png",
+    mockup: true,
     orientation: "portrait",
     stack: ["React", "PWA", "Firebase OTP", "WebSockets"],
     tags: ["Kiosk", "PWA", "Touch"],
@@ -315,9 +326,24 @@ export type Role = {
   location: string;
   highlights: string[];
   stack: string[];
+  url?: string;
 };
 
 export const EXPERIENCE: Role[] = [
+  {
+    company: "Eyrie Digital",
+    role: "Co-Founder & COO",
+    product: "Web & Mobile App Development Agency",
+    period: "2025 - Present",
+    location: "Doha, Qatar · Serving the Gulf & internationally",
+    url: "https://www.eyriedigital.com/",
+    highlights: [
+      "Co-founded a web and mobile app development agency delivering scalable digital products for clients across the Gulf and international markets.",
+      "Own operations and delivery end-to-end — scoping, architecture, team coordination, and quality — while staying hands-on in engineering.",
+      "Ship production web and mobile applications with a focus on AI-powered, modern digital experiences.",
+    ],
+    stack: ["Next.js", "React", ".NET", "Node.js", "AI Integration", "Cloud"],
+  },
   {
     company: "LEO Innovate",
     role: "Senior Full Stack Developer",

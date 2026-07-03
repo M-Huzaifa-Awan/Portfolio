@@ -9,6 +9,7 @@ import {
   Globe,
   Star,
   MonitorSmartphone,
+  Info,
 } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -17,6 +18,7 @@ import { PROJECTS, type Project } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 function ProjectLinks({ project }: { project: Project }) {
+  if (!project.liveUrl && !project.githubUrl && !project.pdf) return null;
   return (
     <div className="mt-6 flex flex-wrap items-center gap-2">
       {project.liveUrl && (
@@ -80,7 +82,22 @@ function ProjectImage({ project }: { project: Project }) {
           background: `radial-gradient(400px circle at 50% 100%, ${project.color}22, transparent 70%)`,
         }}
       />
+      {project.mockup && (
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/60 px-2.5 py-1 text-[10px] font-medium text-white/85 backdrop-blur-sm">
+          <Info className="h-3 w-3" /> Representative mockup
+        </span>
+      )}
     </div>
+  );
+}
+
+/** Client-confidentiality note shown under mockup projects. */
+function MockupNote() {
+  return (
+    <p className="mt-3 text-[11px] italic leading-snug text-muted/70">
+      Visuals are a representative mockup. The production UI, screenshots, and
+      links are the client&apos;s property and can&apos;t be shared publicly.
+    </p>
   );
 }
 
@@ -174,6 +191,7 @@ function FeaturedCard({ project }: { project: Project }) {
 
           <TagRow project={project} />
           <ProjectLinks project={project} />
+          {project.mockup && <MockupNote />}
         </div>
 
         <div className="order-1 lg:order-2">
@@ -201,6 +219,7 @@ function StandardCard({ project }: { project: Project }) {
           </p>
           <TagRow project={project} />
           <ProjectLinks project={project} />
+          {project.mockup && <MockupNote />}
         </div>
       </div>
     </SpotlightCard>
