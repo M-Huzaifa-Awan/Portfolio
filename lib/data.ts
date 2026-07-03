@@ -163,15 +163,14 @@ export const PROJECTS: Project[] = [
     title: "LEO Multilingual Salon Builder",
     description:
       "Real-time multi-tenant website builder powering salon storefronts across the LEO Innovate SaaS platform. WebSocket-driven live preview pushes updates without refreshes, with six themes, custom typography, and full English and Spanish i18n.",
-    image: "/projects/builder/cover.jpg",
+    // Client-owned assets (screenshots/URL/PDF) removed — replace image with a
+    // self-made generic mockup at /projects/builder/mockup.png when ready.
     stack: ["ASP.NET Core", "React", "WebSockets", "i18n", "Multi-tenant"],
     tags: ["SaaS", "Real-time", "i18n"],
     metrics: [
       { value: "6", label: "Live themes" },
       { value: "EN/ES", label: "Full i18n" },
     ],
-    liveUrl: "https://uat-portal.goleo.app",
-    pdf: "/Multilingual Website Builder.pdf",
     color: "#6366f1",
   },
   {
@@ -179,14 +178,13 @@ export const PROJECTS: Project[] = [
     title: "LEO Salon Analytics Dashboard",
     description:
       "Bilingual operations dashboard for salon owners, covering live queue, walk-in traffic, expected earnings, low-stock alerts, and reviews. Backed by Redis caching with a 95% hit rate and sub-50ms responses under 100+ concurrent users.",
-    image: "/projects/dashboard/cover.jpg",
+    // Client-owned assets removed — add /projects/dashboard/mockup.png when ready.
     stack: ["React", ".NET 8", "SQL Server", "Redis", "Recharts"],
     tags: ["Dashboard", "Analytics", "Performance"],
     metrics: [
       { value: "95%", label: "Cache hit rate" },
       { value: "<50ms", label: "Response time" },
     ],
-    pdf: "/Multilingual Dashboard.pdf",
     color: "#a855f7",
   },
   {
@@ -209,15 +207,13 @@ export const PROJECTS: Project[] = [
     title: "LEO Innovate Onboarding Portal",
     description:
       "End-to-end bilingual onboarding wizard covering owner info, plan selection, add-ons, branch setup, services, teams, migration, and Stripe payment. Firebase OTP verification, save-and-resume, and dynamic PDF service-agreement generation.",
-    image: "/projects/onboard/cover.jpg",
+    // Client-owned assets removed — add /projects/onboard/mockup.png when ready.
     stack: ["React", "ASP.NET Core", "Firebase OTP", "Stripe", "iTextSharp"],
     tags: ["Onboarding", "Stripe", "OTP"],
     metrics: [
       { value: "9-step", label: "Guided wizard" },
       { value: "Resume", label: "Across sessions" },
     ],
-    liveUrl: "https://uat-portal.goleo.app",
-    pdf: "/Onboarding.pdf",
     color: "#3b82f6",
   },
   {
@@ -240,7 +236,7 @@ export const PROJECTS: Project[] = [
     title: "LEO Self-Service Kiosk",
     description:
       "Touch-optimized check-in kiosk for in-salon walk-ins, with phone-number lookup and Firebase OTP, guest count, walk-in vs reserved flow, service browser, and stylist selection. Pairs with a live TV queue display.",
-    image: "/projects/kiosk/cover.jpg",
+    // Client-owned assets removed — add /projects/kiosk/mockup.png (portrait) when ready.
     orientation: "portrait",
     stack: ["React", "PWA", "Firebase OTP", "WebSockets"],
     tags: ["Kiosk", "PWA", "Touch"],
@@ -248,7 +244,6 @@ export const PROJECTS: Project[] = [
       { value: "PWA", label: "Offline-ready" },
       { value: "OTP", label: "Verified check-in" },
     ],
-    pdf: "/kiosk.pdf",
     color: "#f59e0b",
   },
   {
