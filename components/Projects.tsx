@@ -204,7 +204,7 @@ function FeaturedCard({ project }: { project: Project }) {
 
 function StandardCard({ project }: { project: Project }) {
   return (
-    <SpotlightCard>
+    <SpotlightCard className="h-full">
       <div className="flex h-full flex-col p-5">
         <ProjectImage project={project} />
         <div className="flex flex-1 flex-col p-1 pt-5">
@@ -271,6 +271,7 @@ export function Projects() {
         {rest.map((p, i) => (
           <motion.div
             key={p.id}
+            className="h-full"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
