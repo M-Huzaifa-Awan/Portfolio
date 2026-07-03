@@ -333,20 +333,6 @@ export type Role = {
 
 export const EXPERIENCE: Role[] = [
   {
-    company: "Eyrie Digital",
-    role: "Co-Founder & COO",
-    product: "Web & Mobile App Development Agency",
-    period: "2025 - Present",
-    location: "Doha, Qatar · Serving the Gulf & internationally",
-    url: "https://www.eyriedigital.com/",
-    highlights: [
-      "Co-founded a web and mobile app development agency delivering scalable digital products for clients across the Gulf and international markets.",
-      "Own operations and delivery end-to-end — scoping, architecture, team coordination, and quality — while staying hands-on in engineering.",
-      "Ship production web and mobile applications with a focus on AI-powered, modern digital experiences.",
-    ],
-    stack: ["Next.js", "React", ".NET", "Node.js", "AI Integration", "Cloud"],
-  },
-  {
     company: "LEO Innovate",
     role: "Senior Full Stack Developer",
     product: "SaaS Salon Management Platform",
@@ -411,6 +397,7 @@ export const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     date: "May 2026",
     source: "Upwork",
+    endorsements: ["Committed to Quality", "Clear Communicator", "Detail Oriented"],
   },
 ];
 

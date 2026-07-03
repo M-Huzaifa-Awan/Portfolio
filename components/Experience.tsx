@@ -21,11 +21,10 @@ export function Experience() {
         eyebrow="Experience"
         title={
           <>
-            3+ years shipping{" "}
-            <span className="text-gradient">production products.</span>
+            3+ years shipping with{" "}
+            <span className="text-gradient">US product teams.</span>
           </>
         }
-        description="From US product teams to co-founding a digital agency serving the Gulf and beyond."
       />
 
       <div ref={ref} className="relative mt-14 pl-6 sm:pl-8">

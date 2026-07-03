@@ -23,17 +23,9 @@ export function Footer() {
               </span>
             </a>
             <p className="mt-4 text-sm leading-relaxed text-muted">
-              Senior Full Stack Developer and Co-Founder &amp; COO of{" "}
-              <a
-                href={SITE.agency.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline text-ink transition-colors hover:text-accent"
-              >
-                {SITE.agency.name}
-              </a>
-              , building scalable web apps, AI-powered SaaS and enterprise
-              systems for clients across the Gulf and internationally.
+              Senior Full Stack Developer building scalable web apps, AI-powered
+              SaaS and enterprise systems. Open to senior roles and select
+              freelance work.
             </p>
             <div className="mt-5 flex items-center gap-3">
               {SOCIALS.map((s) => (
