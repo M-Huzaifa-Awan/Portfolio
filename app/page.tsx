@@ -12,6 +12,7 @@ import { Experience } from "@/components/Experience";
 import { Certifications } from "@/components/Certifications";
 import { Testimonials } from "@/components/Testimonials";
 import { GitHubActivity } from "@/components/GitHubActivity";
+import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
@@ -33,6 +34,7 @@ export default function Home() {
         <Certifications />
         <Testimonials />
         <GitHubActivity />
+        <Writing />
         <Contact />
       </main>
       <Footer />

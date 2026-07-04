@@ -49,6 +49,7 @@ export const NAV_LINKS = [
   { label: "Experience", href: "#experience" },
   { label: "Certifications", href: "#certifications" },
   { label: "GitHub", href: "#github" },
+  { label: "Writing", href: "#writing" },
   { label: "Contact", href: "#contact" },
 ];
 

@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     title: TITLE,
     description: DESCRIPTION,
-    siteName: "Muhammad Huzaifa Awan",
+    siteName: "Huzaifa Awan · Senior Full Stack Developer",
     locale: "en_US",
     images: [
       { url: "/cover.png", width: 1600, height: 960, alt: "Muhammad Huzaifa Awan — Senior Full Stack Developer" },
@@ -73,7 +73,15 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: ["/cover.png"],
   },
-  icons: { icon: "/favicon.svg" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/icon-192.png",
+    apple: "/apple-icon.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -133,7 +141,8 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "Muhammad Huzaifa Awan — Senior Full Stack Developer",
+      name: "Huzaifa Awan · Senior Full Stack Developer",
+      alternateName: "Muhammad Huzaifa Awan",
       description: DESCRIPTION,
       publisher: { "@id": `${SITE_URL}/#person` },
       inLanguage: "en",
