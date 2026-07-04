@@ -18,7 +18,13 @@ const spaceGrotesk = Space_Grotesk({
 const SITE_URL = "https://huzaifaawan.com";
 const TITLE = "Muhammad Huzaifa Awan · Senior Full Stack Developer";
 const DESCRIPTION =
-  "I build scalable web applications, AI-powered SaaS products, enterprise systems, and modern digital experiences. Senior Full Stack Developer specializing in .NET, React, Next.js and AI integration.";
+  "Muhammad Huzaifa Awan — Senior Full Stack Developer specializing in React, Next.js, .NET, Node.js and AI-powered SaaS. 3+ years shipping scalable web apps, enterprise systems, APIs and MCP servers. Available for hire.";
+
+const SOCIALS = [
+  "https://www.linkedin.com/in/mhuzaifaawan",
+  "https://github.com/M-Huzaifa-Awan",
+  "https://www.upwork.com/freelancers/~01b2cac225f43ef332",
+];
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -27,24 +33,39 @@ export const metadata: Metadata = {
     template: "%s · Huzaifa Awan",
   },
   description: DESCRIPTION,
+  applicationName: "Huzaifa Awan Portfolio",
   keywords: [
     "Muhammad Huzaifa Awan",
+    "Huzaifa Awan",
     "Senior Full Stack Developer",
+    "Full Stack Developer for hire",
+    "React developer",
     "Next.js developer",
     ".NET developer",
-    "AI SaaS",
-    "React engineer",
-    "software consultant",
+    "Node.js developer",
+    "TypeScript developer",
+    "AI SaaS developer",
+    "MCP server developer",
+    "hire full stack developer",
+    "software engineer",
   ],
-  authors: [{ name: "Muhammad Huzaifa Awan" }],
+  authors: [{ name: "Muhammad Huzaifa Awan", url: SITE_URL }],
   creator: "Muhammad Huzaifa Awan",
+  publisher: "Muhammad Huzaifa Awan",
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
+    type: "profile",
+    firstName: "Muhammad Huzaifa",
+    lastName: "Awan",
+    username: "mhuzaifaawan",
     url: SITE_URL,
     title: TITLE,
     description: DESCRIPTION,
-    siteName: "Huzaifa Awan",
-    images: [{ url: "/cover.png", width: 1600, height: 960, alt: "Muhammad Huzaifa Awan" }],
+    siteName: "Muhammad Huzaifa Awan",
+    locale: "en_US",
+    images: [
+      { url: "/cover.png", width: 1600, height: 960, alt: "Muhammad Huzaifa Awan — Senior Full Stack Developer" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -52,15 +73,82 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: ["/cover.png"],
   },
-  icons: {
-    icon: "/favicon.svg",
+  icons: { icon: "/favicon.svg" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  robots: { index: true, follow: true },
+  category: "technology",
 };
 
 export const viewport: Viewport = {
   themeColor: "#050505",
   colorScheme: "dark",
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Muhammad Huzaifa Awan",
+      alternateName: "Huzaifa Awan",
+      url: SITE_URL,
+      image: `${SITE_URL}/cover.png`,
+      jobTitle: "Senior Full Stack Developer",
+      email: "mailto:mhuzaifaawan7@gmail.com",
+      description: DESCRIPTION,
+      knowsAbout: [
+        "Full Stack Development",
+        "React",
+        "Next.js",
+        "TypeScript",
+        ".NET",
+        "ASP.NET Core",
+        "Node.js",
+        "SQL Server",
+        "PostgreSQL",
+        "Redis",
+        "AI Integration",
+        "Model Context Protocol (MCP)",
+        "SaaS Development",
+        "Cloud Architecture",
+      ],
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "National University of Modern Languages (NUML)",
+      },
+      knowsLanguage: ["English", "Urdu"],
+      sameAs: SOCIALS,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Muhammad Huzaifa Awan — Senior Full Stack Developer",
+      description: DESCRIPTION,
+      publisher: { "@id": `${SITE_URL}/#person` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: SITE_URL,
+      name: TITLE,
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      about: { "@id": `${SITE_URL}/#person` },
+      primaryImageOfPage: `${SITE_URL}/cover.png`,
+      inLanguage: "en",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -75,6 +163,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-bg font-sans text-ink antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>
