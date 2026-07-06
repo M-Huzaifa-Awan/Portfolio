@@ -346,9 +346,9 @@ export const EXPERIENCE: Role[] = [
     highlights: [
       "Built custom Model Context Protocol (MCP) servers that let AI assistants securely read and write across internal tools, enabling automated workflows across client systems.",
       "Delivered the Virginia MLS Solutions real estate platform: nine React pages backed by SQL Server covering listings, search, and detail views on live data, with a fast, responsive UI.",
-      "Shipped the Biopsy tool as a focused, self-contained product for the client.",
+      "Built the Network Change Scanner, a Windows desktop app that snapshots a live network and returns a clear go / no-go decision, flagging exactly what was added, removed, or modified since the last run.",
     ],
-    stack: ["MCP", "Anthropic", "React", "SQL Server", ".NET", "TypeScript"],
+    stack: ["MCP", "Anthropic", "React", "SQL Server", ".NET", "C#", "WPF"],
   },
   {
     company: "LEO Innovate",
