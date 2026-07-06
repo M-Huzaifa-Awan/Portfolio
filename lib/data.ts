@@ -337,7 +337,7 @@ export const EXPERIENCE: Role[] = [
     company: "LEO Innovate",
     role: "Senior Full Stack Developer",
     product: "SaaS Salon Management Platform",
-    period: "Jun 2024 - Present",
+    period: "Feb 2025 - Present",
     location: "Remote · Florida, USA",
     highlights: [
       "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
