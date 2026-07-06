@@ -330,15 +330,33 @@ export type Role = {
   highlights: string[];
   stack: string[];
   url?: string;
+  /** True for roles still running ("Present"). Leading current roles are
+   *  rendered as parallel branches in the experience timeline. */
+  current?: boolean;
 };
 
 export const EXPERIENCE: Role[] = [
+  {
+    company: "Lotte Innovate",
+    role: "Full Stack Developer (Subcontract)",
+    product: "MCP Tooling, Real Estate & Data Platforms",
+    period: "Mar 2026 - Present",
+    location: "Remote · Subcontract",
+    current: true,
+    highlights: [
+      "Built custom Model Context Protocol (MCP) servers that let AI assistants securely read and write across internal tools, enabling automated workflows across client systems.",
+      "Delivered the Virginia MLS Solutions real estate platform: nine React pages backed by SQL Server covering listings, search, and detail views on live data, with a fast, responsive UI.",
+      "Shipped the Biopsy tool as a focused, self-contained product for the client.",
+    ],
+    stack: ["MCP", "Anthropic", "React", "SQL Server", ".NET", "TypeScript"],
+  },
   {
     company: "LEO Innovate",
     role: "Senior Full Stack Developer",
     product: "SaaS Salon Management Platform",
     period: "Feb 2025 - Present",
     location: "Remote · Florida, USA",
+    current: true,
     highlights: [
       "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
       "Tuned SQL Server queries and introduced a Redis caching strategy, hitting a 95% cache hit rate and sub-50ms responses under 100+ concurrent users.",
