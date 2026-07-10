@@ -16,9 +16,31 @@ import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
+const SITE_URL = "https://huzaifaawan.com";
+
+// Profile page rich result lives only on the homepage (the actual profile),
+// and must carry `mainEntity` pointing at the Person defined in the layout.
+const profileLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profilepage`,
+  url: SITE_URL,
+  name: "Muhammad Huzaifa Awan · Senior Full Stack Developer",
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  mainEntity: { "@id": `${SITE_URL}/#person` },
+  primaryImageOfPage: `${SITE_URL}/cover.png`,
+  dateCreated: "2026-07-02T00:00:00Z",
+  dateModified: new Date().toISOString(),
+  inLanguage: "en",
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileLd) }}
+      />
       <Loader />
       <Background />
       <CursorGlow />
