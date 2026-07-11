@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
+import { Tilt } from "./ui/Tilt";
 import { CERTS, type Cert } from "@/lib/data";
 
 const ICONS: Record<Cert["icon"], LucideIcon> = {
@@ -56,8 +57,8 @@ export function Certifications() {
         {CERTS.map((c, i) => {
           const Icon = ICONS[c.icon];
           return (
+            <Tilt key={c.name} className="h-full">
             <motion.button
-              key={c.name}
               type="button"
               onClick={() => setActive(i)}
               initial={{ opacity: 0, y: 28 }}
@@ -65,7 +66,7 @@ export function Certifications() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ y: -6 }}
-              className="group flex flex-col overflow-hidden rounded-3xl border border-line bg-card text-left transition-colors duration-300 hover:border-accent/40"
+              className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-line bg-card text-left transition-colors duration-300 hover:border-accent/40"
               aria-label={`View ${c.name} certificate`}
             >
               {/* Thumbnail preview */}
@@ -104,6 +105,7 @@ export function Certifications() {
                 </div>
               </div>
             </motion.button>
+            </Tilt>
           );
         })}
       </div>

@@ -29,7 +29,7 @@ export function Services() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
           >
-            <SpotlightCard className="h-full">
+            <SpotlightCard className="h-full" tilt>
               <motion.div
                 whileHover={{ y: -6 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}

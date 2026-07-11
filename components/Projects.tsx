@@ -204,7 +204,7 @@ function FeaturedCard({ project }: { project: Project }) {
 
 function StandardCard({ project }: { project: Project }) {
   return (
-    <SpotlightCard className="h-full">
+    <SpotlightCard className="h-full" tilt>
       <div className="flex h-full flex-col p-5">
         <ProjectImage project={project} />
         <div className="flex flex-1 flex-col p-1 pt-5">

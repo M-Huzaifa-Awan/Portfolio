@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Download, Sparkles, Star } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
+import { CountUp } from "./ui/CountUp";
 import { HERO_STATS, SITE } from "@/lib/data";
 
 const container = {
@@ -169,7 +170,8 @@ export function Hero() {
             {HERO_STATS.map((s) => (
               <div key={s.label} className="border-l border-line pl-3 sm:pl-4">
                 <dt className="font-heading text-xl font-bold text-ink sm:text-2xl">
-                  {s.value}
+                  {/* Delay outlasts the intro loader so the count is seen */}
+                  <CountUp value={s.value} delay={3.3} />
                 </dt>
                 <dd className="mt-0.5 text-[11px] leading-snug text-muted sm:mt-1 sm:text-xs">
                   {s.label}

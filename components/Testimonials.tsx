@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote, Star, BadgeCheck } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -28,6 +28,7 @@ function Stars({ rating }: { rating: number }) {
 export function Testimonials() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const reducedMotion = useReducedMotion();
   const count = TESTIMONIALS.length;
 
   const go = useCallback(
@@ -82,16 +83,29 @@ export function Testimonials() {
               </p>
 
               {active.endorsements && (
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {active.endorsements.map((e) => (
-                    <span
-                      key={e}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/[0.08] px-3 py-1 text-xs text-accent"
-                    >
-                      <BadgeCheck className="h-3.5 w-3.5" />
-                      {e}
-                    </span>
-                  ))}
+                <div className="relative mt-5 overflow-hidden rounded-2xl">
+                  <div className="flex flex-wrap gap-2">
+                    {active.endorsements.map((e) => (
+                      <span
+                        key={e}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/[0.08] px-3 py-1 text-xs text-accent"
+                      >
+                        <BadgeCheck className="h-3.5 w-3.5" />
+                        {e}
+                      </span>
+                    ))}
+                  </div>
+                  {/* One-shot sheen: draws the eye to the verified proof each
+                      time a new testimonial lands (transform-only). */}
+                  {!reducedMotion && (
+                    <motion.span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/[0.13] to-transparent"
+                      initial={{ x: "-160%" }}
+                      animate={{ x: "460%" }}
+                      transition={{ duration: 1.15, delay: 0.6, ease: "easeInOut" }}
+                    />
+                  )}
                 </div>
               )}
 

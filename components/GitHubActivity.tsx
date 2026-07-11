@@ -6,6 +6,7 @@ import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock } from "lucide-re
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { CountUp } from "./ui/CountUp";
 import { SITE, GITHUB_TOTALS } from "@/lib/data";
 
 type Repo = {
@@ -172,7 +173,7 @@ export function GitHubActivity() {
                   className="rounded-2xl border border-line bg-white/[0.02] p-4 text-center"
                 >
                   <p className="font-heading text-lg font-bold text-accent sm:text-xl">
-                    {s.value}
+                    <CountUp value={s.value} />
                   </p>
                   <p className="mt-1 text-[11px] text-muted">{s.label}</p>
                 </div>

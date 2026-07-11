@@ -5,6 +5,7 @@ import { ArrowUpRight, Clock } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { Tilt } from "./ui/Tilt";
 import { POSTS, formatDate } from "@/lib/posts";
 
 export function Writing() {
@@ -37,6 +38,7 @@ export function Writing() {
       <div className="mt-12 grid gap-5 md:grid-cols-3">
         {posts.map((post, i) => (
           <Reveal key={post.slug} delayIndex={i} className="h-full">
+            <Tilt className="h-full">
             <Link
               href={`/blog/${post.slug}`}
               className="group flex h-full flex-col rounded-3xl border border-line bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/40"
@@ -60,6 +62,7 @@ export function Writing() {
                 <ArrowUpRight className="h-4 w-4 text-accent transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </div>
             </Link>
+            </Tilt>
           </Reveal>
         ))}
       </div>
