@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Download, Sparkles, Star } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
+import { PrismLight } from "./ui/PrismLight";
 import { HERO_STATS, SITE } from "@/lib/data";
 
 const container = {
@@ -94,6 +95,9 @@ export function Hero() {
         aria-hidden
         className="absolute -left-40 top-1/3 z-[1] hidden h-[500px] w-[500px] rounded-full bg-accent/[0.08] blur-[150px] sm:block"
       />
+
+      {/* Refracted prism light over the portrait */}
+      <PrismLight />
 
       {/* Content */}
       <div className="container-x relative z-10">

@@ -16,6 +16,7 @@ import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
+import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import { FAQS } from "@/lib/data";
 
 const SITE_URL = "https://huzaifaawan.com";
@@ -87,6 +88,7 @@ export default function Home() {
       <Background />
       <CursorGlow />
       <ScrollProgress />
+      <ProgressiveBlur />
       <Navbar />
       <main className="relative z-10">
         <Hero />
