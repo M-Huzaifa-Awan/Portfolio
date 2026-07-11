@@ -218,43 +218,31 @@ export function Loader() {
                 </motion.span>
               </div>
 
-              {/* GPU-composited progress (transform, not width — no layout jank) */}
-              <span className="relative h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
+              {/* Progress line with a quiet percent readout at its end.
+                  GPU-composited (transform, not width — no layout jank). */}
+              <div className="flex w-56 items-center gap-3">
+                <span className="relative h-px flex-1 overflow-hidden rounded-full bg-white/10">
+                  <span
+                    className="absolute inset-0 origin-left rounded-full"
+                    style={{
+                      background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
+                      transform: "scaleX(0)",
+                      animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
+                    }}
+                  />
+                </span>
                 <span
-                  className="absolute inset-0 origin-left rounded-full"
-                  style={{
-                    background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
-                    transform: "scaleX(0)",
-                    animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
-                  }}
-                />
-              </span>
-            </div>
+                  aria-hidden
+                  className="w-9 text-right text-[11px] font-medium tabular-nums tracking-widest text-muted/80"
+                >
+                  <span ref={pctRef}>00</span>
+                  <span className="text-accent/70">%</span>
+                </span>
+              </div>
 
-            {/* Big percentage — bottom left, editorial style */}
-            <div
-              className="absolute bottom-7 left-6 flex items-baseline gap-1 sm:bottom-10 sm:left-10"
-              aria-hidden
-            >
-              <span
-                ref={pctRef}
-                className="font-heading text-5xl font-bold tabular-nums leading-none text-ink/90 sm:text-7xl"
-              >
-                00
-              </span>
-              <span className="font-heading text-xl font-semibold text-accent sm:text-2xl">
-                %
-              </span>
-            </div>
-
-            {/* Name — bottom right, balances the counter */}
-            <div className="absolute bottom-8 right-6 text-right sm:bottom-12 sm:right-10">
-              <p className="font-heading text-[10px] font-medium uppercase tracking-[0.4em] text-muted/70">
+              <span className="font-heading text-[10px] font-medium uppercase tracking-[0.4em] text-muted/60">
                 Huzaifa&nbsp;Awan
-              </p>
-              <p className="mt-1 text-[9px] uppercase tracking-[0.3em] text-muted/40">
-                Portfolio
-              </p>
+              </span>
             </div>
 
             <style>{`
