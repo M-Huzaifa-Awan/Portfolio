@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HEX = "M100 26 L164 63 L164 137 L100 174 L36 137 L36 63 Z";
 
 // Fixed intro length — never tied to data/asset loading.
 const DURATION = 3400;
-const EXIT_EASE = [0.76, 0, 0.24, 1] as const;
 
 const QUOTES: { t: string; a: string }[] = [
   { t: "The unexamined life is not worth living.", a: "Socrates" },
@@ -29,7 +28,6 @@ const QUOTES: { t: string; a: string }[] = [
 export function Loader() {
   const [done, setDone] = useState(false);
   const [quote, setQuote] = useState<{ t: string; a: string } | null>(null);
-  const pctRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     // Pick a random quote on the client (avoids SSR hydration mismatch).
@@ -38,25 +36,8 @@ export function Loader() {
     // Always play the full intro on every load.
     document.documentElement.style.overflow = "hidden";
 
-    // Percentage counter written straight to the DOM — zero re-renders.
-    // Easing matches the progress bar (easeOutCubic) so they stay in sync.
-    const start = performance.now();
-    let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / DURATION);
-      const eased = 1 - Math.pow(1 - t, 3);
-      if (pctRef.current) {
-        pctRef.current.textContent = String(Math.round(eased * 100)).padStart(2, "0");
-      }
-      if (t < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-
     const timer = setTimeout(() => setDone(true), DURATION);
-    return () => {
-      clearTimeout(timer);
-      cancelAnimationFrame(raf);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -70,25 +51,13 @@ export function Loader() {
     <AnimatePresence>
       {!done && (
         <>
-          {/* Trailing warm curtain: sits under the main panel and follows it
-              up a beat later, so the exit reads as a layered stage reveal. */}
-          <motion.div
-            key="loader-curtain"
-            aria-hidden
-            className="fixed inset-0 z-[100]"
-            style={{
-              background: "linear-gradient(180deg, #140a04 0%, #200f05 60%, #2b1406 100%)",
-            }}
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.7, delay: 0.14, ease: EXIT_EASE }}
-          />
-
-          {/* Main panel — carries its content up with it on exit */}
+          {/* Screen dissolves while the composition pushes toward the
+              viewer — a camera move through the title card into the page. */}
           <motion.div
             key="loader"
             className="fixed inset-0 z-[101] flex flex-col items-center justify-center bg-bg px-6"
-            exit={{ y: "-100%" }}
-            transition={{ duration: 0.7, ease: EXIT_EASE }}
+            exit={{ opacity: 0, scale: 1.12 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
             <div
@@ -218,27 +187,17 @@ export function Loader() {
                 </motion.span>
               </div>
 
-              {/* Progress line with a quiet percent readout at its end.
-                  GPU-composited (transform, not width — no layout jank). */}
-              <div className="flex w-56 items-center gap-3">
-                <span className="relative h-px flex-1 overflow-hidden rounded-full bg-white/10">
-                  <span
-                    className="absolute inset-0 origin-left rounded-full"
-                    style={{
-                      background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
-                      transform: "scaleX(0)",
-                      animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
-                    }}
-                  />
-                </span>
+              {/* GPU-composited progress (transform, not width — no layout jank) */}
+              <span className="relative h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
                 <span
-                  aria-hidden
-                  className="w-9 text-right text-[11px] font-medium tabular-nums tracking-widest text-muted/80"
-                >
-                  <span ref={pctRef}>00</span>
-                  <span className="text-accent/70">%</span>
-                </span>
-              </div>
+                  className="absolute inset-0 origin-left rounded-full"
+                  style={{
+                    background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
+                    transform: "scaleX(0)",
+                    animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
+                  }}
+                />
+              </span>
 
               <span className="font-heading text-[10px] font-medium uppercase tracking-[0.4em] text-muted/60">
                 Huzaifa&nbsp;Awan
