@@ -158,7 +158,7 @@ function TagRow({ project }: { project: Project }) {
 
 function FeaturedCard({ project }: { project: Project }) {
   return (
-    <SpotlightCard className="lg:col-span-3">
+    <SpotlightCard className="lg:col-span-3" prism tilt>
       <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-2 lg:items-center lg:gap-8">
         <div className="order-2 lg:order-1">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-accent">

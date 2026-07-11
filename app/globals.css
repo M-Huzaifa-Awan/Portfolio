@@ -185,3 +185,65 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- Prism ring (SpotlightCard `prism`) ------------------------------- */
+/* Iridescent conic spectrum masked to the card's 1px edge. The angle is a
+   registered custom property so it can rotate; browsers without @property
+   simply show the static ring. Runs only while hovered. */
+
+@property --prism-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.prism-ring {
+  padding: 1px;
+  background: conic-gradient(
+    from var(--prism-angle, 0deg),
+    rgba(255, 107, 53, 0) 0%,
+    rgba(255, 176, 64, 0.55) 8%,
+    rgba(255, 107, 53, 0.8) 18%,
+    rgba(255, 96, 128, 0.5) 30%,
+    rgba(150, 110, 255, 0.45) 42%,
+    rgba(255, 107, 53, 0) 54%,
+    rgba(255, 138, 76, 0.35) 76%,
+    rgba(255, 107, 53, 0) 92%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.group:hover .prism-ring {
+  animation: prism-rotate 5s linear infinite;
+}
+
+@keyframes prism-rotate {
+  to {
+    --prism-angle: 360deg;
+  }
+}
+
+/* ---- 3D tilt (SpotlightCard `tilt`) ----------------------------------- */
+/* Cursor-driven perspective tilt via CSS variables; transform-only, with a
+   short transition to smooth pointer movement. Desktop pointers only (the
+   JS never sets the variables on touch devices). */
+
+@media (hover: hover) and (pointer: fine) {
+  .card-tilt {
+    transform: perspective(1000px) rotateX(var(--rx, 0deg))
+      rotateY(var(--ry, 0deg));
+    transition:
+      transform 0.16s ease-out,
+      border-color 0.3s;
+    will-change: transform;
+  }
+  .card-tilt:not(:hover) {
+    transition:
+      transform 0.5s ease-out,
+      border-color 0.3s;
+  }
+}
