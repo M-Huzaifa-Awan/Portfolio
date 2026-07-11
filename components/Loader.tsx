@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HEX = "M100 26 L164 63 L164 137 L100 174 L36 137 L36 63 Z";
 
 // Fixed intro length — never tied to data/asset loading.
 const DURATION = 3400;
+const EXIT_EASE = [0.76, 0, 0.24, 1] as const;
 
 const QUOTES: { t: string; a: string }[] = [
   { t: "The unexamined life is not worth living.", a: "Socrates" },
@@ -28,6 +29,7 @@ const QUOTES: { t: string; a: string }[] = [
 export function Loader() {
   const [done, setDone] = useState(false);
   const [quote, setQuote] = useState<{ t: string; a: string } | null>(null);
+  const pctRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     // Pick a random quote on the client (avoids SSR hydration mismatch).
@@ -35,153 +37,240 @@ export function Loader() {
 
     // Always play the full intro on every load.
     document.documentElement.style.overflow = "hidden";
-    const t = setTimeout(() => setDone(true), DURATION);
-    return () => clearTimeout(t);
+
+    // Percentage counter written straight to the DOM — zero re-renders.
+    // Easing matches the progress bar (easeOutCubic) so they stay in sync.
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DURATION);
+      const eased = 1 - Math.pow(1 - t, 3);
+      if (pctRef.current) {
+        pctRef.current.textContent = String(Math.round(eased * 100)).padStart(2, "0");
+      }
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    const timer = setTimeout(() => setDone(true), DURATION);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
     if (done) document.documentElement.style.overflow = "";
   }, [done]);
 
+  const words = quote ? quote.t.split(" ") : [];
+  const authorDelay = 0.85 + words.length * 0.055 + 0.2;
+
   return (
     <AnimatePresence>
       {!done && (
-        <motion.div
-          key="loader"
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-bg px-6"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.7, ease: "easeInOut" } }}
-        >
-          {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
-          <div
+        <>
+          {/* Trailing warm curtain: sits under the main panel and follows it
+              up a beat later, so the exit reads as a layered stage reveal. */}
+          <motion.div
+            key="loader-curtain"
             aria-hidden
-            className="pointer-events-none absolute h-[260px] w-[260px] rounded-full blur-[80px]"
+            className="fixed inset-0 z-[100]"
             style={{
-              background: "rgba(255,107,53,0.2)",
-              animation: "ldr-bloom 2.2s ease-in-out infinite",
+              background: "linear-gradient(180deg, #140a04 0%, #200f05 60%, #2b1406 100%)",
             }}
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.7, delay: 0.14, ease: EXIT_EASE }}
           />
 
+          {/* Main panel — carries its content up with it on exit */}
           <motion.div
-            className="relative"
-            exit={{
-              scale: 1.12,
-              opacity: 0,
-              transition: { duration: 0.6, ease: "easeIn" },
-            }}
+            key="loader"
+            className="fixed inset-0 z-[101] flex flex-col items-center justify-center bg-bg px-6"
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.7, ease: EXIT_EASE }}
           >
-            <svg width="132" height="132" viewBox="0 0 200 200" fill="none" className="relative">
-              {/* Faint ring track */}
-              <circle cx="100" cy="100" r="94" stroke="rgba(255,107,53,0.10)" strokeWidth="3" />
-              {/* Spinner ring — a rotated dashed circle. Rotating a circle is a
-                  pure transform (GPU-composited), so it never hitches. */}
-              <circle
-                cx="100"
-                cy="100"
-                r="94"
-                stroke="url(#ldr-grad)"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-                pathLength={1}
-                style={{
-                  strokeDasharray: "0.26 0.74",
-                  transformBox: "fill-box",
-                  transformOrigin: "center",
-                  animation: "ldr-spin 1.4s linear infinite",
-                }}
-              />
+            {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute h-[260px] w-[260px] rounded-full blur-[80px]"
+              style={{
+                background: "rgba(255,107,53,0.2)",
+                animation: "ldr-bloom 2.2s ease-in-out infinite",
+              }}
+            />
 
-              {/* Hexagon (draws in once) */}
-              <path
-                d={HEX}
-                stroke="url(#ldr-grad)"
-                strokeWidth="6"
-                strokeLinejoin="round"
-                pathLength={1}
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: 1,
-                  animation: "ldr-draw 1s 0.1s ease forwards",
-                }}
-              />
-              {/* "A" caret */}
-              <path
-                d="M70 134 L100 56 L130 134"
-                stroke="#ff8a4c"
-                strokeWidth="7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                pathLength={1}
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: 1,
-                  animation: "ldr-draw 0.9s 0.55s ease forwards",
-                }}
-              />
-              <defs>
-                <linearGradient id="ldr-grad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#ff6b35" />
-                  <stop offset="100%" stopColor="#ff8a4c" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </motion.div>
+            {/* Logo: draws in, then a single confident pulse as it completes */}
+            <motion.div
+              className="relative"
+              animate={{ scale: [1, 1, 1.05, 1] }}
+              transition={{
+                duration: DURATION / 1000,
+                times: [0, 0.8, 0.89, 1],
+                ease: "easeInOut",
+              }}
+            >
+              <svg width="132" height="132" viewBox="0 0 200 200" fill="none" className="relative">
+                {/* Faint ring track */}
+                <circle cx="100" cy="100" r="94" stroke="rgba(255,107,53,0.10)" strokeWidth="3" />
+                {/* Spinner ring — a rotated dashed circle. Rotating a circle is a
+                    pure transform (GPU-composited), so it never hitches. */}
+                <circle
+                  cx="100"
+                  cy="100"
+                  r="94"
+                  stroke="url(#ldr-grad)"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  pathLength={1}
+                  style={{
+                    strokeDasharray: "0.26 0.74",
+                    transformBox: "fill-box",
+                    transformOrigin: "center",
+                    animation: "ldr-spin 1.4s linear infinite",
+                  }}
+                />
 
-          {/* Quote + progress */}
-          <motion.div
-            className="relative mt-11 flex w-full max-w-sm flex-col items-center gap-5 text-center"
-            exit={{ opacity: 0, y: 8, transition: { duration: 0.4 } }}
-          >
-            <div className="flex min-h-[4.5rem] flex-col items-center justify-center gap-2">
-              <motion.p
-                key={quote?.t ?? "ph"}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: quote ? 1 : 0, y: 0 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="text-balance text-sm font-medium leading-relaxed text-ink/90 sm:text-base"
-              >
-                {quote ? `“${quote.t}”` : ""}
-              </motion.p>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: quote ? 1 : 0 }}
-                transition={{ duration: 0.7, delay: 0.15 }}
-                className="text-xs font-medium uppercase tracking-[0.18em] text-accent/90"
-              >
-                {quote ? `— ${quote.a}` : ""}
-              </motion.span>
+                {/* Hexagon (draws in once) */}
+                <path
+                  d={HEX}
+                  stroke="url(#ldr-grad)"
+                  strokeWidth="6"
+                  strokeLinejoin="round"
+                  pathLength={1}
+                  style={{
+                    strokeDasharray: 1,
+                    strokeDashoffset: 1,
+                    animation: "ldr-draw 1s 0.1s ease forwards",
+                  }}
+                />
+                {/* "A" caret */}
+                <path
+                  d="M70 134 L100 56 L130 134"
+                  stroke="#ff8a4c"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  pathLength={1}
+                  style={{
+                    strokeDasharray: 1,
+                    strokeDashoffset: 1,
+                    animation: "ldr-draw 0.9s 0.55s ease forwards",
+                  }}
+                />
+                <defs>
+                  <linearGradient id="ldr-grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#ff6b35" />
+                    <stop offset="100%" stopColor="#ff8a4c" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </motion.div>
+
+            {/* Quote (word-by-word reveal) + progress */}
+            <div className="relative mt-11 flex w-full max-w-sm flex-col items-center gap-5 text-center">
+              <div className="flex min-h-[4.5rem] flex-col items-center justify-center gap-2">
+                <p className="text-balance text-sm font-medium leading-relaxed text-ink/90 sm:text-base">
+                  {quote && (
+                    <>
+                      <motion.span
+                        className="inline-block text-accent/80"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8, duration: 0.4 }}
+                      >
+                        &ldquo;
+                      </motion.span>
+                      {words.map((w, i) => (
+                        <motion.span
+                          key={`${w}-${i}`}
+                          className="inline-block whitespace-pre"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            delay: 0.85 + i * 0.055,
+                            duration: 0.5,
+                            ease: "easeOut",
+                          }}
+                        >
+                          {w}
+                          {i < words.length - 1 ? " " : ""}
+                        </motion.span>
+                      ))}
+                      <motion.span
+                        className="inline-block text-accent/80"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: authorDelay - 0.1, duration: 0.4 }}
+                      >
+                        &rdquo;
+                      </motion.span>
+                    </>
+                  )}
+                </p>
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: quote ? 1 : 0 }}
+                  transition={{ duration: 0.6, delay: authorDelay }}
+                  className="text-xs font-medium uppercase tracking-[0.18em] text-accent/90"
+                >
+                  {quote ? `— ${quote.a}` : ""}
+                </motion.span>
+              </div>
+
+              {/* GPU-composited progress (transform, not width — no layout jank) */}
+              <span className="relative h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
+                <span
+                  className="absolute inset-0 origin-left rounded-full"
+                  style={{
+                    background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
+                    transform: "scaleX(0)",
+                    animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
+                  }}
+                />
+              </span>
             </div>
 
-            {/* GPU-composited progress (transform, not width — no layout jank) */}
-            <span className="relative h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
+            {/* Big percentage — bottom left, editorial style */}
+            <div
+              className="absolute bottom-7 left-6 flex items-baseline gap-1 sm:bottom-10 sm:left-10"
+              aria-hidden
+            >
               <span
-                className="absolute inset-0 origin-left rounded-full"
-                style={{
-                  background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
-                  transform: "scaleX(0)",
-                  animation: `ldr-progress ${DURATION}ms cubic-bezier(0.65,0,0.35,1) forwards`,
-                }}
-              />
-            </span>
+                ref={pctRef}
+                className="font-heading text-5xl font-bold tabular-nums leading-none text-ink/90 sm:text-7xl"
+              >
+                00
+              </span>
+              <span className="font-heading text-xl font-semibold text-accent sm:text-2xl">
+                %
+              </span>
+            </div>
 
-            <span className="font-heading text-[10px] font-medium uppercase tracking-[0.4em] text-muted/60">
-              Huzaifa&nbsp;Awan
-            </span>
+            {/* Name — bottom right, balances the counter */}
+            <div className="absolute bottom-8 right-6 text-right sm:bottom-12 sm:right-10">
+              <p className="font-heading text-[10px] font-medium uppercase tracking-[0.4em] text-muted/70">
+                Huzaifa&nbsp;Awan
+              </p>
+              <p className="mt-1 text-[9px] uppercase tracking-[0.3em] text-muted/40">
+                Portfolio
+              </p>
+            </div>
+
+            <style>{`
+              @keyframes ldr-spin { to { transform: rotate(360deg); } }
+              @keyframes ldr-draw { to { stroke-dashoffset: 0; } }
+              @keyframes ldr-progress { to { transform: scaleX(1); } }
+              @keyframes ldr-bloom {
+                0%, 100% { opacity: 0.5; }
+                50% { opacity: 1; }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                [style*="ldr-"] { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+              }
+            `}</style>
           </motion.div>
-
-          <style>{`
-            @keyframes ldr-spin { to { transform: rotate(360deg); } }
-            @keyframes ldr-draw { to { stroke-dashoffset: 0; } }
-            @keyframes ldr-progress { to { transform: scaleX(1); } }
-            @keyframes ldr-bloom {
-              0%, 100% { opacity: 0.5; }
-              50% { opacity: 1; }
-            }
-            @media (prefers-reduced-motion: reduce) {
-              [style*="ldr-"] { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
-            }
-          `}</style>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

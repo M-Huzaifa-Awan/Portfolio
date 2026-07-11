@@ -173,7 +173,7 @@ export function GitHubActivity() {
                   className="rounded-2xl border border-line bg-white/[0.02] p-4 text-center"
                 >
                   <p className="font-heading text-lg font-bold text-accent sm:text-xl">
-                    <CountUp value={s.value} />
+                    <CountUp value={s.value} duration={1.6} />
                   </p>
                   <p className="mt-1 text-[11px] text-muted">{s.label}</p>
                 </div>
