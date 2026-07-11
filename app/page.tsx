@@ -14,7 +14,9 @@ import { Testimonials } from "@/components/Testimonials";
 import { GitHubActivity } from "@/components/GitHubActivity";
 import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
+import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
+import { FAQS } from "@/lib/data";
 
 const SITE_URL = "https://huzaifaawan.com";
 
@@ -32,6 +34,38 @@ const profileLd = {
   dateCreated: "2026-07-02T00:00:00Z",
   dateModified: new Date().toISOString(),
   inLanguage: "en",
+  // Voice assistants (AEO): read the intro and the FAQ aloud.
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["#about", "#faq"],
+  },
+};
+
+// FAQ rich result (AEO) + clean Q&A for AI answer engines (GEO/AIO).
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": `${SITE_URL}/#faq`,
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+// Atlas as a first-class product entity created by the Person.
+const atlasLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": `${SITE_URL}/#atlas`,
+  name: "Atlas",
+  url: "https://atlas-web-rho-hazel.vercel.app/",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "Atlas brings Microsoft Outlook email and calendar into Claude through a Model Context Protocol (MCP) server: read and send mail, check your schedule, and book meetings in plain English across multiple accounts.",
+  offers: { "@type": "Offer", price: "12.00", priceCurrency: "USD" },
+  creator: { "@id": `${SITE_URL}/#person` },
 };
 
 export default function Home() {
@@ -40,6 +74,14 @@ export default function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profileLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(atlasLd) }}
       />
       <Loader />
       <Background />
@@ -57,6 +99,7 @@ export default function Home() {
         <Testimonials />
         <GitHubActivity />
         <Writing />
+        <Faq />
         <Contact />
       </main>
       <Footer />

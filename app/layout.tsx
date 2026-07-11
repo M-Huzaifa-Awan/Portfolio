@@ -134,6 +134,10 @@ const jsonLd = {
         "@type": "CollegeOrUniversity",
         name: "National University of Modern Languages (NUML)",
       },
+      worksFor: [
+        { "@type": "Organization", name: "LEO Innovate" },
+        { "@type": "Organization", name: "Lotte Innovate" },
+      ],
       knowsLanguage: ["English", "Urdu"],
       sameAs: SOCIALS,
     },

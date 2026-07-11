@@ -181,8 +181,8 @@ export function GitHubActivity() {
 
             <p className="mt-4 flex items-center gap-1.5 text-[11px] leading-snug text-muted">
               <Lock className="h-3 w-3 shrink-0" />
-              Most client work lives in private repos under NDA — only a slice is
-              public.
+              Most client work lives in private repos under NDA, so only a slice
+              is public.
             </p>
           </div>
         </Reveal>

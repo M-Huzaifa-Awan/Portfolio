@@ -72,35 +72,35 @@ export const SERVICES: Service[] = [
     icon: Rocket,
     title: "SaaS Product Development",
     description:
-      "Multi-tenant SaaS built end-to-end — onboarding, billing, dashboards and real-time features. Systems serving 100+ concurrent users at sub-50ms with a 95% Redis cache hit rate.",
+      "Multi-tenant SaaS built end-to-end: onboarding, billing, dashboards and real-time features. Systems serving 100+ concurrent users at sub-50ms with a 95% Redis cache hit rate.",
     points: ["Multi-tenant", "Onboarding & billing", "Realtime dashboards"],
   },
   {
     icon: Boxes,
     title: "MCP Servers & AI Agents",
     description:
-      "Custom Model Context Protocol servers that let Claude securely read and write across your real tools. I shipped a production MCP exposing 60+ tools — a capability most senior devs don't have.",
+      "Custom Model Context Protocol servers that let Claude securely read and write across your real tools. I shipped a production MCP exposing 60+ tools, a capability most senior devs don't have.",
     points: ["60+ tools exposed", "OAuth 2.0", "ClickUp / Graph / Health"],
   },
   {
     icon: Sparkles,
     title: "AI Integration",
     description:
-      "Claude and OpenAI wired into products — structured outputs, prompt engineering, Claude Vision image analysis, and reliable LLM pipelines you can ship to real users.",
+      "Claude and OpenAI wired into products: structured outputs, prompt engineering, Claude Vision image analysis, and reliable LLM pipelines you can ship to real users.",
     points: ["Claude / OpenAI", "Claude Vision", "Structured outputs"],
   },
   {
     icon: Workflow,
     title: "APIs & Real-Time Systems",
     description:
-      "REST and real-time APIs — WebSockets for live preview, Stripe webhooks for payments, and well-documented contracts your frontend can trust.",
+      "REST and real-time APIs: WebSockets for live preview, Stripe webhooks for payments, and well-documented contracts your frontend can trust.",
     points: ["REST & WebSockets", "Stripe / webhooks", "Live preview"],
   },
   {
     icon: Cloud,
     title: "Cloud & DevOps",
     description:
-      "Deploys that scale — Azure DevOps, GitHub Actions, Docker, Fly.io and Vercel, with Redis caching and query tuning for fast responses under concurrency.",
+      "Deploys that scale: Azure DevOps, GitHub Actions, Docker, Fly.io and Vercel, with Redis caching and query tuning for fast responses under concurrency.",
     points: ["CI/CD pipelines", "Docker", "Fly.io / Vercel"],
   },
   {
@@ -440,6 +440,39 @@ export const TESTIMONIALS: Testimonial[] = [
 // Honest reference note (no fabricated quote).
 export const LEO_REFERENCE =
   "The CEO at LEO Innovate offered to write a personal letter of recommendation after the salon SaaS platform work. Reference available on request.";
+
+/* ------------------------------ FAQ ------------------------------ */
+/* Rendered in the FAQ section and emitted as FAQPage JSON-LD for
+   featured snippets (AEO) and AI answer engines (GEO/AIO). */
+
+export type Faq = { q: string; a: string };
+
+export const FAQS: Faq[] = [
+  {
+    q: "Who is Muhammad Huzaifa Awan?",
+    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with 3+ years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
+  },
+  {
+    q: "What services does Huzaifa Awan offer?",
+    a: "End-to-end SaaS product development, custom MCP servers and AI agents, AI integration with the Claude and OpenAI APIs, high-performance APIs and real-time systems, cloud and DevOps on Azure, and legacy system modernization.",
+  },
+  {
+    q: "What technologies does Huzaifa Awan work with?",
+    a: "React, Next.js, TypeScript, .NET and ASP.NET Core, Node.js, SQL Server, PostgreSQL, Redis, WebSockets, Azure, and the Model Context Protocol (MCP), plus the Claude and OpenAI APIs for AI products.",
+  },
+  {
+    q: "Is Huzaifa Awan available for hire?",
+    a: "Yes. He is open to senior full stack roles and select contract work with founders and agencies. The fastest way to reach him is email at mhuzaifaawan7@gmail.com or a message on LinkedIn, and he typically replies within a day.",
+  },
+  {
+    q: "What is Atlas?",
+    a: "Atlas is a SaaS product Huzaifa designed, built, and launched. It connects Microsoft Outlook email and calendar directly to Claude through a Model Context Protocol server, so you can read and send mail, check your schedule, and book meetings in plain English across multiple work and personal accounts.",
+  },
+  {
+    q: "Does Huzaifa Awan have verified client reviews?",
+    a: "Yes. His Upwork profile carries verified 5-star client reviews praising reliability, clear communication, and attention to detail, and the CEO at LEO Innovate offered a personal letter of recommendation after the salon SaaS platform work.",
+  },
+];
 
 export type Cert = {
   issuer: string;

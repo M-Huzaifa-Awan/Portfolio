@@ -1,0 +1,34 @@
+# Muhammad Huzaifa Awan
+
+> Senior Full Stack Developer with 3+ years architecting and shipping SaaS platforms, AI products, MCP servers, and payment infrastructure for US-based product teams. Available for senior roles and select contract work.
+
+Site: https://huzaifaawan.com
+Email: mhuzaifaawan7@gmail.com
+LinkedIn: https://www.linkedin.com/in/mhuzaifaawan
+GitHub: https://github.com/M-Huzaifa-Awan
+Upwork: https://www.upwork.com/freelancers/~01b2cac225f43ef332
+
+## Facts
+
+- Full name: Muhammad Huzaifa Awan (also known as Huzaifa Awan)
+- Role: Senior Full Stack Developer
+- Stack: React, Next.js, TypeScript, .NET, ASP.NET Core, Node.js, SQL Server, PostgreSQL, Redis, WebSockets, Azure, Model Context Protocol (MCP), Claude and OpenAI APIs
+- Education: BS Computer Science, National University of Modern Languages (NUML), class of 2026; Vice President of the ACM Society
+- Experience: Senior Full Stack Developer at LEO Innovate (Feb 2025 to present) on a multi-tenant salon SaaS platform; Full Stack Developer subcontracting for Lotte Innovate (Mar 2026 to present) delivering MCP tooling, a real estate platform, and a network change scanner; earlier full stack and database work with FABCO
+- Creator of Atlas (https://atlas-web-rho-hazel.vercel.app/), a SaaS product that brings Microsoft Outlook email and calendar into Claude via an MCP server
+- Built Studio OS, a production MCP server exposing 80+ typed tools across ClickUp, Outlook, Apple Health, and Oura
+- Performance track record: 95% Redis cache hit rate and sub-50ms API responses under 100+ concurrent users on a .NET SaaS platform
+- Verified 5-star client reviews on Upwork; reference letter from the CEO at LEO Innovate available on request
+- Services: SaaS product development, MCP servers and AI agents, AI integration, APIs and real-time systems, cloud and DevOps, legacy modernization
+
+## Key pages
+
+- [Home](https://huzaifaawan.com/)
+- [Blog](https://huzaifaawan.com/blog)
+- [Building an MCP Server for Claude](https://huzaifaawan.com/blog/building-an-mcp-server-for-claude)
+- [How I Hit a 95% Redis Cache Hit Rate](https://huzaifaawan.com/blog/95-percent-redis-cache-hit-rate)
+- [Hiring a Senior Full Stack Developer](https://huzaifaawan.com/blog/hiring-a-senior-full-stack-developer)
+
+## Contact
+
+Email mhuzaifaawan7@gmail.com or message on LinkedIn. Typical reply time is within one day.

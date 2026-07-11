@@ -49,7 +49,7 @@ export function Certifications() {
             Education &amp; <span className="text-gradient">certifications.</span>
           </>
         }
-        description="Verified academic honors and certifications — click any card to view the full document."
+        description="Verified academic honors and certifications. Click any card to view the full document."
       />
 
       <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -12,7 +12,7 @@ const QUOTES: { t: string; a: string }[] = [
   { t: "The unexamined life is not worth living.", a: "Socrates" },
   { t: "He who has a why to live can bear almost any how.", a: "Friedrich Nietzsche" },
   { t: "We suffer more often in imagination than in reality.", a: "Seneca" },
-  { t: "You have power over your mind — not outside events.", a: "Marcus Aurelius" },
+  { t: "You have power over your mind, not outside events.", a: "Marcus Aurelius" },
   { t: "What stands in the way becomes the way.", a: "Marcus Aurelius" },
   { t: "Knowing yourself is the beginning of all wisdom.", a: "Aristotle" },
   { t: "Happiness depends upon ourselves.", a: "Aristotle" },
