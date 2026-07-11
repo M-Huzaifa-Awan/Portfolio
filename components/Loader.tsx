@@ -118,19 +118,6 @@ export function Loader() {
                   animation: "ldr-draw 0.9s 0.55s ease forwards",
                 }}
               />
-              {/* crossbar */}
-              <path
-                d="M83 106 L117 106"
-                stroke="#ff8a4c"
-                strokeWidth="7"
-                strokeLinecap="round"
-                pathLength={1}
-                style={{
-                  strokeDasharray: 1,
-                  strokeDashoffset: 1,
-                  animation: "ldr-draw 0.5s 1.2s ease forwards",
-                }}
-              />
               <defs>
                 <linearGradient id="ldr-grad" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stopColor="#ff6b35" />
