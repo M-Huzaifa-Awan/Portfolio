@@ -153,7 +153,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 7,
-    title: "Studio OS",
+    title: "Atlas",
     featured: true,
     headline: "Custom MCP server · 80+ AI tools",
     description:
