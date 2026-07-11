@@ -134,6 +134,23 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: 10,
+    title: "Atlas",
+    featured: true,
+    headline: "Your inbox and calendar, answered by Claude",
+    description:
+      "A SaaS product I designed, built, and launched. Atlas brings Microsoft Outlook email and calendar directly into Claude through a Model Context Protocol (MCP) server, so you read, draft, and send mail and manage your schedule in plain English. It handles multiple work and personal accounts at once, finds open times, and books meetings across calendars. Built on Claude Opus 4.8 with OAuth-secured, multi-tenant access.",
+    image: "/projects/atlas/cover.png",
+    stack: ["Next.js", "MCP", "Claude Opus 4.8", "Microsoft Graph", "TypeScript"],
+    tags: ["SaaS", "AI", "MCP"],
+    metrics: [
+      { value: "2-way", label: "Email + calendar" },
+      { value: "Multi", label: "Outlook accounts" },
+    ],
+    liveUrl: "https://atlas-web-rho-hazel.vercel.app/",
+    color: "#2563eb",
+  },
+  {
     id: 1,
     title: "Apex Synchronia Intelligence",
     featured: true,
@@ -153,7 +170,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 7,
-    title: "Atlas",
+    title: "Studio OS",
     featured: true,
     headline: "Custom MCP server · 80+ AI tools",
     description:

@@ -41,7 +41,7 @@ export const POSTS: Post[] = [
     body: [
       {
         type: "p",
-        text: "Most teams talk to Claude through a chat box. The interesting work starts when you let Claude actually **do** things — read a project board, check a calendar, pull a metric — through your own systems. That is what the **Model Context Protocol (MCP)** enables, and it is where I have spent a lot of my recent engineering time. I built and shipped a production MCP server, **Atlas**, that exposes 60+ tools to Claude across project management, email, and health data. Here is how it is put together and what I learned.",
+        text: "Most teams talk to Claude through a chat box. The interesting work starts when you let Claude actually **do** things — read a project board, check a calendar, pull a metric — through your own systems. That is what the **Model Context Protocol (MCP)** enables, and it is where I have spent a lot of my recent engineering time. I built and shipped a production MCP server, **Studio OS**, that exposes 60+ tools to Claude across project management, email, and health data. Here is how it is put together and what I learned.",
       },
       { type: "h2", text: "What an MCP server actually is" },
       {
@@ -55,7 +55,7 @@ export const POSTS: Post[] = [
       { type: "h2", text: "The architecture" },
       {
         type: "p",
-        text: "Atlas is a **FastAPI + Python** server that aggregates several external systems behind one secure interface. A single codebase ships two transports: a local **stdio** build (packaged as a Windows `.exe` with PyInstaller) and a remote **Streamable HTTP** deployment on Fly.io. State lives in Neon Postgres, with a nightly, idempotent GitHub Actions job ingesting data and a full write-audit log for anything Claude changes.",
+        text: "Studio OS is a **FastAPI + Python** server that aggregates several external systems behind one secure interface. A single codebase ships two transports: a local **stdio** build (packaged as a Windows `.exe` with PyInstaller) and a remote **Streamable HTTP** deployment on Fly.io. State lives in Neon Postgres, with a nightly, idempotent GitHub Actions job ingesting data and a full write-audit log for anything Claude changes.",
       },
       {
         type: "ul",
