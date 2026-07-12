@@ -65,7 +65,7 @@ export function Hero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-[72%_top] brightness-[1.05] sm:object-[80%_center] sm:brightness-100 md:animate-float"
+              className="object-cover object-[72%_top] brightness-[1.05] sm:object-[80%_18%] sm:brightness-100 md:animate-float"
             />
           </motion.div>
         </motion.div>
