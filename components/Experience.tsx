@@ -102,6 +102,19 @@ export function Experience() {
   const past = EXPERIENCE.slice(i);
   const hasBranches = current.length > 1;
 
+  // Fork/merge geometry adapts to how many roles run in parallel. With 3+
+  // branches the columns only fit side by side from lg up, so the connector
+  // art switches breakpoints with the grid.
+  const centers = current.map((_, k) => (100 / current.length) * (k + 0.5));
+  const wide = current.length > 2;
+  const svgClass = wide ? "hidden h-11 w-full lg:block" : "hidden h-11 w-full md:block";
+  const gridClass = wide
+    ? "mt-6 grid grid-cols-1 gap-5 lg:mt-0 lg:grid-cols-3"
+    : "mt-6 grid grid-cols-1 gap-5 md:mt-0 md:grid-cols-2";
+  const mergeClass = wide
+    ? "mt-6 flex justify-center lg:mt-0"
+    : "mt-6 flex justify-center md:mt-0";
+
   return (
     <Section id="experience">
       <SectionHeading
@@ -136,30 +149,26 @@ export function Experience() {
             <svg
               viewBox="0 0 100 44"
               preserveAspectRatio="none"
-              className="hidden h-11 w-full md:block"
+              className={svgClass}
               aria-hidden="true"
             >
-              <path
-                d="M50 0 C 50 30, 25 14, 25 44"
-                fill="none"
-                stroke="rgb(255 107 53 / 0.5)"
-                strokeWidth="1.5"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d="M50 0 C 50 30, 75 14, 75 44"
-                fill="none"
-                stroke="rgb(255 107 53 / 0.5)"
-                strokeWidth="1.5"
-                vectorEffect="non-scaling-stroke"
-              />
+              {centers.map((c) => (
+                <path
+                  key={c}
+                  d={`M50 0 C 50 30, ${c} 14, ${c} 44`}
+                  fill="none"
+                  stroke="rgb(255 107 53 / 0.5)"
+                  strokeWidth="1.5"
+                  vectorEffect="non-scaling-stroke"
+                />
+              ))}
             </svg>
 
             {/* Branch cards */}
-            <div className="mt-6 grid grid-cols-1 gap-5 md:mt-0 md:grid-cols-2">
+            <div className={gridClass}>
               {current.map((role, idx) => (
                 <motion.div
-                  key={role.company}
+                  key={`${role.company}-${role.period}`}
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
@@ -174,27 +183,23 @@ export function Experience() {
             <svg
               viewBox="0 0 100 44"
               preserveAspectRatio="none"
-              className="hidden h-11 w-full md:block"
+              className={svgClass}
               aria-hidden="true"
             >
-              <path
-                d="M25 0 C 25 30, 50 14, 50 44"
-                fill="none"
-                stroke="rgb(255 107 53 / 0.5)"
-                strokeWidth="1.5"
-                vectorEffect="non-scaling-stroke"
-              />
-              <path
-                d="M75 0 C 75 30, 50 14, 50 44"
-                fill="none"
-                stroke="rgb(255 107 53 / 0.5)"
-                strokeWidth="1.5"
-                vectorEffect="non-scaling-stroke"
-              />
+              {centers.map((c) => (
+                <path
+                  key={c}
+                  d={`M${c} 0 C ${c} 30, 50 14, 50 44`}
+                  fill="none"
+                  stroke="rgb(255 107 53 / 0.5)"
+                  strokeWidth="1.5"
+                  vectorEffect="non-scaling-stroke"
+                />
+              ))}
             </svg>
 
             {/* Merge node */}
-            <div className="mt-6 flex justify-center md:mt-0">
+            <div className={mergeClass}>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.02] px-3 py-1 text-[11px] font-medium text-muted">
                 <GitMerge className="h-3 w-3 text-accent/70" />
                 Merged history
@@ -214,7 +219,7 @@ export function Experience() {
           <div className="space-y-10">
             {past.map((role, idx) => (
               <motion.div
-                key={role.company}
+                key={`${role.company}-${role.period}`}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}

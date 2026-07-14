@@ -21,7 +21,7 @@ const DESCRIPTION =
   "Muhammad Huzaifa Awan — Senior Full Stack Developer specializing in React, Next.js, .NET, Node.js and AI-powered SaaS. 3+ years shipping scalable web apps, enterprise systems, APIs and MCP servers. Available for hire.";
 
 const SOCIALS = [
-  "https://www.linkedin.com/in/mhuzaifaawan",
+  "https://www.linkedin.com/in/muhammadhuzaifaawan",
   "https://github.com/M-Huzaifa-Awan",
   "https://www.upwork.com/freelancers/~01b2cac225f43ef332",
 ];
