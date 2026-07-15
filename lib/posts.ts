@@ -21,6 +21,92 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
+    slug: "connect-claude-to-outlook-calendar-mcp",
+    title: "Connecting Claude to Your Outlook Inbox and Calendar with MCP",
+    description:
+      "How I built Atlas, an MCP server that lets Claude read, draft, and send Outlook email and manage calendars across multiple accounts. Architecture, Microsoft Graph auth, and the safety rules that make an AI you can trust with your inbox.",
+    excerpt:
+      "What it takes to let an AI assistant safely read, draft, and send email and book meetings: the architecture behind Atlas, my Outlook MCP server for Claude.",
+    date: "2026-07-15",
+    readTime: "7 min read",
+    tags: ["AI", "MCP", "Product"],
+    keywords: [
+      "Claude Outlook integration",
+      "connect Claude to email",
+      "MCP server Outlook",
+      "Claude calendar integration",
+      "Microsoft Graph MCP",
+      "AI email assistant",
+      "Model Context Protocol",
+    ],
+    body: [
+      {
+        type: "p",
+        text: "Email and calendar are where knowledge workers actually live, yet most AI assistants can only talk about them in the abstract. I wanted Claude to check my schedule, find a free slot, draft the reply, and book the meeting, all in one conversation. So I built [Atlas](https://atlas-web-rho-hazel.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar directly to Claude through a **Model Context Protocol (MCP)** server. This is how it works and what I learned shipping it.",
+      },
+      { type: "h2", text: "Why MCP instead of a chatbot wrapper" },
+      {
+        type: "p",
+        text: "The obvious approach is a custom chat app that calls an LLM and sprinkles in some API calls. The problem: you inherit all the product work of a chat interface and none of the ecosystem. MCP flips that. You expose **tools** (read_inbox, send_mail, find_free_slots, create_event) from a small server, and Claude decides when to call them inside the conversation the user already has open. I covered the fundamentals in my [Studio OS writeup](/blog/building-an-mcp-server-for-claude); Atlas applies the same protocol to the highest-stakes data most people have: their inbox.",
+      },
+      { type: "h2", text: "The architecture" },
+      {
+        type: "p",
+        text: "Atlas is a remote MCP server that talks to **Microsoft Graph**, the API surface behind Outlook, on the user's behalf. Three layers do the work:",
+      },
+      {
+        type: "ul",
+        items: [
+          "**Tools layer**: typed tools for mail (list, search, read, draft, reply, send) and calendar (list events, check availability, suggest times, create, update, respond to invites).",
+          "**Auth layer**: OAuth 2.0 against Microsoft Entra. Each user grants scoped permissions; Atlas never sees a password, and tokens are stored encrypted and refreshed server-side.",
+          "**Account layer**: multi-tenancy from day one, because real people have a work account and a personal account. Every tool accepts a tenant label so Claude can read both calendars and never cross the streams.",
+        ],
+      },
+      { type: "h2", text: "Multiple accounts is a feature, not an edge case" },
+      {
+        type: "p",
+        text: "The single most requested behavior turned out to be the boring one: **look at both my calendars at once**. Scheduling across a work and a personal account is a genuinely hard human problem and a trivial machine problem, as long as your data model treats accounts as first class. In Atlas, reads default to querying every connected account and labeling the results, while writes always name their target account explicitly. That asymmetry matches how people think: aggregate my view, but never guess where to send from.",
+      },
+      { type: "h2", text: "Designing for trust: the send problem" },
+      {
+        type: "p",
+        text: "Letting an AI read email is a privacy question. Letting it **send** email is a reputation question, and reputation does not get a second chance. Atlas enforces safety at the server, not in the prompt:",
+      },
+      {
+        type: "ul",
+        items: [
+          "Sending requires explicit confirmation of recipients, subject, and body. The server rejects a send the user has not seen.",
+          "A draft-first path creates a real Outlook draft the user can edit and send themselves, which is the default for anything sensitive.",
+          "Every write operation is logged with what was changed, when, and on which account.",
+          "Scopes are minimal: a user who only connects the calendar never grants mail access at all.",
+        ],
+      },
+      {
+        type: "quote",
+        text: "Prompt instructions are suggestions. Server-side rules are guarantees. Anything that can embarrass a user must be a guarantee.",
+      },
+      { type: "h2", text: "What using it actually feels like" },
+      {
+        type: "p",
+        text: "The workflow change is bigger than I expected. Instead of tabbing to Outlook, you stay in the conversation: \"what does my morning look like, reply to Sarah that Thursday works, and book 45 minutes with the design team next week.\" Claude checks both calendars, drafts the reply for approval, finds the slot, and creates the event. Each step is a tool call you can see. It reads less like automation and more like handing your inbox to a careful assistant.",
+      },
+      { type: "h2", text: "Lessons that transfer to any MCP project" },
+      {
+        type: "ul",
+        items: [
+          "Design tool outputs for the model, not for humans. Clean, labeled, predictable structures beat pretty formatting.",
+          "Make destructive and outward-facing actions confirm-by-default at the server.",
+          "Multi-account support is much cheaper to build on day one than to retrofit.",
+          "OAuth device flows and token refresh are most of the real engineering. The AI part is the easy 20%.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Atlas is live with a free trial at [atlas-web-rho-hazel.vercel.app](https://atlas-web-rho-hazel.vercel.app/). And if you want an MCP server built for your own product or internal tools, that is exactly the kind of work I take on: [get in touch](/#contact).",
+      },
+    ],
+  },
+  {
     slug: "building-an-mcp-server-for-claude",
     title: "How I Built an MCP Server Exposing 60+ Tools to Claude",
     description:
