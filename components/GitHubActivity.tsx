@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock } from "lucide-react";
+import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock, Gamepad2 } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
@@ -135,14 +135,26 @@ export function GitHubActivity() {
                   <p className="text-xs text-muted">Contribution activity</p>
                 </div>
               </div>
-              <a
-                href={SITE.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-ink"
-              >
-                Follow <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://gitfut.com/M-Huzaifa-Awan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="My GitHub stats as a FIFA-style player card"
+                  className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent"
+                >
+                  <Gamepad2 className="h-3.5 w-3.5" /> Dev card
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href={SITE.socials.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs text-muted transition-colors hover:text-ink"
+                >
+                  Follow <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
 
             <div className="mt-8">
