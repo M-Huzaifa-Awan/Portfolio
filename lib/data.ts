@@ -54,10 +54,10 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_STATS = [
-  { value: "Many", label: "Years shipping production" },
-  { value: "95%", label: "Redis cache hit rate" },
-  { value: "<50ms", label: "API response under load" },
-  { value: "5.0", label: "Upwork client rating" },
+  { value: "6+", label: "Years experience" },
+  { value: "50+", label: "Enterprise production systems delivered" },
+  { value: "20+", label: "Technologies used" },
+  { value: "100%", label: "Job success" },
 ];
 
 export type Service = {
