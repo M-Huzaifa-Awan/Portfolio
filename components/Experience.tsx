@@ -121,7 +121,7 @@ export function Experience() {
         eyebrow="Experience"
         title={
           <>
-            3+ years shipping with{" "}
+            Years shipping with{" "}
             <span className="text-gradient">US product teams.</span>
           </>
         }

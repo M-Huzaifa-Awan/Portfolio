@@ -41,9 +41,9 @@ export function About() {
         <Reveal className="space-y-5 text-base leading-relaxed text-muted sm:text-lg">
           <p>
             I&apos;m a Senior Full Stack Developer with{" "}
-            <span className="text-ink">3+ years</span> architecting and shipping
-            SaaS platforms, AI-driven applications and payment infrastructure
-            alongside US-based product teams.
+            <span className="text-ink">years of experience</span> architecting
+            and shipping SaaS platforms, AI-driven applications and payment
+            infrastructure alongside US-based product teams.
           </p>
           <p>
             I own complex problems end-to-end, from database design and API

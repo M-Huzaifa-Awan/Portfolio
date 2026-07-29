@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 const SITE_URL = "https://huzaifaawan.com";
 const TITLE = "Muhammad Huzaifa Awan · Senior Full Stack Developer";
 const DESCRIPTION =
-  "Muhammad Huzaifa Awan — Senior Full Stack Developer specializing in React, Next.js, .NET, Node.js and AI-powered SaaS. 3+ years shipping scalable web apps, enterprise systems, APIs and MCP servers. Available for hire.";
+  "Muhammad Huzaifa Awan — Senior Full Stack Developer specializing in React, Next.js, .NET, Node.js and AI-powered SaaS. Years of experience shipping scalable web apps, enterprise systems, APIs and MCP servers. Available for hire.";
 
 const SOCIALS = [
   "https://www.linkedin.com/in/muhammadhuzaifaawan",

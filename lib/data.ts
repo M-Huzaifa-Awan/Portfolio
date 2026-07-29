@@ -54,7 +54,7 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_STATS = [
-  { value: "3+", label: "Years shipping production" },
+  { value: "Many", label: "Years shipping production" },
   { value: "95%", label: "Redis cache hit rate" },
   { value: "<50ms", label: "API response under load" },
   { value: "5.0", label: "Upwork client rating" },
@@ -487,7 +487,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "Who is Muhammad Huzaifa Awan?",
-    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with 3+ years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
+    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
   },
   {
     q: "What services does Huzaifa Awan offer?",
