@@ -384,17 +384,18 @@ export const EXPERIENCE: Role[] = [
     stack: ["ASP.NET Core", "React", ".NET 8", "SQL Server", "Redis", "WebSockets", "Azure DevOps"],
   },
   {
-    company: "Upwork",
-    role: "Full Stack Engineer",
-    product: "Freelance · SaaS & AI Products",
-    period: "May 2024 - Present",
-    location: "US clients · Remote",
+    company: "Independent Consultant",
+    role: "Senior Full Stack Developer (Freelance & Consulting)",
+    product: "Direct Clients & Upwork",
+    period: "Feb 2020 - Present",
+    location: "Remote",
     current: true,
     url: "https://www.upwork.com/freelancers/~01b2cac225f43ef332",
     highlights: [
-      "Build production SaaS with ASP.NET Core, React, TypeScript, PostgreSQL, and AI integrations for B2B software, dashboards, and CRMs.",
-      "Rebuilt a multi-tenant salon SaaS, cutting page loads from 3s to under 500ms, holding a 95% Redis hit rate, and shipping five features while resolving 200+ tickets.",
-      "Built Studio OS, a solo-engineered MCP server exposing 60+ tools across ClickUp, Outlook, Apple Health, and Oura on Fly.io with Neon Postgres.",
+      "Deliver production SaaS, CRM, dashboard, and AI-enabled applications for international B2B clients using ASP.NET Core, React, TypeScript, and PostgreSQL.",
+      "Rebuilt a multi-tenant salon SaaS, cutting page loads from 3s to under 500ms while shipping five major features and resolving 200+ tickets.",
+      "Engineered Studio OS independently, a production MCP server exposing 60+ tools across ClickUp, Outlook, Apple Health, and Oura on Fly.io with Neon Postgres.",
+      "Completed 2,000+ billed hours across international engagements, including long-term client relationships that continued through direct contracts.",
     ],
     stack: ["ASP.NET Core", "React", "TypeScript", "PostgreSQL", "Redis", "Stripe", "FastAPI", "Python"],
   },
@@ -487,7 +488,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "Who is Muhammad Huzaifa Awan?",
-    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
+    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, freelances and consults directly with clients and on Upwork, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
   },
   {
     q: "What services does Huzaifa Awan offer?",
