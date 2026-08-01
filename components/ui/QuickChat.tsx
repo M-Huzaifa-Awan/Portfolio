@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MessageCircle, X, PhoneCall, Ghost, Mail, ArrowUpRight } from "lucide-react";
 import { LogoMark } from "./LogoMark";
 import { SITE } from "@/lib/data";
+
+const TEASER_KEY = "qc-teaser-seen";
+const TEASER_SHOW_DELAY = 2600;
+const TEASER_AUTO_HIDE = 8000;
 
 const ACTIONS = [
   {
@@ -30,6 +34,22 @@ const ACTIONS = [
 /** Floating chat-style launcher, bottom-right, with quick contact actions. */
 export function QuickChat() {
   const [open, setOpen] = useState(false);
+  const [teaser, setTeaser] = useState(false);
+  const reducedMotion = useReducedMotion();
+
+  const dismissTeaser = () => {
+    setTeaser(false);
+    try {
+      sessionStorage.setItem(TEASER_KEY, "1");
+    } catch {
+      // sessionStorage unavailable (private mode etc.) - harmless to skip
+    }
+  };
+
+  const openPanel = () => {
+    dismissTeaser();
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -37,6 +57,27 @@ export function QuickChat() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+
+  // Show a one-time "come say hi" teaser a couple seconds after arrival,
+  // once per session, and auto-hide it if nobody engages.
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(TEASER_KEY) === "1";
+    } catch {
+      // ignore
+    }
+    if (seen) return;
+    const showTimer = setTimeout(() => setTeaser(true), TEASER_SHOW_DELAY);
+    return () => clearTimeout(showTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!teaser) return;
+    const hideTimer = setTimeout(dismissTeaser, TEASER_AUTO_HIDE);
+    return () => clearTimeout(hideTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [teaser]);
 
   return (
     <div className="fixed bottom-5 right-5 z-40 sm:bottom-6 sm:right-6">
@@ -93,27 +134,63 @@ export function QuickChat() {
         )}
       </AnimatePresence>
 
-      <motion.button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close quick contact" : "Open quick contact"}
-        aria-expanded={open}
-        whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.94 }}
-        className="grid h-14 w-14 place-items-center rounded-full bg-accent text-black shadow-glow transition-colors hover:bg-accent-hover"
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={open ? "close" : "open"}
-            initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
-            animate={{ opacity: 1, rotate: 0, scale: 1 }}
-            exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
-            transition={{ duration: 0.15 }}
+      {/* Teaser: "come say hi" bubble, shown once per session */}
+      <AnimatePresence>
+        {teaser && !open && (
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 12, scale: 0.9 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0, x: 8, scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 340, damping: 24 }}
+            className="card-surface absolute bottom-2 right-[4.5rem] flex max-w-[220px] items-center gap-2 whitespace-nowrap rounded-2xl py-2.5 pl-4 pr-2.5 shadow-card sm:right-[4.75rem]"
           >
-            {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-          </motion.span>
-        </AnimatePresence>
-      </motion.button>
+            <button
+              type="button"
+              onClick={openPanel}
+              className="text-left text-sm font-medium text-ink"
+            >
+              Wanna say hi? 👋
+            </button>
+            <button
+              type="button"
+              onClick={dismissTeaser}
+              aria-label="Dismiss"
+              className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-white/[0.06] hover:text-ink"
+            >
+              <X className="h-3 w-3" />
+            </button>
+            {/* Tail pointing at the launcher button */}
+            <span className="absolute -right-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-r border-b border-line bg-[#111111]" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="relative">
+        {teaser && !open && (
+          <span className="absolute inset-0 animate-ping rounded-full bg-accent/50" />
+        )}
+        <motion.button
+          type="button"
+          onClick={() => (open ? setOpen(false) : openPanel())}
+          aria-label={open ? "Close quick contact" : "Open quick contact"}
+          aria-expanded={open}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.94 }}
+          className="relative grid h-14 w-14 place-items-center rounded-full bg-accent text-black shadow-glow transition-colors hover:bg-accent-hover"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={open ? "close" : "open"}
+              initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
+              transition={{ duration: 0.15 }}
+            >
+              {open ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
+            </motion.span>
+          </AnimatePresence>
+        </motion.button>
+      </div>
     </div>
   );
 }
