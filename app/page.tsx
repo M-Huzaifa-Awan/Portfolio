@@ -14,6 +14,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { GitHubActivity } from "@/components/GitHubActivity";
 import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
+import { Feedback } from "@/components/Feedback";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
@@ -103,6 +104,7 @@ export default function Home() {
         <Writing />
         <Faq />
         <Contact />
+        <Feedback />
       </main>
       <Footer />
     </>

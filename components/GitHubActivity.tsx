@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock, Gamepad2 } from "lucide-react";
+import { GitFork, Github, Star, ArrowUpRight, BookMarked, Lock } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
@@ -186,36 +185,6 @@ export function GitHubActivity() {
               Most client work lives in private repos under NDA, so only a slice
               is public.
             </p>
-
-            {/* GitFut scout card */}
-            <a
-              href="https://gitfut.com/M-Huzaifa-Awan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group mt-6 flex items-center gap-5 rounded-2xl border border-line bg-white/[0.02] p-4 transition-colors hover:border-accent/30"
-            >
-              <Image
-                src="/gitfut-card.png"
-                alt="Huzaifa Awan's GitFut developer card: CAM, Fantasista, Polyglot"
-                width={355}
-                height={577}
-                className="w-16 shrink-0 rounded-lg transition-transform duration-300 group-hover:-rotate-2 group-hover:scale-105 sm:w-20"
-              />
-              <div className="min-w-0">
-                <p className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wider text-accent">
-                  <Gamepad2 className="h-3 w-3" /> GitHub × World Cup 26
-                </p>
-                <p className="mt-1 font-heading text-sm font-semibold text-ink">
-                  Scouted: Fantasista · Polyglot
-                </p>
-                <p className="mt-1 text-xs leading-relaxed text-muted">
-                  &ldquo;The magician: a polyglot working across many
-                  stacks.&rdquo; Rated from public commits only. See the live
-                  card.
-                </p>
-              </div>
-              <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
-            </a>
           </div>
         </Reveal>
 
