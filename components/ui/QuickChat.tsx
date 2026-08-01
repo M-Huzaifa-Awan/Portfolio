@@ -81,7 +81,7 @@ export function QuickChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="card-surface absolute bottom-16 right-0 w-[calc(100vw-2.5rem)] max-w-[320px] overflow-hidden rounded-3xl shadow-card sm:bottom-[4.5rem]"
+            className="absolute bottom-16 right-0 w-[calc(100vw-2.5rem)] max-w-[320px] overflow-hidden rounded-3xl border border-line bg-[#0d0d0d]/95 shadow-card backdrop-blur-xl sm:bottom-[4.5rem]"
           >
             <div className="flex items-center gap-3 border-b border-line p-4">
               <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-accent/12 ring-1 ring-accent/25">

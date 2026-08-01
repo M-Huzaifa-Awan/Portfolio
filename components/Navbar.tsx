@@ -118,7 +118,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="glass absolute inset-x-4 top-[76px] rounded-2xl p-2 shadow-card md:hidden"
+            className="absolute inset-x-4 top-[76px] rounded-2xl border border-line bg-[#0d0d0d]/95 p-2 shadow-card backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col">
               {NAV_LINKS.map((link) => (
