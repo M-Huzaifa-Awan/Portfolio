@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { MessageCircle, X, PhoneCall, Ghost, Mail, ArrowUpRight } from "lucide-react";
+import { MessageCircle, X, MessageSquareText, Ghost, ArrowUpRight } from "lucide-react";
 import { LogoMark } from "./LogoMark";
-import { SITE } from "@/lib/data";
 
 const TEASER_KEY = "qc-teaser-seen";
 const TEASER_SHOW_DELAY = 2600;
@@ -12,8 +11,8 @@ const TEASER_AUTO_HIDE = 8000;
 
 const ACTIONS = [
   {
-    icon: PhoneCall,
-    label: "Book a call",
+    icon: MessageSquareText,
+    label: "Leave a message",
     hint: "Jump to the contact form",
     href: "#contact",
   },
@@ -22,12 +21,6 @@ const ACTIONS = [
     label: "Leave anonymous feedback",
     hint: "No name or email needed",
     href: "#feedback",
-  },
-  {
-    icon: Mail,
-    label: "Email directly",
-    hint: SITE.email,
-    href: SITE.socials.email,
   },
 ];
 
