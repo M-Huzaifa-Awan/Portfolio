@@ -205,7 +205,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.1, duration: 0.6 }}
-        className="absolute bottom-10 right-6 z-10 hidden lg:block"
+        className="absolute bottom-28 right-6 z-10 hidden lg:block"
       >
         <a
           href="#certifications"

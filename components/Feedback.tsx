@@ -62,7 +62,7 @@ export function Feedback() {
   };
 
   return (
-    <div className="container-x pb-20 sm:pb-24">
+    <div id="feedback" className="container-x scroll-mt-24 pb-20 sm:pb-24">
       <Reveal>
         <div className="glass mx-auto max-w-2xl rounded-3xl p-6 sm:p-8">
           <div className="flex items-center gap-3">

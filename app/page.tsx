@@ -18,6 +18,7 @@ import { Feedback } from "@/components/Feedback";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
+import { QuickChat } from "@/components/ui/QuickChat";
 import { FAQS } from "@/lib/data";
 
 const SITE_URL = "https://huzaifaawan.com";
@@ -107,6 +108,7 @@ export default function Home() {
         <Feedback />
       </main>
       <Footer />
+      <QuickChat />
     </>
   );
 }
