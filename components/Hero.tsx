@@ -170,9 +170,9 @@ export function Hero() {
             {HERO_STATS.map((s) => (
               <div key={s.label} className="border-l border-line pl-3 sm:pl-4">
                 <dt className="font-heading text-xl font-bold text-ink sm:text-2xl">
-                  {/* Delay outlasts the intro loader + curtain wipe so the
-                      count plays in full view */}
-                  <CountUp value={s.value} delay={3.9} duration={2} />
+                  {/* Delay outlasts the intro loader (up to 4.2s for long
+                      quotes) + dissolve so the count plays in full view */}
+                  <CountUp value={s.value} delay={4.4} duration={2} />
                 </dt>
                 <dd className="mt-0.5 text-[11px] leading-snug text-muted sm:mt-1 sm:text-xs">
                   {s.label}

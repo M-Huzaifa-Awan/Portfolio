@@ -5,8 +5,22 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const HEX = "M100 26 L164 63 L164 137 L100 174 L36 137 L36 63 Z";
 
-// Fixed intro length — never tied to data/asset loading.
-const DURATION = 3400;
+// Base intro length — never tied to data/asset loading. Longer quotes extend
+// the hold (capped) so they can be read in full before the dissolve.
+const BASE_DURATION = 3400;
+const MAX_DURATION = 4200;
+
+// Word-reveal timing: quotes appear early and quickly so most of the intro
+// is reading time, not reveal time.
+const WORD_DELAY = 0.4;
+const WORD_STAGGER = 0.04;
+
+function durationFor(wordCount: number) {
+  return Math.min(
+    MAX_DURATION,
+    BASE_DURATION + Math.max(0, wordCount - 8) * 150,
+  );
+}
 
 const QUOTES: { t: string; a: string }[] = [
   { t: "The unexamined life is not worth living.", a: "Socrates" },
@@ -23,6 +37,24 @@ const QUOTES: { t: string; a: string }[] = [
   { t: "Life can only be understood backwards; but it must be lived forwards.", a: "Søren Kierkegaard" },
   { t: "No man ever steps in the same river twice.", a: "Heraclitus" },
   { t: "Waste no more time arguing what a good man should be. Be one.", a: "Marcus Aurelius" },
+  { t: "No man is free who is not master of himself.", a: "Epictetus" },
+  { t: "It's not what happens to you, but how you react that matters.", a: "Epictetus" },
+  { t: "Wherever you go, go with all your heart.", a: "Confucius" },
+  { t: "Wonder is the beginning of wisdom.", a: "Socrates" },
+  { t: "The only true wisdom is in knowing you know nothing.", a: "Socrates" },
+  { t: "Nature does not hurry, yet everything is accomplished.", a: "Lao Tzu" },
+  { t: "The soul becomes dyed with the color of its thoughts.", a: "Marcus Aurelius" },
+  { t: "Begin at once to live, and count each separate day as a separate life.", a: "Seneca" },
+  { t: "Luck is what happens when preparation meets opportunity.", a: "Seneca" },
+  { t: "He who is brave is free.", a: "Seneca" },
+  { t: "What you seek is seeking you.", a: "Rumi" },
+  { t: "The wound is the place where the light enters you.", a: "Rumi" },
+  { t: "Muddy water is best cleared by leaving it alone.", a: "Alan Watts" },
+  { t: "In the middle of difficulty lies opportunity.", a: "Albert Einstein" },
+  { t: "I think, therefore I am.", a: "René Descartes" },
+  { t: "The beginning is the most important part of the work.", a: "Plato" },
+  { t: "Courage is knowing what not to fear.", a: "Plato" },
+  { t: "Well begun is half done.", a: "Aristotle" },
 ];
 
 export function Loader() {
@@ -31,12 +63,16 @@ export function Loader() {
 
   useEffect(() => {
     // Pick a random quote on the client (avoids SSR hydration mismatch).
-    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+    const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    setQuote(q);
 
     // Always play the full intro on every load.
     document.documentElement.style.overflow = "hidden";
 
-    const timer = setTimeout(() => setDone(true), DURATION);
+    const timer = setTimeout(
+      () => setDone(true),
+      durationFor(q.t.split(" ").length),
+    );
     return () => clearTimeout(timer);
   }, []);
 
@@ -45,7 +81,8 @@ export function Loader() {
   }, [done]);
 
   const words = quote ? quote.t.split(" ") : [];
-  const authorDelay = 0.85 + words.length * 0.055 + 0.2;
+  const duration = durationFor(words.length);
+  const authorDelay = WORD_DELAY + words.length * WORD_STAGGER + 0.3;
 
   return (
     <AnimatePresence>
@@ -74,32 +111,12 @@ export function Loader() {
               className="relative"
               animate={{ scale: [1, 1, 1.05, 1] }}
               transition={{
-                duration: DURATION / 1000,
+                duration: duration / 1000,
                 times: [0, 0.8, 0.89, 1],
                 ease: "easeInOut",
               }}
             >
               <svg width="132" height="132" viewBox="0 0 200 200" fill="none" className="relative">
-                {/* Faint ring track */}
-                <circle cx="100" cy="100" r="94" stroke="rgba(255,107,53,0.10)" strokeWidth="3" />
-                {/* Spinner ring — a rotated dashed circle. Rotating a circle is a
-                    pure transform (GPU-composited), so it never hitches. */}
-                <circle
-                  cx="100"
-                  cy="100"
-                  r="94"
-                  stroke="url(#ldr-grad)"
-                  strokeWidth="3.5"
-                  strokeLinecap="round"
-                  pathLength={1}
-                  style={{
-                    strokeDasharray: "0.26 0.74",
-                    transformBox: "fill-box",
-                    transformOrigin: "center",
-                    animation: "ldr-spin 1.4s linear infinite",
-                  }}
-                />
-
                 {/* Hexagon (draws in once) */}
                 <path
                   d={HEX}
@@ -146,7 +163,7 @@ export function Loader() {
                         className="inline-block text-accent/80"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 0.4 }}
+                        transition={{ delay: 0.3, duration: 0.3 }}
                       >
                         &ldquo;
                       </motion.span>
@@ -157,8 +174,8 @@ export function Loader() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{
-                            delay: 0.85 + i * 0.055,
-                            duration: 0.5,
+                            delay: WORD_DELAY + i * WORD_STAGGER,
+                            duration: 0.4,
                             ease: "easeOut",
                           }}
                         >
@@ -194,7 +211,7 @@ export function Loader() {
                   style={{
                     background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
                     transform: "scaleX(0)",
-                    animation: `ldr-progress ${DURATION}ms cubic-bezier(0.33,1,0.68,1) forwards`,
+                    animation: `ldr-progress ${duration}ms cubic-bezier(0.33,1,0.68,1) forwards`,
                   }}
                 />
               </span>
@@ -205,7 +222,6 @@ export function Loader() {
             </div>
 
             <style>{`
-              @keyframes ldr-spin { to { transform: rotate(360deg); } }
               @keyframes ldr-draw { to { stroke-dashoffset: 0; } }
               @keyframes ldr-progress { to { transform: scaleX(1); } }
               @keyframes ldr-bloom {
