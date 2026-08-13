@@ -168,6 +168,7 @@ function SlitGallery({ projects }: { projects: Project[] }) {
                     alt={`${p.title} screenshot`}
                     fill
                     sizes="(min-width: 1024px) 700px, 1px"
+                    loading="eager"
                     className={cn(
                       "object-cover object-top transition-all duration-500",
                       isActive
@@ -190,6 +191,7 @@ function SlitGallery({ projects }: { projects: Project[] }) {
                         aria-hidden
                         fill
                         sizes="(min-width: 1024px) 620px, 1px"
+                        loading="eager"
                         className="rounded-xl object-contain object-top drop-shadow-[0_20px_40px_rgba(0,0,0,0.55)]"
                       />
                     </div>
@@ -276,8 +278,9 @@ function ProjectSlider({
   return (
     <div className="lg:hidden">
       <SnapCarousel
+        coverflow
         trackClassName="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none sm:-mx-8 sm:scroll-px-8 sm:px-8"
-        slideClassName="w-[75vw] max-w-[320px] shrink-0 snap-center md:w-[40vw]"
+        slideClassName="w-full shrink-0 snap-center md:w-[55vw]"
         slides={projects.map((p) => {
           const portrait = p.orientation === "portrait";
           return {
@@ -296,8 +299,11 @@ function ProjectSlider({
                         src={p.image}
                         alt={`${p.title} screenshot`}
                         fill
-                        sizes="(max-width: 768px) 75vw, 40vw"
+                        sizes="(max-width: 768px) 92vw, 55vw"
                         quality={90}
+                        // Fetch during the intro loader so cards are ready
+                        // the moment the page is revealed.
+                        loading="eager"
                         className={
                           portrait
                             ? "object-contain p-2"

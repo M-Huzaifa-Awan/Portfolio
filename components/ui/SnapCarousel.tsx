@@ -23,8 +23,10 @@ type SnapCarouselProps = {
   coverflow?: boolean;
 };
 
-const COVERFLOW_ANGLE = 16; // deg
-const COVERFLOW_SCALE = 0.06;
+// The centered/settled slide sits at exactly 0° (fully sharp); the rotation
+// only shows while slides are in motion, like turning a page.
+const COVERFLOW_ANGLE = 32; // deg
+const COVERFLOW_SCALE = 0.1;
 
 /**
  * Horizontal snap gallery with slider affordances — arrows and pagination

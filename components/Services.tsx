@@ -20,8 +20,35 @@ const SLIDE_MS = 6500;
  * then the answer fades in underneath. The progress bar drives the rotation
  * (its animationend advances the slide), so pausing the bar pauses the show.
  */
+/* 3D slide turn: the outgoing panel swings away and the incoming one swings
+   in around the Y axis, direction-aware. */
+const slideVariants = {
+  enter: (dir: number) => ({
+    opacity: 0,
+    x: dir * 90,
+    rotateY: dir * 35,
+    scale: 0.96,
+    transformPerspective: 1200,
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+    rotateY: 0,
+    scale: 1,
+    transformPerspective: 1200,
+  },
+  exit: (dir: number) => ({
+    opacity: 0,
+    x: dir * -90,
+    rotateY: dir * -35,
+    scale: 0.96,
+    transformPerspective: 1200,
+  }),
+};
+
 export function Services() {
   const [index, setIndex] = useState(0);
+  const [dir, setDir] = useState(1);
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -43,8 +70,12 @@ export function Services() {
     });
   }, [index]);
 
-  const go = (i: number) =>
-    setIndex(((i % SERVICES.length) + SERVICES.length) % SERVICES.length);
+  const go = (i: number) => {
+    const n = SERVICES.length;
+    const next = ((i % n) + n) % n;
+    setDir(((next - index + n) % n) <= n / 2 ? 1 : -1);
+    setIndex(next);
+  };
 
   // Only pause on devices that actually hover — on touch, mouseenter fires
   // on tap and would freeze the rotation.
@@ -110,13 +141,16 @@ export function Services() {
         {/* min-h covers the tallest slide per breakpoint so the card keeps a
             stable height and the page below doesn't jump between slides */}
         <div className="relative min-h-[31rem] p-6 sm:min-h-[24rem] sm:p-10 lg:min-h-[23rem] lg:p-14">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={dir}>
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              custom={dir}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.45, ease: [0.32, 0.72, 0, 1] }}
+              style={{ transformOrigin: "center" }}
             >
               <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.18em] text-accent">
                 <service.icon className="h-4 w-4" />

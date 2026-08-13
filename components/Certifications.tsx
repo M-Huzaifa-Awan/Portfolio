@@ -59,8 +59,9 @@ export function Certifications() {
       {/* Phone: compact card slider — tap a card to open the viewer. */}
       <div className="sm:hidden">
         <SnapCarousel
+          coverflow
           trackClassName="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none"
-          slideClassName="w-[70vw] max-w-[300px] shrink-0 snap-center"
+          slideClassName="w-full shrink-0 snap-center"
           slides={CERTS.map((c, i) => ({
             key: c.name,
             content: (
@@ -76,8 +77,9 @@ export function Certifications() {
                       src={c.image}
                       alt={`${c.name} — ${c.issuer}`}
                       fill
-                      sizes="70vw"
+                      sizes="92vw"
                       quality={90}
+                      loading="eager"
                       className="object-cover object-top"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
@@ -124,6 +126,7 @@ export function Certifications() {
                   alt={`${c.name} — ${c.issuer}`}
                   fill
                   sizes="(max-width: 640px) 100vw, 380px"
+                  loading="eager"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
