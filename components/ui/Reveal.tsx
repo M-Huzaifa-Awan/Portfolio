@@ -24,6 +24,10 @@ const mobileVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
+    // Server markup renders the desktop hidden state (y: 28) before the
+    // mobile variants take over, so y must be animated back to 0 here or
+    // content sits 28px low and clips inside overflow-hidden cards.
+    y: 0,
     transition: { duration: 0.35, ease: "easeOut" },
   },
 };
