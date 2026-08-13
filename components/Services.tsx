@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -20,6 +25,10 @@ export function Services() {
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const tabsRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  // The show only runs while the billboard is on screen — otherwise it has
+  // already advanced by the time the visitor scrolls down to it.
+  const inView = useInView(stageRef, { amount: 0.35 });
   const service = SERVICES[index];
 
   // Keep the active tab visible as the show auto-advances — on phones the
@@ -56,6 +65,7 @@ export function Services() {
       />
 
       <div
+        ref={stageRef}
         className="glass relative mt-12 overflow-hidden rounded-[2rem]"
         onMouseEnter={() => setHoverPaused(true)}
         onMouseLeave={() => setHoverPaused(false)}
@@ -177,7 +187,7 @@ export function Services() {
               style={{
                 transform: "scaleX(0)",
                 animation: `svc-progress ${SLIDE_MS}ms linear forwards`,
-                animationPlayState: paused ? "paused" : "running",
+                animationPlayState: paused || !inView ? "paused" : "running",
               }}
             />
           </span>
