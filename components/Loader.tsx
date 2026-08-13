@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const HEX = "M100 26 L164 63 L164 137 L100 174 L36 137 L36 63 Z";
 
@@ -60,6 +61,7 @@ const QUOTES: { t: string; a: string }[] = [
 export function Loader() {
   const [done, setDone] = useState(false);
   const [quote, setQuote] = useState<{ t: string; a: string } | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Pick a random quote on the client (avoids SSR hydration mismatch).
@@ -82,7 +84,9 @@ export function Loader() {
 
   const words = quote ? quote.t.split(" ") : [];
   const duration = durationFor(words.length);
-  const authorDelay = WORD_DELAY + words.length * WORD_STAGGER + 0.3;
+  const authorDelay = isMobile
+    ? 0.55
+    : WORD_DELAY + words.length * WORD_STAGGER + 0.3;
 
   return (
     <AnimatePresence>
@@ -93,7 +97,9 @@ export function Loader() {
           <motion.div
             key="loader"
             className="fixed inset-0 z-[101] flex flex-col items-center justify-center bg-bg px-6"
-            exit={{ opacity: 0, scale: 1.12 }}
+            // Scaling a full-screen layer is expensive to composite on
+            // phones — mobile gets a plain fade.
+            exit={isMobile ? { opacity: 0 } : { opacity: 0, scale: 1.12 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
             {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
@@ -157,7 +163,22 @@ export function Loader() {
             <div className="relative mt-11 flex w-full max-w-sm flex-col items-center gap-5 text-center">
               <div className="flex min-h-[4.5rem] flex-col items-center justify-center gap-2">
                 <p className="text-balance text-sm font-medium leading-relaxed text-ink/90 sm:text-base">
-                  {quote && (
+                  {/* Mobile: one cheap fade for the whole quote — dozens of
+                      per-word animations stutter on phones while the page is
+                      still hydrating. Desktop keeps the word-by-word reveal. */}
+                  {quote && isMobile && (
+                    <motion.span
+                      className="inline-block"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.15, duration: 0.45, ease: "easeOut" }}
+                    >
+                      <span className="text-accent/80">&ldquo;</span>
+                      {quote.t}
+                      <span className="text-accent/80">&rdquo;</span>
+                    </motion.span>
+                  )}
+                  {quote && !isMobile && (
                     <>
                       <motion.span
                         className="inline-block text-accent/80"
@@ -204,14 +225,20 @@ export function Loader() {
                 </motion.span>
               </div>
 
-              {/* GPU-composited progress (transform, not width — no layout jank) */}
+              {/* GPU-composited progress (transform, not width — no layout
+                  jank). The animation starts only once the quote is picked
+                  (post-hydration) so the bar and quote stay in sync — on slow
+                  phones the bar used to run during hydration and the quote
+                  then popped in at the last moment. */}
               <span className="relative h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
                 <span
                   className="absolute inset-0 origin-left rounded-full"
                   style={{
                     background: "linear-gradient(90deg,#ff6b35,#ff8a4c)",
                     transform: "scaleX(0)",
-                    animation: `ldr-progress ${duration}ms cubic-bezier(0.33,1,0.68,1) forwards`,
+                    animation: quote
+                      ? `ldr-progress ${duration}ms cubic-bezier(0.33,1,0.68,1) forwards`
+                      : "none",
                   }}
                 />
               </span>

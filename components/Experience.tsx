@@ -12,6 +12,7 @@ import {
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { EXPERIENCE, type Role } from "@/lib/data";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 function RoleCard({ role, branch }: { role: Role; branch?: boolean }) {
   return (
@@ -101,6 +102,12 @@ export function Experience() {
   }
   const past = EXPERIENCE.slice(i);
   const hasBranches = current.length > 1;
+  const isMobile = useIsMobile();
+
+  // Mobile skips the git branch/merge visualization entirely — current roles
+  // join the plain timeline like every other entry. (The branch block is
+  // also CSS-hidden below md so the SSR markup never flashes on phones.)
+  const timelineRoles = isMobile ? [...current, ...past] : past;
 
   // Fork/merge geometry adapts to how many roles run in parallel. With 3+
   // branches the columns only fit side by side from lg up, so the connector
@@ -129,7 +136,7 @@ export function Experience() {
 
       <div className="mt-14">
         {hasBranches && (
-          <div className="relative">
+          <div className="relative hidden md:block">
             {/* HEAD · Present */}
             <div className="flex justify-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1.5 text-xs font-medium text-accent">
@@ -208,8 +215,9 @@ export function Experience() {
           </div>
         )}
 
-        {/* Trunk: earlier sequential roles */}
-        <div ref={ref} className="relative mt-8 pl-6 sm:pl-8">
+        {/* Trunk: the timeline. Desktop shows past roles below the branch
+            art; mobile shows every role here, current ones first. */}
+        <div ref={ref} className="relative mt-0 pl-6 sm:pl-8 md:mt-8">
           <div className="absolute left-[9px] top-2 h-full w-px bg-line sm:left-[13px]" />
           <motion.div
             style={{ scaleY: lineScale }}
@@ -217,10 +225,10 @@ export function Experience() {
           />
 
           <div className="space-y-10">
-            {past.map((role, idx) => (
+            {timelineRoles.map((role, idx) => (
               <motion.div
                 key={`${role.company}-${role.period}`}
-                initial={{ opacity: 0, x: 20 }}
+                initial={isMobile ? false : { opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}

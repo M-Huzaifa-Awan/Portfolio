@@ -170,6 +170,15 @@
     text-wrap: balance;
   }
 
+  /* Hide the scrollbar on horizontal snap galleries (mobile carousels) */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
   .perspective {
     perspective: 1000px;
   }

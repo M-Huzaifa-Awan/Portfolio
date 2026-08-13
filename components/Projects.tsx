@@ -16,6 +16,14 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { SpotlightCard } from "./ui/SpotlightCard";
 import { PROJECTS, type Project } from "@/lib/data";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/lib/useIsMobile";
+
+/* Below lg the grid becomes a horizontal snap gallery: full-bleed scroller,
+   one card per swipe with the next card peeking in from the edge. */
+const trackClass =
+  "mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 -mx-6 px-6 pb-4 scrollbar-none sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:scroll-px-0 lg:px-0 lg:pb-0";
+const slideClass =
+  "w-[86vw] max-w-[420px] shrink-0 snap-center md:w-[45vw] lg:w-auto lg:max-w-none lg:shrink";
 
 function ProjectLinks({ project }: { project: Project }) {
   if (!project.liveUrl && !project.githubUrl && !project.pdf) return null;
@@ -229,6 +237,7 @@ function StandardCard({ project }: { project: Project }) {
 export function Projects() {
   const featured = PROJECTS.filter((p) => p.featured);
   const rest = PROJECTS.filter((p) => !p.featured);
+  const isMobile = useIsMobile();
 
   return (
     <Section id="projects">
@@ -254,12 +263,12 @@ export function Projects() {
         </a>
       </div>
 
-      <div className="mt-14 grid gap-5 lg:grid-cols-3">
+      <div className={trackClass}>
         {featured.map((p, i) => (
           <motion.div
             key={p.id}
-            className="lg:col-span-3"
-            initial={{ opacity: 0, y: 30 }}
+            className={cn(slideClass, "lg:col-span-3")}
+            initial={isMobile ? false : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, delay: i * 0.05 }}
@@ -271,8 +280,8 @@ export function Projects() {
         {rest.map((p, i) => (
           <motion.div
             key={p.id}
-            className="h-full"
-            initial={{ opacity: 0, y: 30 }}
+            className={cn(slideClass, "h-full")}
+            initial={isMobile ? false : { opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
@@ -281,6 +290,9 @@ export function Projects() {
           </motion.div>
         ))}
       </div>
+      <p className="mt-2 text-xs text-muted/70 lg:hidden">
+        Swipe to browse all {PROJECTS.length} projects
+      </p>
     </Section>
   );
 }

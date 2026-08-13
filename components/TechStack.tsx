@@ -47,9 +47,15 @@ export function TechStack() {
         <Marquee reverse />
       </div>
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Below sm the four group cards become a horizontal snap gallery so
+          the section doesn't stack into a long scroll on phones. */}
+      <div className="mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 -mx-6 px-6 pb-4 scrollbar-none sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:scroll-px-0 sm:px-0 sm:pb-0 lg:grid-cols-4">
         {TECH_GROUPS.map((group, gi) => (
-          <Reveal key={group.heading} delayIndex={gi}>
+          <Reveal
+            key={group.heading}
+            delayIndex={gi}
+            className="w-[78vw] max-w-[340px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
+          >
             <div className="glass h-full rounded-3xl p-6">
               <h3 className="font-heading text-sm font-semibold uppercase tracking-wider text-accent">
                 {group.heading}
