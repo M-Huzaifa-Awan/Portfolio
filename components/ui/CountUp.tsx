@@ -10,6 +10,13 @@ type CountUpProps = {
   delay?: number;
   duration?: number;
   className?: string;
+  /**
+   * Drives the count instead of scroll visibility. Required inside clipped
+   * containers (e.g. a mask reveal): an ancestor's `overflow: hidden` clips
+   * the intersection rect, so the observer reports the element as off-screen
+   * and `delay` would only start once the mask opened.
+   */
+  start?: boolean;
 };
 
 /**
@@ -23,10 +30,12 @@ export function CountUp({
   delay = 0,
   duration = 0.9,
   className,
+  start,
 }: CountUpProps) {
   const match = value.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const scrolledIntoView = useInView(ref, { once: true, margin: "-40px" });
+  const inView = start ?? scrolledIntoView;
   const [text, setText] = useState(() => {
     if (!match) return value;
     const decimals = match[2].split(".")[1]?.length ?? 0;
