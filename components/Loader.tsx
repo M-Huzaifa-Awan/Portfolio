@@ -79,7 +79,11 @@ export function Loader() {
   }, []);
 
   useEffect(() => {
-    if (done) document.documentElement.style.overflow = "";
+    if (done) {
+      document.documentElement.style.overflow = "";
+      // Signal the Hero to start its greeting sequence.
+      window.dispatchEvent(new Event("intro:done"));
+    }
   }, [done]);
 
   const words = quote ? quote.t.split(" ") : [];

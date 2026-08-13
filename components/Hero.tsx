@@ -1,17 +1,39 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { ArrowUpRight, Download, Sparkles, Star } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
 import { CountUp } from "./ui/CountUp";
 import { HERO_STATS, SITE } from "@/lib/data";
+import { cn } from "@/lib/utils";
+
+/**
+ * Greeting phases after the intro loader, Windows-OOBE style:
+ * 0 — waiting for the loader to finish (everything hidden)
+ * 1 — a big centered "Hi."
+ * 2 — "I'm <name>" + title, centered and held on their own
+ * 3 — the name lifts up and the stats enter one at a time, each counting
+ *     from zero to its value
+ * 4 — settled: everything morphs (FLIP) into its hero position at once
+ *     and the rest of the hero staggers in around them
+ */
+type Phase = 0 | 1 | 2 | 3 | 4;
+
+const STAT_STAGGER = 0.5;
 
 const container = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.45 },
   },
 };
 
@@ -24,7 +46,49 @@ const item = {
   },
 };
 
+const morphTransition = {
+  layout: { duration: 0.85, ease: [0.32, 0.72, 0, 1] },
+};
+
 export function Hero() {
+  const [phase, setPhase] = useState<Phase>(0);
+  const phaseRef = useRef<Phase>(0);
+  phaseRef.current = phase;
+  const reducedMotion = useReducedMotion();
+  const settled = phase === 4;
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setPhase(4);
+      return;
+    }
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const start = () => {
+      if (phaseRef.current !== 0) return;
+      setPhase(1);
+      timers.push(setTimeout(() => setPhase(2), 1300));
+      timers.push(setTimeout(() => setPhase(3), 2800));
+      // Stats: 4 × stagger + count time, then everything morphs together.
+      timers.push(setTimeout(() => setPhase(4), 5600));
+    };
+    window.addEventListener("intro:done", start);
+    // Fallback in case the loader event never arrives.
+    timers.push(setTimeout(start, 6000));
+    return () => {
+      window.removeEventListener("intro:done", start);
+      timers.forEach(clearTimeout);
+    };
+  }, [reducedMotion]);
+
+  // Keep the page pinned while the greeting plays.
+  useEffect(() => {
+    if (phase >= 1 && phase <= 3) {
+      document.documentElement.style.overflow = "hidden";
+    } else if (phase === 4) {
+      document.documentElement.style.overflow = "";
+    }
+  }, [phase]);
+
   // Mouse parallax for the portrait (desktop pointers only)
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -45,8 +109,7 @@ export function Hero() {
       onMouseMove={onMouseMove}
       className="relative flex min-h-[100svh] items-end overflow-hidden pb-10 pt-24 lg:items-center lg:pb-0 lg:pt-28"
     >
-      {/* Cinematic portrait — full-bleed. Nudged up on mobile so the face
-          sits above the text column. */}
+      {/* Cinematic portrait — hidden until the greeting settles. */}
       <div className="absolute inset-0 z-0 -translate-y-[7%] sm:translate-y-0">
         <motion.div
           aria-hidden
@@ -54,8 +117,10 @@ export function Hero() {
           className="absolute inset-0"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={false}
+            animate={
+              settled ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }
+            }
             transition={{ duration: 1.1, ease: "easeOut" }}
             className="relative h-full w-full"
           >
@@ -96,12 +161,45 @@ export function Hero() {
         className="absolute -left-40 top-1/3 z-[1] hidden h-[500px] w-[500px] rounded-full bg-accent/[0.08] blur-[150px] sm:block"
       />
 
+      {/* Greeting-only pieces: "Hi." then "I'm" — they fade away, they don't
+          morph anywhere. */}
+      <AnimatePresence>
+        {phase === 1 && (
+          <motion.p
+            key="hi"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="fixed inset-x-0 top-[42%] z-20 text-center font-heading text-7xl font-bold text-ink sm:text-8xl"
+          >
+            Hi<span className="text-accent">.</span>
+          </motion.p>
+        )}
+        {(phase === 2 || phase === 3) && (
+          <motion.p
+            key="im"
+            layout
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: "easeOut", ...morphTransition }}
+            className={cn(
+              "fixed inset-x-0 z-20 text-center text-lg font-medium text-muted sm:text-xl",
+              phase >= 3 ? "top-[13%] sm:top-[16%]" : "top-[25%] sm:top-[27%]",
+            )}
+          >
+            I&apos;m
+          </motion.p>
+        )}
+      </AnimatePresence>
+
       {/* Content */}
       <div className="container-x relative z-10">
         <motion.div
           variants={container}
           initial="hidden"
-          animate="visible"
+          animate={settled ? "visible" : "hidden"}
           className="max-w-2xl"
         >
           {/* Hidden on mobile but its space is preserved to keep the composition */}
@@ -115,17 +213,42 @@ export function Hero() {
             </span>
           </motion.div>
 
+          {/* Morphs from the centered title card into place */}
           <motion.h1
-            variants={item}
-            className="mt-4 text-balance text-[2rem] font-bold leading-[1.06] sm:mt-6 sm:text-6xl lg:text-7xl"
+            layout
+            transition={morphTransition}
+            animate={{ opacity: phase >= 2 ? 1 : 0 }}
+            className={cn(
+              "text-balance font-bold leading-[1.06]",
+              settled
+                ? "mt-4 text-[2rem] sm:mt-6 sm:text-6xl lg:text-7xl"
+                : cn(
+                    "fixed inset-x-0 z-20 px-6 text-center text-4xl sm:text-6xl",
+                    phase >= 3
+                      ? "top-[19%] sm:top-[22%]"
+                      : "top-[31%] sm:top-[33%]",
+                  ),
+            )}
           >
             <span className="block text-ink">Muhammad</span>
             <span className="block text-ink">Huzaifa Awan</span>
           </motion.h1>
 
           <motion.p
-            variants={item}
-            className="mt-3 flex items-center gap-2.5 text-base font-medium text-accent sm:mt-5 sm:gap-3 sm:text-xl"
+            layout
+            transition={morphTransition}
+            animate={{ opacity: phase >= 2 ? 1 : 0 }}
+            className={cn(
+              "flex items-center font-medium text-accent",
+              settled
+                ? "mt-3 gap-2.5 text-base sm:mt-5 sm:gap-3 sm:text-xl"
+                : cn(
+                    "fixed inset-x-0 z-20 justify-center gap-2.5 px-6 text-center text-base sm:text-xl",
+                    phase >= 3
+                      ? "top-[39%] sm:top-[44%]"
+                      : "top-[51%] sm:top-[55%]",
+                  ),
+            )}
           >
             <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
             {SITE.title}
@@ -162,22 +285,56 @@ export function Hero() {
             </MagneticButton>
           </motion.div>
 
-          {/* Stat row */}
+          {/* Stat row — each stat flies from the title card to its slot */}
           <motion.dl
-            variants={item}
-            className="mt-8 grid max-w-lg grid-cols-2 gap-x-6 gap-y-4 sm:mt-14 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-6"
+            layout
+            transition={morphTransition}
+            animate={{ opacity: phase >= 3 ? 1 : 0 }}
+            className={cn(
+              "grid grid-cols-2 gap-x-6 gap-y-4",
+              settled
+                ? "mt-8 max-w-lg sm:mt-14 sm:grid-cols-4 sm:gap-x-4 sm:gap-y-6"
+                : "fixed inset-x-6 top-[50%] z-20 mx-auto max-w-sm gap-y-5 sm:top-[56%] sm:max-w-2xl sm:grid-cols-4",
+            )}
           >
-            {HERO_STATS.map((s) => (
-              <div key={s.label} className="border-l border-line pl-3 sm:pl-4">
+            {HERO_STATS.map((s, i) => (
+              <motion.div
+                key={s.label}
+                layout
+                animate={{
+                  opacity: phase >= 3 ? 1 : 0,
+                  y: phase >= 3 ? 0 : 16,
+                }}
+                transition={{
+                  ...morphTransition,
+                  opacity: {
+                    delay: phase === 3 ? i * STAT_STAGGER : 0,
+                    duration: 0.45,
+                  },
+                  y: {
+                    delay: phase === 3 ? i * STAT_STAGGER : 0,
+                    duration: 0.45,
+                    ease: "easeOut",
+                  },
+                }}
+                className="border-l border-line pl-3 sm:pl-4"
+              >
                 <dt className="font-heading text-xl font-bold text-ink sm:text-2xl">
-                  {/* Delay outlasts the intro loader (up to 4.2s for long
-                      quotes) + dissolve so the count plays in full view */}
-                  <CountUp value={s.value} delay={4.4} duration={2} />
+                  {/* Counting starts the moment this stat's turn arrives */}
+                  {phase >= 3 ? (
+                    <CountUp
+                      value={s.value}
+                      delay={phase === 3 ? i * STAT_STAGGER : 0}
+                      duration={0.9}
+                    />
+                  ) : (
+                    <span>{s.value}</span>
+                  )}
                 </dt>
                 <dd className="mt-0.5 text-[11px] leading-snug text-muted sm:mt-1 sm:text-xs">
                   {s.label}
                 </dd>
-              </div>
+              </motion.div>
             ))}
           </motion.dl>
 
@@ -202,9 +359,9 @@ export function Hero() {
 
       {/* Floating credibility chip (desktop) */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.1, duration: 0.6 }}
+        initial={false}
+        animate={settled ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ delay: settled ? 1 : 0, duration: 0.6 }}
         className="absolute bottom-28 right-6 z-10 hidden lg:block"
       >
         <a
@@ -226,9 +383,9 @@ export function Hero() {
       <motion.a
         href="#about"
         aria-label="Scroll to about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
+        initial={false}
+        animate={{ opacity: settled ? 1 : 0 }}
+        transition={{ delay: settled ? 1.2 : 0 }}
         className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 md:block"
       >
         <span className="flex h-10 w-6 items-start justify-center rounded-full border border-line p-1.5">
