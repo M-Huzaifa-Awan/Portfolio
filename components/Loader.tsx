@@ -16,6 +16,39 @@ const MAX_DURATION = 4200;
 const WORD_DELAY = 0.4;
 const WORD_STAGGER = 0.04;
 
+/**
+ * Uniform random repeats far more than people expect — with 32 quotes there
+ * is a ~50% chance of seeing a duplicate within 7 loads. Remembering the
+ * recent ones and drawing only from the rest makes it feel random.
+ */
+const RECENT_KEY = "intro-quote-history";
+const RECENT_KEEP = 20;
+
+function pickQuote() {
+  let recent: number[] = [];
+  try {
+    const raw = localStorage.getItem(RECENT_KEY);
+    if (raw) recent = JSON.parse(raw);
+  } catch {
+    // storage unavailable (private mode, etc.) — fall back to plain random
+  }
+
+  const fresh = QUOTES.map((_, i) => i).filter((i) => !recent.includes(i));
+  const pool = fresh.length > 0 ? fresh : QUOTES.map((_, i) => i);
+  const picked = pool[Math.floor(Math.random() * pool.length)];
+
+  try {
+    localStorage.setItem(
+      RECENT_KEY,
+      JSON.stringify([picked, ...recent].slice(0, RECENT_KEEP)),
+    );
+  } catch {
+    // ignore
+  }
+
+  return QUOTES[picked];
+}
+
 function durationFor(wordCount: number) {
   return Math.min(
     MAX_DURATION,
@@ -61,11 +94,26 @@ const QUOTES: { t: string; a: string }[] = [
 export function Loader() {
   const [done, setDone] = useState(false);
   const [quote, setQuote] = useState<{ t: string; a: string } | null>(null);
+  const [drawing, setDrawing] = useState(false);
   const isMobile = useIsMobile();
 
+  // Stroke drawing is not GPU-composited, so it stalls if it runs while
+  // React is still hydrating. Two frames of headroom puts the whole draw
+  // after that work instead of through it.
   useEffect(() => {
-    // Pick a random quote on the client (avoids SSR hydration mismatch).
-    const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setDrawing(true));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Pick on the client (avoids SSR hydration mismatch).
+    const q = pickQuote();
     setQuote(q);
 
     // Always play the full intro on every load.
@@ -106,28 +154,18 @@ export function Loader() {
             exit={isMobile ? { opacity: 0 } : { opacity: 0, scale: 1.12 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
           >
-            {/* Ambient bloom (opacity-only animation keeps it cheap on mobile) */}
+            {/* Ambient bloom — static: animating opacity on a heavily blurred
+                layer repaints the blur every frame and stutters on phones. */}
             <div
               aria-hidden
               className="pointer-events-none absolute h-[260px] w-[260px] rounded-full blur-[80px]"
-              style={{
-                background: "rgba(255,107,53,0.2)",
-                animation: "ldr-bloom 2.2s ease-in-out infinite",
-              }}
+              style={{ background: "rgba(255,107,53,0.2)" }}
             />
 
-            {/* Logo: draws in, then a single confident pulse as it completes */}
-            <motion.div
-              className="relative"
-              animate={{ scale: [1, 1, 1.05, 1] }}
-              transition={{
-                duration: duration / 1000,
-                times: [0, 0.8, 0.89, 1],
-                ease: "easeInOut",
-              }}
-            >
+            {/* Logo draws itself in, starting once hydration is done */}
+            <div className="relative">
               <svg width="132" height="132" viewBox="0 0 200 200" fill="none" className="relative">
-                {/* Hexagon (draws in once) */}
+                {/* Hexagon */}
                 <path
                   d={HEX}
                   stroke="url(#ldr-grad)"
@@ -137,7 +175,9 @@ export function Loader() {
                   style={{
                     strokeDasharray: 1,
                     strokeDashoffset: 1,
-                    animation: "ldr-draw 1s 0.1s ease forwards",
+                    animation: drawing
+                      ? "ldr-draw 1s cubic-bezier(0.65,0,0.35,1) forwards"
+                      : "none",
                   }}
                 />
                 {/* "A" caret */}
@@ -151,7 +191,9 @@ export function Loader() {
                   style={{
                     strokeDasharray: 1,
                     strokeDashoffset: 1,
-                    animation: "ldr-draw 0.9s 0.55s ease forwards",
+                    animation: drawing
+                      ? "ldr-draw 0.85s 0.45s cubic-bezier(0.65,0,0.35,1) forwards"
+                      : "none",
                   }}
                 />
                 <defs>
@@ -161,7 +203,7 @@ export function Loader() {
                   </linearGradient>
                 </defs>
               </svg>
-            </motion.div>
+            </div>
 
             {/* Quote (word-by-word reveal) + progress */}
             <div className="relative mt-11 flex w-full max-w-sm flex-col items-center gap-5 text-center">
@@ -255,10 +297,6 @@ export function Loader() {
             <style>{`
               @keyframes ldr-draw { to { stroke-dashoffset: 0; } }
               @keyframes ldr-progress { to { transform: scaleX(1); } }
-              @keyframes ldr-bloom {
-                0%, 100% { opacity: 0.5; }
-                50% { opacity: 1; }
-              }
               @media (prefers-reduced-motion: reduce) {
                 [style*="ldr-"] { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
               }
