@@ -54,10 +54,16 @@ export const NAV_LINKS = [
 ];
 
 export const HERO_STATS = [
-  { value: "6+", label: "Years experience" },
-  { value: "50+", label: "Enterprise production systems delivered" },
-  { value: "20+", label: "Technologies used" },
-  { value: "100%", label: "Job success" },
+  // `short` is used by the intro title card, where long labels break the
+  // typographic rhythm; `label` stays for the hero itself.
+  { value: "6+", label: "Years experience", short: "Years" },
+  {
+    value: "50+",
+    label: "Enterprise production systems delivered",
+    short: "Systems shipped",
+  },
+  { value: "20+", label: "Technologies used", short: "Technologies" },
+  { value: "100%", label: "Job success", short: "Job success" },
 ];
 
 export type Service = {
