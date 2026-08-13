@@ -56,18 +56,56 @@ export function Certifications() {
         description="Verified academic honors and certifications. Click any card to view the full document."
       />
 
-      {/* Below sm the cards become a snap slider with arrow/dot controls;
-          uniform slide sizes, next card peeking in from the edge. */}
-      <SnapCarousel
-        trackClassName="mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:scroll-px-0 sm:px-0 sm:pb-0 lg:grid-cols-3"
-        slideClassName="w-[78vw] max-w-[340px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
-        controlsClassName="sm:hidden"
-        slides={CERTS.map((c, i) => {
-          const Icon = ICONS[c.icon];
-          return {
+      {/* Phone: compact card slider — tap a card to open the viewer. */}
+      <div className="sm:hidden">
+        <SnapCarousel
+          trackClassName="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none"
+          slideClassName="w-[70vw] max-w-[300px] shrink-0 snap-center"
+          slides={CERTS.map((c, i) => ({
             key: c.name,
             content: (
-            <Tilt className="h-full">
+              <button
+                type="button"
+                onClick={() => setActive(i)}
+                aria-label={`View ${c.name} certificate`}
+                className="h-full w-full text-left"
+              >
+                <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-card">
+                  <div className="relative aspect-[4/3] w-full shrink-0 bg-white/[0.02]">
+                    <Image
+                      src={c.image}
+                      alt={`${c.name} — ${c.issuer}`}
+                      fill
+                      sizes="70vw"
+                      quality={90}
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-3.5">
+                    <p className="truncate text-[10px] font-medium uppercase tracking-wider text-accent">
+                      {c.issuer}
+                    </p>
+                    <h3 className="mt-0.5 truncate text-sm font-semibold text-ink">
+                      {c.name}
+                    </h3>
+                    <span className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-full bg-accent py-2 text-xs font-semibold text-black">
+                      <Expand className="h-3.5 w-3.5" /> View certificate
+                    </span>
+                  </div>
+                </div>
+              </button>
+            ),
+          }))}
+        />
+      </div>
+
+      {/* Tablet/desktop: grid */}
+      <div className="mt-14 hidden gap-5 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+        {CERTS.map((c, i) => {
+          const Icon = ICONS[c.icon];
+          return (
+            <Tilt key={c.name} className="h-full">
             <motion.button
               type="button"
               onClick={() => setActive(i)}
@@ -116,10 +154,9 @@ export function Certifications() {
               </div>
             </motion.button>
             </Tilt>
-            ),
-          };
+          );
         })}
-      />
+      </div>
 
       {/* Lightbox */}
       <AnimatePresence>

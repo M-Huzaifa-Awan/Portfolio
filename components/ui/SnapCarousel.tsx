@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -19,7 +19,12 @@ type SnapCarouselProps = {
   slideClassName: string;
   /** Controls visibility, e.g. "lg:hidden" to match the track breakpoint. */
   controlsClassName?: string;
+  /** Bay-window 3D effect: side slides angle toward the center. */
+  coverflow?: boolean;
 };
+
+const COVERFLOW_ANGLE = 16; // deg
+const COVERFLOW_SCALE = 0.06;
 
 /**
  * Horizontal snap gallery with slider affordances — arrows and pagination
@@ -31,27 +36,64 @@ export function SnapCarousel({
   trackClassName,
   slideClassName,
   controlsClassName,
+  coverflow = false,
 }: SnapCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef(0);
   const [active, setActive] = useState(0);
 
-  // Active slide = the child whose center is closest to the viewport center.
-  const onScroll = () => {
+  // Recompute the active dot and (optionally) the coverflow transforms.
+  // Direct style writes inside rAF — no React re-render per scroll frame.
+  const update = () => {
     const el = trackRef.current;
     if (!el) return;
+    const scrollable = el.scrollWidth > el.clientWidth + 8;
     const center = el.scrollLeft + el.clientWidth / 2;
     let best = 0;
     let bestDist = Infinity;
     Array.from(el.children).forEach((child, i) => {
       const c = child as HTMLElement;
-      const dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+      const childCenter = c.offsetLeft + c.offsetWidth / 2;
+      const dist = Math.abs(childCenter - center);
       if (dist < bestDist) {
         bestDist = dist;
         best = i;
       }
+      if (coverflow) {
+        if (scrollable) {
+          const t = Math.max(
+            -1,
+            Math.min(1, (childCenter - center) / el.clientWidth),
+          );
+          const scale = 1 - Math.min(Math.abs(t), 1) * COVERFLOW_SCALE;
+          c.style.transform = `perspective(900px) rotateY(${(
+            -t * COVERFLOW_ANGLE
+          ).toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        } else {
+          c.style.transform = "";
+        }
+      }
     });
     setActive((prev) => (prev === best ? prev : best));
   };
+
+  const onScroll = () => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      update();
+    });
+  };
+
+  useEffect(() => {
+    update();
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollTo = (index: number) => {
     const el = trackRef.current;

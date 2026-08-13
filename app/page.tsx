@@ -92,7 +92,10 @@ export default function Home() {
       <ScrollProgress />
       <ProgressiveBlur />
       <Navbar />
-      <main className="relative z-10">
+      {/* No z-index here: modals inside (project sheet, cert lightbox) must
+          stack above the fixed QuickChat launcher, which a z-indexed main
+          would cap. DOM order alone keeps content above the fixed Background. */}
+      <main className="relative">
         <Hero />
         <About />
         <Services />
