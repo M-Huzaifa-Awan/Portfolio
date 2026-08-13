@@ -6,6 +6,7 @@ import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
 import { Tilt } from "./ui/Tilt";
+import { SnapCarousel } from "./ui/SnapCarousel";
 import { POSTS, formatDate } from "@/lib/posts";
 
 export function Writing() {
@@ -35,9 +36,16 @@ export function Writing() {
         </Link>
       </div>
 
-      <div className="mt-12 grid gap-5 md:grid-cols-3">
-        {posts.map((post, i) => (
-          <Reveal key={post.slug} delayIndex={i} className="h-full">
+      {/* Below md the post cards become a snap slider with arrow/dot
+          controls; uniform slide sizes with the next card peeking in. */}
+      <SnapCarousel
+        trackClassName="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:pb-0"
+        slideClassName="w-[78vw] max-w-[340px] shrink-0 snap-center md:w-auto md:max-w-none md:shrink"
+        controlsClassName="md:hidden"
+        slides={posts.map((post, i) => ({
+          key: post.slug,
+          content: (
+          <Reveal delayIndex={i} className="h-full">
             <Tilt className="h-full">
             <Link
               href={`/blog/${post.slug}`}
@@ -64,8 +72,9 @@ export function Writing() {
             </Link>
             </Tilt>
           </Reveal>
-        ))}
-      </div>
+          ),
+        }))}
+      />
     </Section>
   );
 }

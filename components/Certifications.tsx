@@ -15,7 +15,9 @@ import {
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Tilt } from "./ui/Tilt";
+import { SnapCarousel } from "./ui/SnapCarousel";
 import { CERTS, type Cert } from "@/lib/data";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const ICONS: Record<Cert["icon"], LucideIcon> = {
   degree: GraduationCap,
@@ -25,6 +27,7 @@ const ICONS: Record<Cert["icon"], LucideIcon> = {
 
 export function Certifications() {
   const [active, setActive] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   const close = useCallback(() => setActive(null), []);
 
@@ -53,15 +56,22 @@ export function Certifications() {
         description="Verified academic honors and certifications. Click any card to view the full document."
       />
 
-      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {CERTS.map((c, i) => {
+      {/* Below sm the cards become a snap slider with arrow/dot controls;
+          uniform slide sizes, next card peeking in from the edge. */}
+      <SnapCarousel
+        trackClassName="mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:scroll-px-0 sm:px-0 sm:pb-0 lg:grid-cols-3"
+        slideClassName="w-[78vw] max-w-[340px] shrink-0 snap-center sm:w-auto sm:max-w-none sm:shrink"
+        controlsClassName="sm:hidden"
+        slides={CERTS.map((c, i) => {
           const Icon = ICONS[c.icon];
-          return (
-            <Tilt key={c.name} className="h-full">
+          return {
+            key: c.name,
+            content: (
+            <Tilt className="h-full">
             <motion.button
               type="button"
               onClick={() => setActive(i)}
-              initial={{ opacity: 0, y: 28 }}
+              initial={isMobile ? false : { opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
@@ -106,9 +116,10 @@ export function Certifications() {
               </div>
             </motion.button>
             </Tilt>
-          );
+            ),
+          };
         })}
-      </div>
+      />
 
       {/* Lightbox */}
       <AnimatePresence>

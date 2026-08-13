@@ -14,16 +14,17 @@ import {
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { SpotlightCard } from "./ui/SpotlightCard";
+import { SnapCarousel } from "./ui/SnapCarousel";
 import { PROJECTS, type Project } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/lib/useIsMobile";
 
-/* Below lg the grid becomes a horizontal snap gallery: full-bleed scroller,
-   one card per swipe with the next card peeking in from the edge. */
+/* Below lg the grid becomes a horizontal snap gallery: uniform slides, a
+   clear peek of the next card, and arrow/dot controls under the track. */
 const trackClass =
-  "mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 -mx-6 px-6 pb-4 scrollbar-none sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:scroll-px-0 lg:px-0 lg:pb-0";
+  "mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-px-6 -mx-6 px-6 pb-2 scrollbar-none sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:mt-14 lg:grid lg:grid-cols-3 lg:gap-5 lg:overflow-visible lg:scroll-px-0 lg:px-0 lg:pb-0";
 const slideClass =
-  "w-[86vw] max-w-[420px] shrink-0 snap-center md:w-[45vw] lg:w-auto lg:max-w-none lg:shrink";
+  "w-[78vw] max-w-[380px] shrink-0 snap-center md:w-[45vw] lg:w-auto lg:max-w-none lg:shrink";
 
 function ProjectLinks({ project }: { project: Project }) {
   if (!project.liveUrl && !project.githubUrl && !project.pdf) return null;
@@ -166,7 +167,7 @@ function TagRow({ project }: { project: Project }) {
 
 function FeaturedCard({ project }: { project: Project }) {
   return (
-    <SpotlightCard className="lg:col-span-3" prism tilt>
+    <SpotlightCard className="h-full" prism tilt>
       <div className="grid gap-6 p-5 sm:p-7 lg:grid-cols-2 lg:items-center lg:gap-8">
         <div className="order-2 lg:order-1">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-accent">
@@ -263,36 +264,42 @@ export function Projects() {
         </a>
       </div>
 
-      <div className={trackClass}>
-        {featured.map((p, i) => (
-          <motion.div
-            key={p.id}
-            className={cn(slideClass, "lg:col-span-3")}
-            initial={isMobile ? false : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: i * 0.05 }}
-          >
-            <FeaturedCard project={p} />
-          </motion.div>
-        ))}
-
-        {rest.map((p, i) => (
-          <motion.div
-            key={p.id}
-            className={cn(slideClass, "h-full")}
-            initial={isMobile ? false : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
-          >
-            <StandardCard project={p} />
-          </motion.div>
-        ))}
-      </div>
-      <p className="mt-2 text-xs text-muted/70 lg:hidden">
-        Swipe to browse all {PROJECTS.length} projects
-      </p>
+      <SnapCarousel
+        trackClassName={trackClass}
+        slideClassName={slideClass}
+        controlsClassName="lg:hidden"
+        slides={[
+          ...featured.map((p, i) => ({
+            key: p.id,
+            className: "lg:col-span-3",
+            content: (
+              <motion.div
+                className="h-full"
+                initial={isMobile ? false : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6, delay: i * 0.05 }}
+              >
+                <FeaturedCard project={p} />
+              </motion.div>
+            ),
+          })),
+          ...rest.map((p, i) => ({
+            key: p.id,
+            content: (
+              <motion.div
+                className="h-full"
+                initial={isMobile ? false : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+              >
+                <StandardCard project={p} />
+              </motion.div>
+            ),
+          })),
+        ]}
+      />
     </Section>
   );
 }
