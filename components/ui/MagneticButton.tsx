@@ -14,8 +14,11 @@ type MagneticButtonProps = {
   ariaLabel?: string;
 };
 
+// No permanent `will-change`: it pins a compositor layer per button for the
+// life of the page, which is wasted memory on phones where the magnetic
+// effect never runs. Framer sets it while an animation is actually active.
 const base =
-  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 will-change-transform select-none";
+  "group/btn relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 select-none";
 
 const variants: Record<NonNullable<MagneticButtonProps["variant"]>, string> = {
   primary:

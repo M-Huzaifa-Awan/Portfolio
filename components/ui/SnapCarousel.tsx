@@ -42,6 +42,7 @@ export function SnapCarousel({
 }: SnapCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef(0);
+  const widthRef = useRef(0);
   const [active, setActive] = useState(0);
 
   // Recompute the active dot and (optionally) the coverflow transforms.
@@ -89,9 +90,26 @@ export function SnapCarousel({
 
   useEffect(() => {
     update();
-    window.addEventListener("resize", onScroll);
+    const el = trackRef.current;
+    if (!el) return;
+    widthRef.current = el.clientWidth;
+
+    /**
+     * Watch the track's own width rather than window resize. On mobile the
+     * address bar collapsing as you change scroll direction fires `resize`,
+     * and re-measuring every slide there forces a synchronous layout in the
+     * middle of a scroll — which reads as a jerk.
+     */
+    const ro = new ResizeObserver((entries) => {
+      const w = entries[0]?.contentRect.width ?? 0;
+      if (Math.abs(w - widthRef.current) < 1) return;
+      widthRef.current = w;
+      onScroll();
+    });
+    ro.observe(el);
+
     return () => {
-      window.removeEventListener("resize", onScroll);
+      ro.disconnect();
       cancelAnimationFrame(rafRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

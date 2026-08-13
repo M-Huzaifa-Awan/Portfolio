@@ -130,7 +130,10 @@ export function Navbar() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        className="fixed right-4 top-4 z-[85] grid h-11 w-11 place-items-center rounded-full border border-line bg-[#0d0d0d]/90 text-ink shadow-card backdrop-blur-md lg:hidden"
+        // Opaque rather than blurred: a fixed backdrop-filter element forces
+        // the browser to re-sample and blur the page beneath it on every
+        // scroll frame, which is the kind of cost phones cannot absorb.
+        className="fixed right-4 top-4 z-[85] grid h-11 w-11 place-items-center rounded-full border border-line bg-[#111111] text-ink shadow-card lg:hidden"
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>

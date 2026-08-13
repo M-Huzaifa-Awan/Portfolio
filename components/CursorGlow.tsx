@@ -1,19 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * A soft orange glow that trails the cursor across the whole page.
  * Uses a rAF loop + direct style writes so it never triggers React re-renders.
- * Disabled on touch / coarse pointers.
+ *
+ * Nothing is rendered on touch devices: `mix-blend-mode` forces the browser
+ * to blend this layer against the page behind it on every composite, which
+ * costs real frames while scrolling on a phone even when it is invisible.
  */
 export function CursorGlow() {
   const ref = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const isFine = window.matchMedia("(pointer: fine)").matches;
-    if (!isFine) return;
+    setEnabled(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
+  }, []);
 
+  useEffect(() => {
+    if (!enabled) return;
     const el = ref.current;
     if (!el) return;
 
@@ -46,7 +52,9 @@ export function CursorGlow() {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) return null;
 
   return (
     <div
