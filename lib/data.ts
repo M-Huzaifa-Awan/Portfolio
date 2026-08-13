@@ -63,6 +63,10 @@ export const HERO_STATS = [
 export type Service = {
   icon: LucideIcon;
   title: string;
+  /** Big attention-grabbing question shown as the slide headline. */
+  hook: string;
+  /** Short label for the selector tabs. */
+  short: string;
   description: string;
   points: string[];
 };
@@ -70,45 +74,57 @@ export type Service = {
 export const SERVICES: Service[] = [
   {
     icon: Rocket,
-    title: "SaaS Product Development",
+    title: "Turn Your Idea Into a Product",
+    hook: "Have a business idea that needs software?",
+    short: "Your idea",
     description:
-      "Multi-tenant SaaS built end-to-end: onboarding, billing, dashboards and real-time features. Systems serving 100+ concurrent users at sub-50ms with a 95% Redis cache hit rate.",
-    points: ["Multi-tenant", "Onboarding & billing", "Realtime dashboards"],
+      "Have a business idea that needs software? I take it from a conversation to a launched product: sign-ups, payments, an admin area, everything your customers touch. You describe the business, I handle all the technology.",
+    points: ["Idea to launch", "Payments built in", "Ready for real customers"],
   },
   {
     icon: Boxes,
-    title: "MCP Servers & AI Agents",
+    title: "Websites, Portals & Dashboards",
+    hook: "Need a website your customers actually use?",
+    short: "Websites",
     description:
-      "Custom Model Context Protocol servers that let Claude securely read and write across your real tools. I shipped a production MCP exposing 60+ tools, a capability most senior devs don't have.",
-    points: ["60+ tools exposed", "OAuth 2.0", "ClickUp / Graph / Health"],
+      "A professional website for your business, a portal where your customers log in, or a dashboard where you see sales, bookings, and stock at a glance. Fast, clean, and it works just as well on a phone.",
+    points: ["Business websites", "Customer portals", "Live dashboards"],
   },
   {
     icon: Sparkles,
-    title: "AI Integration",
+    title: "Put AI to Work in Your Business",
+    hook: "What if AI answered your customers for you?",
+    short: "AI",
     description:
-      "Claude and OpenAI wired into products: structured outputs, prompt engineering, Claude Vision image analysis, and reliable LLM pipelines you can ship to real users.",
-    points: ["Claude / OpenAI", "Claude Vision", "Structured outputs"],
+      "An assistant that answers customer questions, reads your documents and finds the answer, drafts replies, or summarizes what happened today. Built on the same AI behind ChatGPT and Claude, connected safely to your data.",
+    points: ["Customer-facing assistants", "Answers from your files", "Draft & summarize"],
   },
   {
     icon: Workflow,
-    title: "APIs & Real-Time Systems",
+    title: "Automate the Repetitive Work",
+    hook: "Still copy-pasting between spreadsheets?",
+    short: "Automation",
     description:
-      "REST and real-time APIs: WebSockets for live preview, Stripe webhooks for payments, and well-documented contracts your frontend can trust.",
-    points: ["REST & WebSockets", "Stripe / webhooks", "Live preview"],
+      "If your team copies data between spreadsheets, emails, and other systems, I connect those tools so it happens automatically: bookings flow into your calendar, orders into invoices, numbers into a weekly report.",
+    points: ["Connect your tools", "Automatic reports", "Fewer manual steps"],
   },
   {
     icon: Cloud,
-    title: "Cloud & DevOps",
+    title: "Get Online & Stay Online",
+    hook: "Ready to launch without the tech headaches?",
+    short: "Hosting",
     description:
-      "Deploys that scale: Azure DevOps, GitHub Actions, Docker, Fly.io and Vercel, with Redis caching and query tuning for fast responses under concurrency.",
-    points: ["CI/CD pipelines", "Docker", "Fly.io / Vercel"],
+      "I put your product on the internet properly: secure hosting, your own domain, backups, and updates that don't break anything. When traffic grows, it keeps up, and I keep an eye on it after launch.",
+    points: ["Secure hosting", "Backups & updates", "Grows with you"],
   },
   {
     icon: RefreshCw,
-    title: "Legacy Modernization",
+    title: "Rescue Slow or Broken Software",
+    hook: "Is your current system slow, buggy, or old?",
+    short: "Rescue",
     description:
-      "Migrate aging monoliths to modern architecture without downtime. I've taken 3s page loads down to under 500ms and resolved 50+ defects to stabilize production.",
-    points: ["Monolith migration", "Perf tuning", "Defect burndown"],
+      "Already have a website or system that's slow, buggy, or built years ago? I fix and modernize it without shutting your business down. I've cut 3-second page loads to under half a second and cleared 50+ long-standing bugs.",
+    points: ["Speed it up", "Fix the bugs", "No downtime"],
   },
 ];
 
