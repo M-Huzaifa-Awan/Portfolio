@@ -393,9 +393,8 @@ export const EXPERIENCE: Role[] = [
     company: "LEO Innovate",
     role: "Senior Full Stack Developer",
     product: "SaaS Salon Management Platform",
-    period: "Feb 2025 - Present",
+    period: "Feb 2025 - Aug 2026",
     location: "Remote · Florida, USA",
-    current: true,
     highlights: [
       "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
       "Tuned SQL Server queries and introduced a Redis caching strategy, hitting a 95% cache hit rate and sub-50ms responses under 100+ concurrent users.",
@@ -510,7 +509,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "Who is Muhammad Huzaifa Awan?",
-    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He currently works with LEO Innovate on a multi-tenant salon SaaS platform, subcontracts for Lotte Innovate, freelances and consults directly with clients and on Upwork, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
+    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He previously worked with LEO Innovate on a multi-tenant salon SaaS platform, currently subcontracts for Lotte Innovate, freelances and consults directly with clients and on Upwork, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
   },
   {
     q: "What services does Huzaifa Awan offer?",
