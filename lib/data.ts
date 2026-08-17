@@ -390,21 +390,6 @@ export const EXPERIENCE: Role[] = [
     stack: ["MCP", "Anthropic", "React", "SQL Server", ".NET", "C#", "WPF", "TypeScript"],
   },
   {
-    company: "LEO Innovate",
-    role: "Senior Full Stack Developer",
-    product: "SaaS Salon Management Platform",
-    period: "Feb 2025 - Aug 2026",
-    location: "Remote · Florida, USA",
-    highlights: [
-      "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
-      "Tuned SQL Server queries and introduced a Redis caching strategy, hitting a 95% cache hit rate and sub-50ms responses under 100+ concurrent users.",
-      "Built the analytics dashboard, TV queue display, and self-service kiosk check-in flow with Firebase OTP verification.",
-      "Led the multilingual (English and Spanish) rollout with proper URL structure, routing, and redirects.",
-      "Drove a 5,000+ line C# refactor that cut technical debt by ~30% and reduced production incidents by 40%.",
-    ],
-    stack: ["ASP.NET Core", "React", ".NET 8", "SQL Server", "Redis", "WebSockets", "Azure DevOps"],
-  },
-  {
     company: "Independent Consultant",
     role: "Senior Full Stack Developer (Freelance & Consulting)",
     product: "Direct Clients & Upwork",
@@ -419,6 +404,21 @@ export const EXPERIENCE: Role[] = [
       "Completed 2,000+ billed hours across international engagements, including long-term client relationships that continued through direct contracts.",
     ],
     stack: ["ASP.NET Core", "React", "TypeScript", "PostgreSQL", "Redis", "Stripe", "FastAPI", "Python"],
+  },
+  {
+    company: "LEO Innovate",
+    role: "Senior Full Stack Developer",
+    product: "SaaS Salon Management Platform",
+    period: "Feb 2025 - Aug 2026",
+    location: "Remote · Florida, USA",
+    highlights: [
+      "Architected a real-time website builder with WebSocket-powered live preview on ASP.NET Core and React across a multi-tenant SaaS environment.",
+      "Tuned SQL Server queries and introduced a Redis caching strategy, hitting a 95% cache hit rate and sub-50ms responses under 100+ concurrent users.",
+      "Built the analytics dashboard, TV queue display, and self-service kiosk check-in flow with Firebase OTP verification.",
+      "Led the multilingual (English and Spanish) rollout with proper URL structure, routing, and redirects.",
+      "Drove a 5,000+ line C# refactor that cut technical debt by ~30% and reduced production incidents by 40%.",
+    ],
+    stack: ["ASP.NET Core", "React", ".NET 8", "SQL Server", "Redis", "WebSockets", "Azure DevOps"],
   },
   {
     company: "DPS Model Town · Fabco Systems",
