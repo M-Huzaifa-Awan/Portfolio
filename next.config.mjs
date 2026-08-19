@@ -11,6 +11,11 @@ const nextConfig = {
         destination: "/Huzaifa_Awan_Senior_CV.pdf",
         permanent: false,
       },
+      {
+        source: "/blog/connect-claude-to-outlook-calendar-mcp",
+        destination: "/blog/connect-ai-to-outlook-calendar-mcp",
+        permanent: true,
+      },
     ];
   },
 };

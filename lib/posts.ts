@@ -21,20 +21,20 @@ export type Post = {
 
 export const POSTS: Post[] = [
   {
-    slug: "connect-claude-to-outlook-calendar-mcp",
-    title: "Connecting Claude to Your Outlook Inbox and Calendar with MCP",
+    slug: "connect-ai-to-outlook-calendar-mcp",
+    title: "Connect Any AI Assistant to Your Outlook Inbox and Calendar with MCP",
     description:
-      "How I built Atlas, an MCP server that lets Claude read, draft, and send Outlook email and manage calendars across multiple accounts. Architecture, Microsoft Graph auth, and the safety rules that make an AI you can trust with your inbox.",
+      "How I built Atlas, an MCP server that lets any compatible AI assistant read, draft, and send Outlook email and manage calendars across multiple accounts. Architecture, Microsoft Graph auth, and the safety rules that make an AI you can trust with your inbox.",
     excerpt:
-      "What it takes to let an AI assistant safely read, draft, and send email and book meetings: the architecture behind Atlas, my Outlook MCP server for Claude.",
+      "What it takes to let any MCP-compatible AI assistant safely read, draft, and send email and book meetings through Outlook.",
     date: "2026-07-15",
     readTime: "7 min read",
     tags: ["AI", "MCP", "Product"],
     keywords: [
-      "Claude Outlook integration",
-      "connect Claude to email",
+      "AI Outlook integration",
+      "connect AI to email",
       "MCP server Outlook",
-      "Claude calendar integration",
+      "AI calendar integration",
       "Microsoft Graph MCP",
       "AI email assistant",
       "Model Context Protocol",
@@ -42,12 +42,12 @@ export const POSTS: Post[] = [
     body: [
       {
         type: "p",
-        text: "Email and calendar are where knowledge workers actually live, yet most AI assistants can only talk about them in the abstract. I wanted Claude to check my schedule, find a free slot, draft the reply, and book the meeting, all in one conversation. So I built [Atlas](https://atlas-web-rho-hazel.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar directly to Claude through a **Model Context Protocol (MCP)** server. This is how it works and what I learned shipping it.",
+        text: "Email and calendar are where knowledge workers actually live, yet most AI assistants can only talk about them in the abstract. I wanted an AI assistant to check my schedule, find a free slot, draft the reply, and book the meeting, all in one conversation. So I built [Atlas](https://atlas-web-rho-hazel.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar to any **MCP-compatible AI assistant**. This is how it works and what I learned shipping it.",
       },
       { type: "h2", text: "Why MCP instead of a chatbot wrapper" },
       {
         type: "p",
-        text: "The obvious approach is a custom chat app that calls an LLM and sprinkles in some API calls. The problem: you inherit all the product work of a chat interface and none of the ecosystem. MCP flips that. You expose **tools** (read_inbox, send_mail, find_free_slots, create_event) from a small server, and Claude decides when to call them inside the conversation the user already has open. I covered the fundamentals in my [Studio OS writeup](/blog/building-an-mcp-server-for-claude); Atlas applies the same protocol to the highest-stakes data most people have: their inbox.",
+        text: "The obvious approach is a custom chat app that calls an LLM and sprinkles in some API calls. The problem: you inherit all the product work of a chat interface and none of the ecosystem. MCP flips that. You expose **tools** (read_inbox, send_mail, find_free_slots, create_event) from a small server, and the connected AI assistant decides when to call them inside the conversation the user already has open. Atlas applies the protocol to the highest-stakes data most people have: their inbox.",
       },
       { type: "h2", text: "The architecture" },
       {
@@ -59,7 +59,7 @@ export const POSTS: Post[] = [
         items: [
           "**Tools layer**: typed tools for mail (list, search, read, draft, reply, send) and calendar (list events, check availability, suggest times, create, update, respond to invites).",
           "**Auth layer**: OAuth 2.0 against Microsoft Entra. Each user grants scoped permissions; Atlas never sees a password, and tokens are stored encrypted and refreshed server-side.",
-          "**Account layer**: multi-tenancy from day one, because real people have a work account and a personal account. Every tool accepts a tenant label so Claude can read both calendars and never cross the streams.",
+          "**Account layer**: multi-tenancy from day one, because real people have a work account and a personal account. Every tool accepts a tenant label so the AI assistant can read both calendars without mixing up accounts.",
         ],
       },
       { type: "h2", text: "Multiple accounts is a feature, not an edge case" },
@@ -88,7 +88,7 @@ export const POSTS: Post[] = [
       { type: "h2", text: "What using it actually feels like" },
       {
         type: "p",
-        text: "The workflow change is bigger than I expected. Instead of tabbing to Outlook, you stay in the conversation: \"what does my morning look like, reply to Sarah that Thursday works, and book 45 minutes with the design team next week.\" Claude checks both calendars, drafts the reply for approval, finds the slot, and creates the event. Each step is a tool call you can see. It reads less like automation and more like handing your inbox to a careful assistant.",
+        text: "The workflow change is bigger than I expected. Instead of tabbing to Outlook, you stay in the conversation: \"what does my morning look like, reply to Sarah that Thursday works, and book 45 minutes with the design team next week.\" Your AI assistant checks both calendars, drafts the reply for approval, finds the slot, and creates the event. Each step is a tool call you can see. It reads less like automation and more like handing your inbox to a careful assistant.",
       },
       { type: "h2", text: "Lessons that transfer to any MCP project" },
       {
@@ -103,82 +103,6 @@ export const POSTS: Post[] = [
       {
         type: "p",
         text: "Atlas is live with a free trial at [atlas-web-rho-hazel.vercel.app](https://atlas-web-rho-hazel.vercel.app/). And if you want an MCP server built for your own product or internal tools, that is exactly the kind of work I take on: [get in touch](/#contact).",
-      },
-    ],
-  },
-  {
-    slug: "building-an-mcp-server-for-claude",
-    title: "How I Built an MCP Server Exposing 60+ Tools to Claude",
-    description:
-      "A practical breakdown of architecting a production Model Context Protocol (MCP) server that gives Claude secure read and write access to 60+ real business tools: auth, transport, security, and the lessons that mattered.",
-    excerpt:
-      "Architecting a production MCP server that gives Claude secure access to 60+ real tools: the auth, transport, and security decisions that actually mattered.",
-    date: "2026-06-15",
-    readTime: "8 min read",
-    tags: ["AI", "MCP", "Architecture"],
-    keywords: [
-      "MCP server",
-      "Model Context Protocol",
-      "Claude MCP",
-      "MCP developer",
-      "AI agent tools",
-      "build an MCP server",
-    ],
-    body: [
-      {
-        type: "p",
-        text: "Most teams talk to Claude through a chat box. The interesting work starts when you let Claude actually **do** things through your own systems: read a project board, check a calendar, pull a metric. That is what the **Model Context Protocol (MCP)** enables, and it is where I have spent a lot of my recent engineering time. I built and shipped a production MCP server, **Studio OS**, that exposes 60+ tools to Claude across project management, email, and health data. Here is how it is put together and what I learned.",
-      },
-      { type: "h2", text: "What an MCP server actually is" },
-      {
-        type: "p",
-        text: "An MCP server is a small, well-defined service that advertises a set of **tools** (functions Claude can call) and **resources** (data Claude can read). Claude decides when to call a tool; your server executes it against real systems and returns structured results. The protocol handles the handshake, the tool schemas, and the transport, so you can focus on the tools.",
-      },
-      {
-        type: "p",
-        text: "The mental model that helped me most: an MCP server is an **API designed for an LLM to consume**, not a human. That reframes everything: naming, error messages, and payload shape all get optimized for a model that reads them literally.",
-      },
-      { type: "h2", text: "The architecture" },
-      {
-        type: "p",
-        text: "Studio OS is a **FastAPI + Python** server that aggregates several external systems behind one secure interface. A single codebase ships two transports: a local **stdio** build (packaged as a Windows `.exe` with PyInstaller) and a remote **Streamable HTTP** deployment on Fly.io. State lives in Neon Postgres, with a nightly, idempotent GitHub Actions job ingesting data and a full write-audit log for anything Claude changes.",
-      },
-      {
-        type: "ul",
-        items: [
-          "**Tools layer**: 60+ typed tools across ClickUp, Microsoft Outlook (dual M365 tenants via Microsoft Graph), Apple Health, and Oura.",
-          "**Auth layer**: OAuth 2.0 device-code flow, multi-tenant, so one server can act on behalf of different accounts.",
-          "**Transport layer**: stdio for local desktop use, Streamable HTTP for the hosted deployment, from the same core.",
-          "**Persistence**: Neon Postgres with nightly idempotent ingest and audit logging.",
-        ],
-      },
-      { type: "h2", text: "Auth was the hard part" },
-      {
-        type: "p",
-        text: "Exposing write access to real systems means auth cannot be an afterthought. I used the **OAuth 2.0 device-code flow** so users authorize once, per tenant, without pasting secrets into config files. Credentials are encrypted at rest with **AES-256-GCM**, and every write Claude performs is logged with enough context to answer 'who changed what, when, and why' after the fact.",
-      },
-      { type: "h2", text: "Migrating transport without breaking clients" },
-      {
-        type: "p",
-        text: "The MCP spec evolved from Server-Sent Events toward **Streamable HTTP**. Migrating a live server is exactly the kind of change that looks trivial and then eats a week. Keeping the tool layer transport-agnostic, so tools never knew which transport invoked them, is what made the migration a swap at the edges rather than a rewrite.",
-      },
-      { type: "h2", text: "Lessons if you are building your own" },
-      {
-        type: "ol",
-        items: [
-          "Design tools for the model. Clear names, tight schemas, and human-readable errors dramatically improve how reliably Claude uses them.",
-          "Treat writes as dangerous. Confirmations, scoping, and audit logs turn 'the AI touched production' from a risk into a feature.",
-          "Keep transport at the edges. A clean core means new transports are integrations, not rewrites.",
-          "Ship it as a real product. A one-click installer and sane defaults are the difference between a demo and something a team actually uses daily.",
-        ],
-      },
-      {
-        type: "quote",
-        text: "The value of an MCP server is not the AI. It is the boring, careful engineering around auth, transport, and safety that makes trusting the AI reasonable.",
-      },
-      {
-        type: "p",
-        text: "If you are building AI features and want tools Claude can safely use against your real systems, this is exactly the kind of work I do. Have a look at my [projects](/#projects) or [get in touch](/#contact).",
       },
     ],
   },

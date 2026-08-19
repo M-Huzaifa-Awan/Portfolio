@@ -148,7 +148,7 @@ function SlitGallery({ projects }: { projects: Project[] }) {
                 setActive(i);
               }
             }}
-            style={{ flexBasis: 0, flexGrow: isActive ? 7 : 1 }}
+            style={{ flexBasis: 0, flexGrow: isActive ? 12 : 1 }}
             className={cn(
               "relative min-w-0 cursor-pointer overflow-hidden rounded-3xl border bg-card transition-[flex-grow] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]",
               isActive
@@ -233,11 +233,11 @@ function SlitGallery({ projects }: { projects: Project[] }) {
               </span>
             </div>
 
-            {/* Expanded: full card content. Fixed width so the text doesn't
-                reflow while the panel animates open. */}
+            {/* Expanded: full card content. It follows the panel width so
+                neighboring slits never clip the copy. */}
             <div
               className={cn(
-                "absolute bottom-0 left-0 w-[560px] p-7 transition-opacity duration-300",
+                "absolute bottom-0 left-0 w-full p-7 transition-opacity duration-300",
                 isActive
                   ? "opacity-100 delay-150"
                   : "pointer-events-none opacity-0",
@@ -249,7 +249,7 @@ function SlitGallery({ projects }: { projects: Project[] }) {
               <h3 className="mt-1 font-heading text-2xl font-semibold text-ink">
                 {p.title}
               </h3>
-              <p className="mt-2 line-clamp-3 max-w-xl text-sm leading-relaxed text-white/85">
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/85">
                 {p.description}
               </p>
               <TagRow project={p} />
@@ -446,8 +446,9 @@ function ProjectSheet({
 }
 
 export function Projects() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  const visibleProjects = PROJECTS.filter((p) => !p.hidden);
+  const featured = visibleProjects.filter((p) => p.featured);
+  const rest = visibleProjects.filter((p) => !p.featured);
   const ordered = [...featured, ...rest];
   const [detail, setDetail] = useState<Project | null>(null);
 

@@ -66,7 +66,7 @@ const atlasLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Atlas brings Microsoft Outlook email and calendar into Claude through a Model Context Protocol (MCP) server: read and send mail, check your schedule, and book meetings in plain English across multiple accounts.",
+    "Atlas connects Microsoft Outlook email and calendar to any MCP-compatible AI assistant: read and send mail, check your schedule, and book meetings in plain English across multiple accounts.",
   offers: { "@type": "Offer", price: "12.00", priceCurrency: "USD" },
   creator: { "@id": `${SITE_URL}/#person` },
 };

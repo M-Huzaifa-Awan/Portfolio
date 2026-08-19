@@ -137,6 +137,8 @@ export const SERVICES: Service[] = [
 export type Project = {
   id: number;
   title: string;
+  /** Temporarily exclude this project from the public projects gallery. */
+  hidden?: boolean;
   featured?: boolean;
   headline?: string;
   description: string;
@@ -158,18 +160,18 @@ export const PROJECTS: Project[] = [
   {
     id: 10,
     title: "Atlas",
+    hidden: true,
     featured: true,
-    headline: "Your inbox and calendar, answered by Claude",
+    headline: "Connect your inbox and calendar to any AI",
     description:
-      "A SaaS product I designed, built, and launched. Atlas brings Microsoft Outlook email and calendar directly into Claude through a Model Context Protocol (MCP) server, so you read, draft, and send mail and manage your schedule in plain English. It handles multiple work and personal accounts at once, finds open times, and books meetings across calendars. Built on Claude Opus 4.8 with OAuth-secured, multi-tenant access.",
+      "A SaaS product I designed, built, and launched. Atlas connects Microsoft Outlook email and calendar to any MCP-compatible AI assistant, so you can read, draft, and send mail or manage your schedule in plain English. It handles multiple work and personal accounts at once, finds open times, and books meetings across calendars with OAuth-secured, multi-tenant access.",
     image: "/projects/atlas/cover.png",
-    stack: ["Next.js", "MCP", "Claude Opus 4.8", "Microsoft Graph", "TypeScript"],
+    stack: ["Next.js", "MCP", "Microsoft Graph", "OAuth 2.0", "TypeScript"],
     tags: ["SaaS", "AI", "MCP"],
     metrics: [
       { value: "2-way", label: "Email + calendar" },
       { value: "Multi", label: "Outlook accounts" },
     ],
-    liveUrl: "https://atlas-web-rho-hazel.vercel.app/",
     color: "#2563eb",
   },
   {
@@ -189,22 +191,6 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://apex-seven-tau.vercel.app/intelligence",
     pdf: "/APEX INTELLIGENCE0.pdf",
     color: "#ef4444",
-  },
-  {
-    id: 7,
-    title: "Studio OS",
-    featured: true,
-    headline: "Custom MCP server · 60+ AI tools",
-    description:
-      "Solo-engineered AI integration platform that lets Claude control a team's tools through one secure interface. Exposes 60+ tools across ClickUp, Outlook (dual M365 tenants via Microsoft Graph), Apple Health, and Oura. OAuth 2.0 device-code auth, an SSE to Streamable HTTP migration, and a Windows installer with AES-256-GCM credential encryption.",
-    image: "/projects/studio-os/cover.png",
-    stack: ["FastAPI", "Python", "Microsoft Graph", "Neon PostgreSQL", "Fly.io"],
-    tags: ["AI", "MCP", "API"],
-    metrics: [
-      { value: "60+", label: "AI tools exposed" },
-      { value: "AES-256", label: "Credential encryption" },
-    ],
-    color: "#a855f7",
   },
   {
     id: 2,
@@ -400,7 +386,6 @@ export const EXPERIENCE: Role[] = [
     highlights: [
       "Deliver production SaaS, CRM, dashboard, and AI-enabled applications for international B2B clients using ASP.NET Core, React, TypeScript, and PostgreSQL.",
       "Rebuilt a multi-tenant salon SaaS, cutting page loads from 3s to under 500ms while shipping five major features and resolving 200+ tickets.",
-      "Engineered Studio OS independently, a production MCP server exposing 60+ tools across ClickUp, Outlook, Apple Health, and Oura on Fly.io with Neon Postgres.",
       "Completed 2,000+ billed hours across international engagements, including long-term client relationships that continued through direct contracts.",
     ],
     stack: ["ASP.NET Core", "React", "TypeScript", "PostgreSQL", "Redis", "Stripe", "FastAPI", "Python"],
@@ -509,7 +494,7 @@ export type Faq = { q: string; a: string };
 export const FAQS: Faq[] = [
   {
     q: "Who is Muhammad Huzaifa Awan?",
-    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He previously worked with LEO Innovate on a multi-tenant salon SaaS platform, currently subcontracts for Lotte Innovate, freelances and consults directly with clients and on Upwork, and is the creator of Atlas, a SaaS product that brings Outlook email and calendar into Claude.",
+    a: "Muhammad Huzaifa Awan is a Senior Full Stack Developer with years of experience architecting and shipping SaaS platforms, AI products, and payment infrastructure for US-based product teams. He previously worked with LEO Innovate on a multi-tenant salon SaaS platform, currently subcontracts for Lotte Innovate, freelances and consults directly with clients and on Upwork, and is the creator of Atlas, a SaaS product that connects Outlook email and calendar to MCP-compatible AI assistants.",
   },
   {
     q: "What services does Huzaifa Awan offer?",
@@ -525,7 +510,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What is Atlas?",
-    a: "Atlas is a SaaS product Huzaifa designed, built, and launched. It connects Microsoft Outlook email and calendar directly to Claude through a Model Context Protocol server, so you can read and send mail, check your schedule, and book meetings in plain English across multiple work and personal accounts.",
+    a: "Atlas is a SaaS product Huzaifa designed, built, and launched. It connects Microsoft Outlook email and calendar to any MCP-compatible AI assistant, so you can read and send mail, check your schedule, and book meetings in plain English across multiple work and personal accounts.",
   },
   {
     q: "Does Huzaifa Awan have verified client reviews?",
