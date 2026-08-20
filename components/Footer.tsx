@@ -25,7 +25,7 @@ export function Footer() {
             <p className="mt-4 text-sm leading-relaxed text-muted">
               Senior Full Stack Developer building scalable web apps, AI-powered
               SaaS and enterprise systems. Open to senior roles and select
-              freelance work.
+              remote contract roles.
             </p>
             <div className="mt-5 flex items-center gap-3">
               {SOCIALS.map((s) => (

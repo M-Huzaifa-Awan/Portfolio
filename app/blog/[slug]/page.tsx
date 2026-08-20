@@ -127,7 +127,7 @@ export default async function PostPage({
           <p className="mt-2 text-sm leading-relaxed text-muted">
             Senior Full Stack Developer building scalable web apps, AI-powered
             SaaS and enterprise systems. Available for senior roles and select
-            freelance work.
+            remote contract roles.
           </p>
           <Link
             href="/#contact"

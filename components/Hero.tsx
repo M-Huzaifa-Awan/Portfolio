@@ -435,7 +435,7 @@ export function Hero() {
                 <span className="absolute hidden h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 sm:inline-flex" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
-              Available for senior roles &amp; freelance
+              Available for senior roles &amp; remote contract roles
             </span>
           </motion.div>
 

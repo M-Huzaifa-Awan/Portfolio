@@ -506,7 +506,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Is Huzaifa Awan available for hire?",
-    a: "Yes. He is open to senior full stack roles and select contract work with founders and agencies. The fastest way to reach him is email at mhuzaifaawan7@gmail.com or a message on LinkedIn, and he typically replies within a day.",
+    a: "Yes. He is open to senior full stack roles and select remote contract roles with founders and agencies. The fastest way to reach him is email at mhuzaifaawan7@gmail.com or a message on LinkedIn, and he typically replies within a day.",
   },
   {
     q: "What is Atlas?",
