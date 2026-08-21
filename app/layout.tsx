@@ -111,7 +111,7 @@ const jsonLd = {
       name: "Muhammad Huzaifa Awan",
       alternateName: "Huzaifa Awan",
       url: SITE_URL,
-      image: `${SITE_URL}/cover.png`,
+      image: `${SITE_URL}/profile-photo.png`,
       jobTitle: "Senior Full Stack Developer",
       email: "mailto:mhuzaifaawan7@gmail.com",
       description: DESCRIPTION,

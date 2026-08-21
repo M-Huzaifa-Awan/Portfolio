@@ -33,7 +33,7 @@ const profileLd = {
   name: "Muhammad Huzaifa Awan · Senior Full Stack Developer",
   isPartOf: { "@id": `${SITE_URL}/#website` },
   mainEntity: { "@id": `${SITE_URL}/#person` },
-  primaryImageOfPage: `${SITE_URL}/cover.png`,
+  primaryImageOfPage: `${SITE_URL}/profile-photo.png`,
   dateCreated: "2026-07-02T00:00:00Z",
   dateModified: new Date().toISOString(),
   inLanguage: "en",
