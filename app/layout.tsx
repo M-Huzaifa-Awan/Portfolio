@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s · Huzaifa Awan",
   },
   description: DESCRIPTION,
-  applicationName: "Huzaifa Awan Portfolio",
+  applicationName: "Huzaifa Awan",
   keywords: [
     "Muhammad Huzaifa Awan",
     "Huzaifa Awan",
@@ -75,12 +75,7 @@ export const metadata: Metadata = {
     images: ["/cover.png"],
   },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
-      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
-    ],
-    shortcut: "/icon-192.png",
+    icon: [{ url: "/icon-48.png", type: "image/png", sizes: "48x48" }],
     apple: "/apple-icon.png",
   },
   robots: {
@@ -145,7 +140,7 @@ const jsonLd = {
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
+      url: `${SITE_URL}/`,
       name: "Huzaifa Awan",
       alternateName: "Muhammad Huzaifa Awan",
       description: DESCRIPTION,
