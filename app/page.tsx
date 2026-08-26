@@ -4,6 +4,7 @@ import { CursorGlow } from "@/components/CursorGlow";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
+import { IntroVideo } from "@/components/IntroVideo";
 import { About } from "@/components/About";
 import { Services } from "@/components/Services";
 import { Projects } from "@/components/Projects";
@@ -97,6 +98,7 @@ export default function Home() {
           would cap. DOM order alone keeps content above the fixed Background. */}
       <main className="relative">
         <Hero />
+        <IntroVideo />
         <About />
         <Services />
         <Projects />
