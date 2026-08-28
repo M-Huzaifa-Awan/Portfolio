@@ -160,7 +160,6 @@ export const PROJECTS: Project[] = [
   {
     id: 10,
     title: "Atlas",
-    hidden: true,
     featured: true,
     headline: "Connect your inbox and calendar to any AI",
     description:
@@ -172,6 +171,7 @@ export const PROJECTS: Project[] = [
       { value: "2-way", label: "Email + calendar" },
       { value: "Multi", label: "Outlook accounts" },
     ],
+    liveUrl: "https://atlas-web-rho-hazel.vercel.app/",
     color: "#2563eb",
   },
   {
