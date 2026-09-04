@@ -63,7 +63,7 @@ const atlasLd = {
   "@type": "SoftwareApplication",
   "@id": `${SITE_URL}/#atlas`,
   name: "Atlas",
-  url: "https://atlas-web-rho-hazel.vercel.app/",
+  url: "https://atlas-web-bice-pi.vercel.app/",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:

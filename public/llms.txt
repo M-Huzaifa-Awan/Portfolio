@@ -15,7 +15,7 @@ Upwork: https://www.upwork.com/freelancers/~01b2cac225f43ef332
 - Stack: React, Next.js, TypeScript, .NET, ASP.NET Core, Node.js, SQL Server, PostgreSQL, Redis, WebSockets, Azure, Model Context Protocol (MCP), Claude and OpenAI APIs
 - Education: BS Computer Science, National University of Modern Languages (NUML), class of 2026; Vice President of the ACM Society
 - Experience: Full Stack Developer subcontracting for Lotte Innovate, Los Angeles (Mar 2026 to present) delivering MCP tooling, a real estate platform, and a network change scanner; Senior Full Stack Developer at LEO Innovate, Florida (Feb 2025 to Aug 2026) on a multi-tenant salon SaaS platform; independent freelance and consulting work for direct clients and on Upwork (Feb 2020 to present), including 2,000+ billed hours; earlier internships and an apprenticeship with DPS Model Town (Fabco Systems) and NUML (2023 to 2024)
-- Creator of Atlas (https://atlas-web-rho-hazel.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar to any MCP-compatible AI assistant
+- Creator of Atlas (https://atlas-web-bice-pi.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar to any MCP-compatible AI assistant
 - Performance track record: 95% Redis cache hit rate and sub-50ms API responses under 100+ concurrent users on a .NET SaaS platform
 - Verified 5-star client reviews on Upwork; reference letter from the CEO at LEO Innovate available on request
 - Services: SaaS product development, MCP servers and AI agents, AI integration, APIs and real-time systems, cloud and DevOps, legacy modernization

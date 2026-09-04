@@ -42,7 +42,7 @@ export const POSTS: Post[] = [
     body: [
       {
         type: "p",
-        text: "Email and calendar are where knowledge workers actually live, yet most AI assistants can only talk about them in the abstract. I wanted an AI assistant to check my schedule, find a free slot, draft the reply, and book the meeting, all in one conversation. So I built [Atlas](https://atlas-web-rho-hazel.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar to any **MCP-compatible AI assistant**. This is how it works and what I learned shipping it.",
+        text: "Email and calendar are where knowledge workers actually live, yet most AI assistants can only talk about them in the abstract. I wanted an AI assistant to check my schedule, find a free slot, draft the reply, and book the meeting, all in one conversation. So I built [Atlas](https://atlas-web-bice-pi.vercel.app/), a SaaS product that connects Microsoft Outlook email and calendar to any **MCP-compatible AI assistant**. This is how it works and what I learned shipping it.",
       },
       { type: "h2", text: "Why MCP instead of a chatbot wrapper" },
       {
@@ -102,7 +102,7 @@ export const POSTS: Post[] = [
       },
       {
         type: "p",
-        text: "Atlas is live with a free trial at [atlas-web-rho-hazel.vercel.app](https://atlas-web-rho-hazel.vercel.app/). And if you want an MCP server built for your own product or internal tools, that is exactly the kind of work I take on: [get in touch](/#contact).",
+        text: "Atlas is live with a free trial at [atlas-web-bice-pi.vercel.app](https://atlas-web-bice-pi.vercel.app/). And if you want an MCP server built for your own product or internal tools, that is exactly the kind of work I take on: [get in touch](/#contact).",
       },
     ],
   },

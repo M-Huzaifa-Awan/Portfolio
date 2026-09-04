@@ -171,7 +171,7 @@ export const PROJECTS: Project[] = [
       { value: "2-way", label: "Email + calendar" },
       { value: "Multi", label: "Outlook accounts" },
     ],
-    liveUrl: "https://atlas-web-rho-hazel.vercel.app/",
+    liveUrl: "https://atlas-web-bice-pi.vercel.app/",
     color: "#2563eb",
   },
   {
