@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
@@ -15,6 +15,8 @@ import {
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { Honeypot } from "./ui/Honeypot";
+import { Turnstile, turnstileEnabled } from "./ui/Turnstile";
 import { SITE } from "@/lib/data";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -29,47 +31,63 @@ const SOCIALS = [
 export function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
-
-  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+  const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState("");
+  const [widgetKey, setWidgetKey] = useState(0);
+  const openedAt = useRef(Date.now());
+  const needsTurnstile = turnstileEnabled();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (needsTurnstile && !token) return;
     setStatus("sending");
+    setError(null);
 
-    if (!accessKey) {
-      const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
-      const body = encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
-      );
-      window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
-      setTimeout(() => setStatus("idle"), 4000);
-      return;
-    }
+    const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement)
+      ?.value;
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Portfolio enquiry from ${form.name}`,
-          from_name: "Portfolio",
+          kind: "contact",
           ...form,
+          website,
+          openedAt: openedAt.current,
+          turnstileToken: token,
         }),
       });
-      const json = await res.json();
-      if (json.success) {
+      const json = (await res.json()) as { success?: boolean; error?: string };
+
+      if (res.status === 503) {
+        const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
+        const body = encodeURIComponent(
+          `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+        );
+        window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
         setStatus("success");
         setForm({ name: "", email: "", message: "" });
-      } else setStatus("error");
+        return;
+      }
+
+      if (res.ok && json.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+        setToken("");
+        setWidgetKey((k) => k + 1);
+        openedAt.current = Date.now();
+      } else {
+        setStatus("error");
+        setError(json.error ?? null);
+      }
     } catch {
       setStatus("error");
+      setError(null);
     } finally {
       setTimeout(() => setStatus("idle"), 5000);
     }
@@ -151,7 +169,8 @@ export function Contact() {
 
           {/* Right: form */}
           <Reveal delayIndex={1}>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="relative flex flex-col gap-4">
+              <Honeypot id="contact-website" />
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field
                   label="Name"
@@ -181,6 +200,7 @@ export function Contact() {
                   name="message"
                   required
                   rows={5}
+                  maxLength={2000}
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Tell me about your project…"
@@ -188,9 +208,11 @@ export function Contact() {
                 />
               </div>
 
+              <Turnstile key={widgetKey} onToken={setToken} />
+
               <motion.button
                 type="submit"
-                disabled={status === "sending"}
+                disabled={status === "sending" || (needsTurnstile && !token)}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
                 className="group relative mt-1 inline-flex items-center justify-center gap-2 overflow-hidden rounded-2xl bg-accent px-6 py-3.5 text-sm font-semibold text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow disabled:opacity-70"
@@ -219,9 +241,7 @@ export function Contact() {
                     exit={{ opacity: 0 }}
                     className="text-sm text-emerald-400"
                   >
-                    {accessKey
-                      ? "Thanks, I'll get back to you shortly."
-                      : "Opening your email client…"}
+                    Thanks, I&apos;ll get back to you shortly.
                   </motion.p>
                 )}
                 {status === "error" && (
@@ -231,7 +251,7 @@ export function Contact() {
                     exit={{ opacity: 0 }}
                     className="text-sm text-red-400"
                   >
-                    Something went wrong. Email {SITE.email} directly.
+                    {error ?? `Something went wrong. Email ${SITE.email} directly.`}
                   </motion.p>
                 )}
               </AnimatePresence>

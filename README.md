@@ -29,8 +29,12 @@ Copy `.env.example` to `.env.local` and fill in:
 
 | Variable | Purpose |
 | --- | --- |
-| `NEXT_PUBLIC_WEB3FORMS_KEY` | Contact-form delivery via [web3forms.com](https://web3forms.com) (free). Without it the form falls back to opening the visitor's mail client. |
+| `WEB3FORMS_KEY` | Server-only [web3forms.com](https://web3forms.com) key. Without it the contact form falls back to the visitor's mail client. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (free). Create a widget at [dash.cloudflare.com](https://dash.cloudflare.com/?to=/:account/turnstile). |
+| `TURNSTILE_SECRET_KEY` | Matching Turnstile secret. Verified on the server before any email is sent. |
 | `NEXT_PUBLIC_GITHUB_USER` | GitHub username for the live "GitHub Activity" section (defaults to `M-Huzaifa-Awan`). |
+| `UMAMI_API_KEY` / `UMAMI_WEBSITE_ID` | Optional. Use Umami's active-visitor count for the "online" badge instead of first-party presence. |
+| `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Optional. Shared store so live viewers and form rate limits stay accurate across Vercel instances. |
 
 ## Structure
 

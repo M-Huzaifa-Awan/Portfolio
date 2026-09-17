@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NAV_LINKS } from "@/lib/data";
 import { LogoMark } from "./ui/LogoMark";
+import { LiveViewers } from "./LiveViewers";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
@@ -103,13 +104,16 @@ export function Navbar() {
             })}
           </ul>
 
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow"
-          >
-            Book a Call
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <div className="flex items-center gap-3">
+            <LiveViewers />
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow"
+            >
+              Book a Call
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
         </nav>
       </motion.header>
 
@@ -192,13 +196,16 @@ export function Navbar() {
                 })}
               </nav>
 
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="mt-auto flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-3.5 text-sm font-semibold text-black"
-              >
-                Book a Call <ArrowUpRight className="h-4 w-4" />
-              </a>
+              <div className="mt-auto space-y-3">
+                <LiveViewers className="px-1" />
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-3.5 text-sm font-semibold text-black"
+                >
+                  Book a Call <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
             </motion.aside>
           </>
         )}

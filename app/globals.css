@@ -92,6 +92,16 @@
     border: 1px solid var(--line);
   }
 
+  /* Off-screen honeypot — avoid display:none, which many bots skip. */
+  .hp {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   /* Section eyebrow label */
   .eyebrow {
     @apply inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-muted;

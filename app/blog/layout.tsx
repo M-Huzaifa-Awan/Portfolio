@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Background } from "@/components/Background";
 import { LogoMark } from "@/components/ui/LogoMark";
+import { LiveViewers } from "@/components/LiveViewers";
 import { SITE } from "@/lib/data";
 
 export default function BlogLayout({
@@ -18,12 +19,15 @@ export default function BlogLayout({
             <LogoMark className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" />
             <span className="text-sm font-semibold tracking-tight">Huzaifa Awan</span>
           </Link>
-          <Link
-            href="/#contact"
-            className="hidden items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow sm:inline-flex"
-          >
-            Book a Call
-          </Link>
+          <div className="flex items-center gap-3">
+            <LiveViewers className="hidden sm:inline-flex" />
+            <Link
+              href="/#contact"
+              className="hidden items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow sm:inline-flex"
+            >
+              Book a Call
+            </Link>
+          </div>
         </nav>
       </header>
 

@@ -13,6 +13,7 @@ import {
 import { ArrowUpRight, Download, Sparkles, Star } from "lucide-react";
 import { MagneticButton } from "./ui/MagneticButton";
 import { CountUp } from "./ui/CountUp";
+import { LiveViewers } from "./LiveViewers";
 import { HERO_STATS, SITE } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
@@ -428,15 +429,15 @@ export function Hero() {
           animate={settled ? "visible" : "hidden"}
           className="max-w-2xl"
         >
-          {/* Hidden on mobile but its space is preserved to keep the composition */}
-          <motion.div variants={item} className="invisible sm:visible">
-            <span className="eyebrow">
+          <motion.div variants={item} className="flex min-h-[34px] items-center">
+            <span className="eyebrow hidden sm:inline-flex">
               <span className="relative flex h-2 w-2">
                 <span className="absolute hidden h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75 sm:inline-flex" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               Available for senior roles &amp; remote contract roles
             </span>
+            <LiveViewers className="eyebrow normal-case tracking-normal sm:hidden" />
           </motion.div>
 
           {/* No fade variant: the morphing characters must be visible the

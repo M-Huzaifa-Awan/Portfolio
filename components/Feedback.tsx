@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Ghost, Send, CheckCircle2, Loader2, MapPin } from "lucide-react";
 import { Reveal } from "./ui/Reveal";
+import { Honeypot } from "./ui/Honeypot";
+import { Turnstile, turnstileEnabled } from "./ui/Turnstile";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -17,7 +19,10 @@ export function Feedback() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [place, setPlace] = useState<string | null>(null);
-  const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+  const [token, setToken] = useState("");
+  const [widgetKey, setWidgetKey] = useState(0);
+  const openedAt = useRef(Date.now());
+  const needsTurnstile = turnstileEnabled();
 
   useEffect(() => {
     fetch("/api/geo")
@@ -28,31 +33,33 @@ export function Feedback() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Honeypot: real users never fill this in.
-    const botcheck = (e.currentTarget.elements.namedItem("botcheck") as HTMLInputElement)?.value;
-    if (botcheck) return;
-
-    if (!message.trim() || !accessKey) return;
+    if (!message.trim() || (needsTurnstile && !token)) return;
     setStatus("sending");
 
+    const website = (e.currentTarget.elements.namedItem("website") as HTMLInputElement)
+      ?.value;
+
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Anonymous feedback${place ? ` — ${place}` : ""}`,
-          from_name: "Anonymous (Portfolio)",
+          kind: "feedback",
           message,
+          website,
+          openedAt: openedAt.current,
+          turnstileToken: token,
           approx_location: place ?? "Unknown",
           page: typeof window !== "undefined" ? window.location.href : undefined,
         }),
       });
-      const json = await res.json();
-      if (json.success) {
+      const json = (await res.json()) as { success?: boolean };
+      if (res.ok && json.success) {
         setStatus("success");
         setMessage("");
+        setToken("");
+        setWidgetKey((k) => k + 1);
+        openedAt.current = Date.now();
       } else setStatus("error");
     } catch {
       setStatus("error");
@@ -79,23 +86,19 @@ export function Feedback() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3">
-            <input
-              type="text"
-              name="botcheck"
-              tabIndex={-1}
-              autoComplete="off"
-              className="hidden"
-              aria-hidden="true"
-            />
+          <form onSubmit={handleSubmit} className="relative mt-5 flex flex-col gap-3">
+            <Honeypot id="feedback-website" />
             <textarea
               required
               rows={3}
+              maxLength={2000}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Honest feedback on the site, an idea, or just a hello…"
               className="resize-none rounded-2xl border border-line bg-white/[0.02] px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/60 focus:border-accent/50 focus:bg-white/[0.04]"
             />
+
+            <Turnstile key={widgetKey} onToken={setToken} />
 
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="inline-flex items-center gap-1.5 text-[11px] leading-snug text-muted/70">
@@ -107,7 +110,7 @@ export function Feedback() {
 
               <motion.button
                 type="submit"
-                disabled={status === "sending" || !message.trim()}
+                disabled={status === "sending" || !message.trim() || (needsTurnstile && !token)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-line bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:border-accent/40 hover:text-accent disabled:opacity-50"
