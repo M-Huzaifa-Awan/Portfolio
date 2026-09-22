@@ -472,3 +472,23 @@
     transform: translate3d(7px, 9px, -1px);
   }
 }
+
+/* Give expanded LinkedIn analytics the full content row. The collapsed cards
+   stay compact; opening either card creates enough room for readable metrics. */
+@media (min-width: 1024px) {
+  .linkedin-post-wrap:has(details[open]) {
+    grid-column: 1 / -1;
+  }
+
+  .linkedin-post-wrap:has(details[open]) .linkedin-post-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(24rem, 1.1fr);
+  }
+
+  .linkedin-post-wrap:has(details[open]) .linkedin-post-image {
+    min-height: 22rem;
+    aspect-ratio: auto;
+    border-right: 1px solid var(--line);
+    border-bottom: 0;
+  }
+}

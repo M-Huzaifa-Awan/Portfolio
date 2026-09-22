@@ -122,13 +122,15 @@ function Metric({
   featured?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-line bg-black/20 p-3.5">
-      <dt className="text-xs leading-relaxed text-muted">{label}</dt>
+    <div className="min-w-0 rounded-xl border border-line bg-black/20 p-3.5">
+      <dt className="break-words text-xs leading-relaxed text-muted">
+        {label}
+      </dt>
       <dd
         className={
           featured
-            ? "mt-1 font-heading text-2xl font-semibold text-accent"
-            : "mt-1 font-heading text-xl font-semibold text-ink"
+            ? "mt-1 break-words font-heading text-2xl font-semibold tabular-nums text-accent"
+            : "mt-1 break-words font-heading text-xl font-semibold tabular-nums text-ink"
         }
       >
         {value}
@@ -315,35 +317,50 @@ export function TopLinkedInPosts() {
 
       <div className="mt-12 grid items-start gap-6 lg:mt-14 lg:grid-cols-2">
         {TOP_LINKEDIN_POSTS.map((post, index) => (
-          <Reveal key={post.id} delayIndex={index}>
+          <Reveal
+            key={post.id}
+            delayIndex={index}
+            className="linkedin-post-wrap min-w-0"
+          >
             <article className="overflow-hidden rounded-3xl border border-line bg-[#0d0f11] shadow-card">
-              <div className="relative aspect-[4/3] overflow-hidden border-b border-line bg-[#171b20]">
-                <Image
-                  src={post.image}
-                  alt={post.imageAlt}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  placeholder="blur"
-                  className="object-contain object-top"
-                />
-                <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/75 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
-                  <Linkedin aria-hidden="true" className="h-3.5 w-3.5 text-[#70b5f9]" />
-                  Top post {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-
-              <div className="p-5 sm:p-6">
-                <p className="text-base leading-relaxed text-ink">
-                  {post.headline}
-                </p>
-                <dl className="mt-5 grid grid-cols-3 gap-2.5">
-                  <Metric label="Impressions" value={post.impressions} featured />
-                  <Metric label="Reached" value={post.membersReached} />
-                  <Metric
-                    label={post.linkEngagements ? "Link visits" : "Followers"}
-                    value={post.linkEngagements ?? post.followersGained}
+              <div className="linkedin-post-overview min-w-0">
+                <div className="linkedin-post-image relative aspect-[4/3] overflow-hidden border-b border-line bg-[#171b20]">
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    placeholder="blur"
+                    className="object-contain object-top"
                   />
-                </dl>
+                  <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-black/75 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
+                    <Linkedin
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 text-[#70b5f9]"
+                    />
+                    Top post {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <div className="min-w-0 p-5 sm:p-6">
+                  <p className="text-base leading-relaxed text-ink">
+                    {post.headline}
+                  </p>
+                  <dl className="mt-5 grid grid-cols-3 gap-2.5">
+                    <Metric
+                      label="Impressions"
+                      value={post.impressions}
+                      featured
+                    />
+                    <Metric label="Reached" value={post.membersReached} />
+                    <Metric
+                      label={
+                        post.linkEngagements ? "Link visits" : "Followers"
+                      }
+                      value={post.linkEngagements ?? post.followersGained}
+                    />
+                  </dl>
+                </div>
               </div>
 
               <details className="group/details border-t border-line">
