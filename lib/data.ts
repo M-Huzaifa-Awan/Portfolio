@@ -485,6 +485,121 @@ export const TESTIMONIALS: Testimonial[] = [
 export const LEO_REFERENCE =
   "The CEO at LEO Innovate offered to write a personal letter of recommendation after the salon SaaS platform work. Reference available on request.";
 
+export type PortfolioReaction = {
+  quote: string;
+  name: string;
+  role?: string;
+  source: "LinkedIn";
+  profileUrl?: string;
+  commentUrl?: string;
+};
+
+// Short, appreciation-only excerpts from public LinkedIn feedback about this
+// portfolio. Advice, product promotion and unrelated discussion are excluded.
+export const PORTFOLIO_REACTIONS: PortfolioReaction[] = [
+  {
+    quote:
+      "Just wanted to acknowledge that your portfolio is looking great",
+    name: "lakshmi sowjanya garapati",
+    source: "LinkedIn",
+    profileUrl:
+      "https://www.linkedin.com/in/ACoAACTm47cB1kXg4YOZ1APz08DzySsct9fWiZ8",
+  },
+  {
+    quote:
+      "Hats off! Muhammad Huzaifa Awan Your personal site looks really good. I actually got a few ideas and some inspiration from it. Thanks a lot for sharing such valuable information!",
+    name: "Prasanth A R",
+    role:
+      "Junior Frontend Engineer @ TXR Ventures | Next.js, React.js | Cybersecurity Enthusiast",
+    source: "LinkedIn",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7505988335937699840?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7505988335937699840%2C7506373192580726784%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287506373192580726784%2Curn%3Ali%3Aactivity%3A7505988335937699840%29",
+  },
+  {
+    quote: "I have visited your website. The overall UX is great.",
+    name: "Abdul Khalek Sohan",
+    role:
+      "Senior Software Engineer @ Ajke Technology | Microservices · NestJS · Kubernetes · PostgreSQL · RabbitMQ | Building Scalable SaaS Platforms",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/abdul-khalek-sohan",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7505988335937699840?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7505988335937699840%2C7506232758306979840%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287506232758306979840%2Curn%3Ali%3Aactivity%3A7505988335937699840%29",
+  },
+  {
+    quote: "Might be I'm just reloading the page to see all loading quotes 😅",
+    name: "Ahmed Hagag",
+    role: "Staff Engineer at HelloFresh",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/ahmedalaahagag",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7505988335937699840?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7505988335937699840%2C7506337643476004864%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287506337643476004864%2Curn%3Ali%3Aactivity%3A7505988335937699840%29",
+  },
+  {
+    quote:
+      "I have visited your website man. It's truly awesome and inspiring. I am from Bangladesh.",
+    name: "Md Fahad Farazi",
+    role:
+      "Independent Developer | Building Software & Web Applications | React | Node.js | NestJS | PostgreSQL | Linux | DSA",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/md-fahad-farazi",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7505988335937699840?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7505988335937699840%2C7506207091704012801%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287506207091704012801%2Curn%3Ali%3Aactivity%3A7505988335937699840%29",
+  },
+  {
+    quote:
+      "Great job! Even small updates keep a portfolio fresh and relevant. It looks excellent. 😀👏👏",
+    name: "Usama Hasnat",
+    role:
+      "Frontend Developer & Web Designer | C# .NET & SSMS Trainee | HTML, CSS, JavaScript, Tailwind CSS, React | Remote Internship Graduate | Open to Junior Roles",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/usama-hasnat-web",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7489378301896146944?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7489378301896146944%2C7489383086137229312%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287489383086137229312%2Curn%3Ali%3Aactivity%3A7489378301896146944%29",
+  },
+  {
+    quote:
+      "Congratulations! Topping the Google search results is a massive testament to your hard work and great strategy. 📈👏",
+    name: "Usama Hasnat",
+    role:
+      "Frontend Developer & Web Designer | C# .NET & SSMS Trainee | HTML, CSS, JavaScript, Tailwind CSS, React | Remote Internship Graduate | Open to Junior Roles",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/usama-hasnat-web",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7487539527813586945/?dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287487545381216587776%2Curn%3Ali%3Aactivity%3A7487539527813586945%29",
+  },
+  {
+    quote: "Huzaifa I really like the banner concept on your readme.md",
+    name: "codebyhaseeb",
+    role:
+      "Building Digital Education Infra for Pakistani Students | Laravel × Flutter Developer | Exploring Agentic AI & Workflow Automation",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/codebyhaseeb/",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7484822967227699200/?dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287487366605702807553%2Curn%3Ali%3Aactivity%3A7484822967227699200%29",
+  },
+  {
+    quote:
+      "Turning your github into a portfolio is smart otherwise recruiters just scroll past it.",
+    name: "Ismail Abbasi",
+    role:
+      "Full Stack AI Engineer | MERN | Rust | Backend & Low-Level | Forward Deployed Engineer",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/ismailabbasi/",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7484822967227699200/?dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287485127962447749120%2Curn%3Ali%3Aactivity%3A7484822967227699200%29",
+  },
+  {
+    quote: "nice portfolio",
+    name: "Ehtisham Aflak",
+    role:
+      "Full-Stack Developer Intern @ Synexus | MERN Stack Engineer | React • Node.js • Express • MongoDB | Python • AI & Automation | SEO Specialist | Software Engineering @ NUML",
+    source: "LinkedIn",
+    profileUrl: "https://www.linkedin.com/in/ehtishamaflaq/",
+    commentUrl:
+      "https://www.linkedin.com/feed/update/urn:li:activity:7438853887765307392/?dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287442212413518667776%2Curn%3Ali%3Aactivity%3A7438853887765307392%29",
+  },
+];
+
 /* ------------------------------ FAQ ------------------------------ */
 /* Rendered in the FAQ section and emitted as FAQPage JSON-LD for
    featured snippets (AEO) and AI answer engines (GEO/AIO). */

@@ -12,6 +12,8 @@ import { TechStack } from "@/components/TechStack";
 import { Experience } from "@/components/Experience";
 import { Certifications } from "@/components/Certifications";
 import { Testimonials } from "@/components/Testimonials";
+import { PortfolioReactions } from "@/components/PortfolioReactions";
+import { TopLinkedInPosts } from "@/components/TopLinkedInPosts";
 import { GitHubActivity } from "@/components/GitHubActivity";
 import { Writing } from "@/components/Writing";
 import { Contact } from "@/components/Contact";
@@ -106,6 +108,8 @@ export default function Home() {
         <Experience />
         <Certifications />
         <Testimonials />
+        <PortfolioReactions />
+        <TopLinkedInPosts />
         <GitHubActivity />
         <Writing />
         <Faq />
