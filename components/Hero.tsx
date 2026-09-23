@@ -41,6 +41,7 @@ const CHROME_MS = 560;
 const STAT_START = 2;
 const STAT_STEP = 0.34;
 const COUNT_S = 0.6;
+const INTRO_SEEN_KEY = "hero-intro-seen";
 
 // Expo-out — leaves fast, decelerates long, settles once.
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -165,13 +166,26 @@ export function Hero() {
   const showCard = phase === 2 || phase === 3;
 
   useEffect(() => {
-    if (reducedMotion) {
+    let hasSeenIntro = false;
+    try {
+      hasSeenIntro = localStorage.getItem(INTRO_SEEN_KEY) === "true";
+    } catch {
+      // Storage can be unavailable in private browsing; play the intro once
+      // for this mount and continue normally.
+    }
+
+    if (reducedMotion || hasSeenIntro) {
       setPhase(4);
       return;
     }
     const timers: ReturnType<typeof setTimeout>[] = [];
     const start = () => {
       if (phaseRef.current !== 0) return;
+      try {
+        localStorage.setItem(INTRO_SEEN_KEY, "true");
+      } catch {
+        // The animation still works when storage is unavailable.
+      }
       setPhase(1);
       timers.push(setTimeout(() => setPhase(2), HI_MS));
       timers.push(setTimeout(() => setPhase(3), HI_MS + CARD_MS));

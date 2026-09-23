@@ -2,22 +2,36 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/data";
 import { LogoMark } from "./ui/LogoMark";
 import { LiveViewers } from "./LiveViewers";
 import { cn } from "@/lib/utils";
 
-const desktopNavSplit = Math.floor(NAV_LINKS.length / 2);
-const DESKTOP_NAV_ROWS = [
-  NAV_LINKS.slice(0, desktopNavSplit),
-  NAV_LINKS.slice(desktopNavSplit),
-];
+const PRIMARY_NAV_HREFS = new Set([
+  "#about",
+  "#services",
+  "#projects",
+  "#experience",
+]);
+
+const DESKTOP_PRIMARY_LINKS = NAV_LINKS.filter((link) =>
+  PRIMARY_NAV_HREFS.has(link.href),
+);
+
+const DESKTOP_MORE_LINKS = NAV_LINKS.filter(
+  (link) => !PRIMARY_NAV_HREFS.has(link.href) && link.href !== "#contact",
+);
+
+const CONTACT_LINK = NAV_LINKS.find((link) => link.href === "#contact");
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
+  const moreSectionActive = DESKTOP_MORE_LINKS.some(
+    (link) => active === link.href.slice(1),
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -58,7 +72,8 @@ export function Navbar() {
 
   return (
     <>
-      {/* Desktop: floating pill bar (unchanged look, lg and up only) */}
+      {/* Desktop: compact single-row navigation with secondary links grouped
+          into an accessible native disclosure. */}
       <motion.header
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -79,46 +94,119 @@ export function Navbar() {
             aria-label="Home"
           >
             <LogoMark className="h-9 w-9 transition-transform duration-300 group-hover:scale-110" />
-            <span className="hidden text-sm font-semibold tracking-tight 2xl:inline">
+            <span className="hidden text-sm font-semibold tracking-tight xl:inline">
               Huzaifa Awan
             </span>
           </a>
 
-          <div className="flex min-w-0 flex-col items-center gap-0.5">
-            {DESKTOP_NAV_ROWS.map((row, rowIndex) => (
-              <ul
-                key={rowIndex}
-                className="flex items-center justify-center gap-0.5"
+          <div className="flex min-w-0 items-center gap-0.5">
+            <ul className="flex items-center gap-0.5">
+              {DESKTOP_PRIMARY_LINKS.map((link) => {
+                const isActive = active === link.href.slice(1);
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className={cn(
+                        "relative block whitespace-nowrap rounded-full px-2.5 py-2 text-xs transition-colors duration-200 xl:px-3 xl:text-sm",
+                        isActive ? "text-ink" : "text-muted hover:text-ink",
+                      )}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-active"
+                          className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
+                          transition={{
+                            type: "spring",
+                            stiffness: 380,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <details className="group relative">
+              <summary
+                className={cn(
+                  "relative flex cursor-pointer list-none items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-2 text-xs transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent xl:px-3 xl:text-sm [&::-webkit-details-marker]:hidden",
+                  moreSectionActive
+                    ? "text-ink"
+                    : "text-muted hover:text-ink",
+                )}
               >
-                {row.map((link) => {
-                  const isActive = active === link.href.slice(1);
-                  return (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        className={cn(
-                          "relative block whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition-colors duration-200 xl:px-2.5 xl:text-sm",
-                          isActive ? "text-ink" : "text-muted hover:text-ink",
-                        )}
-                      >
-                        {isActive && (
-                          <motion.span
-                            layoutId="nav-active"
-                            className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
-                            transition={{
-                              type: "spring",
-                              stiffness: 380,
-                              damping: 30,
-                            }}
-                          />
-                        )}
-                        {link.label}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            ))}
+                {moreSectionActive && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
+                Explore
+                <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+
+              <div className="absolute left-1/2 top-[calc(100%+0.75rem)] z-20 w-[22rem] -translate-x-1/2 rounded-2xl border border-line bg-[#0b0b0b] p-2 shadow-card">
+                <ul className="grid grid-cols-2 gap-1">
+                  {DESKTOP_MORE_LINKS.map((link) => {
+                    const isActive = active === link.href.slice(1);
+                    return (
+                      <li key={link.href}>
+                        <a
+                          href={link.href}
+                          onClick={(event) =>
+                            event.currentTarget
+                              .closest("details")
+                              ?.removeAttribute("open")
+                          }
+                          className={cn(
+                            "block rounded-xl px-3 py-2.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+                            isActive
+                              ? "bg-white/[0.07] font-medium text-ink"
+                              : "text-muted hover:bg-white/[0.04] hover:text-ink",
+                          )}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </details>
+
+            {CONTACT_LINK ? (
+              <a
+                href={CONTACT_LINK.href}
+                className={cn(
+                  "relative block whitespace-nowrap rounded-full px-2.5 py-2 text-xs transition-colors duration-200 xl:px-3 xl:text-sm",
+                  active === CONTACT_LINK.href.slice(1)
+                    ? "text-ink"
+                    : "text-muted hover:text-ink",
+                )}
+              >
+                {active === CONTACT_LINK.href.slice(1) && (
+                  <motion.span
+                    layoutId="nav-active"
+                    className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
+                {CONTACT_LINK.label}
+              </a>
+            ) : null}
           </div>
 
           <div className="flex items-center gap-3">
