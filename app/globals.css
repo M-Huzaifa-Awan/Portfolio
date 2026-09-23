@@ -335,10 +335,11 @@
   isolation: isolate;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 280ms cubic-bezier(0.21, 0.47, 0.32, 0.98);
 }
 
 .hex-carousel-stage {
+  contain: layout paint;
+  isolation: isolate;
   overflow: clip;
   overflow-anchor: none;
   perspective: 1200px;
@@ -365,9 +366,7 @@
     rgba(255, 138, 76, 0.14)
   );
   transform: translate3d(7px, 9px, -1px);
-  transition:
-    transform 280ms cubic-bezier(0.21, 0.47, 0.32, 0.98),
-    opacity 280ms ease;
+  transition: opacity 280ms ease;
 }
 
 .hex-card-frame {
@@ -437,7 +436,6 @@
 
   .hex-card:hover .hex-card-depth {
     opacity: 0.95;
-    transform: translate3d(11px, 14px, -1px);
   }
 }
 

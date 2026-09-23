@@ -1,7 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -16,11 +21,13 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
 
 export function PortfolioReactions() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [playing, setPlaying] = useState(true);
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
+  const isInView = useInView(sectionRef, { amount: 0.35 });
   const count = PORTFOLIO_REACTIONS.length;
 
   const advance = useCallback(
@@ -31,7 +38,7 @@ export function PortfolioReactions() {
     [count],
   );
 
-  const autoplayActive = playing && !paused && !reducedMotion;
+  const autoplayActive = playing && !paused && !reducedMotion && isInView;
 
   useEffect(() => {
     if (!autoplayActive) return;
@@ -52,7 +59,7 @@ export function PortfolioReactions() {
         <span className="hex-scene-shape hex-scene-shape-three" />
       </div>
 
-      <div className="relative z-10">
+      <div ref={sectionRef} className="relative z-10">
         <SectionHeading
           align="center"
           eyebrow="Portfolio reactions"

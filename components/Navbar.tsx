@@ -73,7 +73,7 @@ export function Navbar() {
             aria-label="Home"
           >
             <LogoMark className="h-9 w-9 transition-transform duration-300 group-hover:scale-110" />
-            <span className="text-sm font-semibold tracking-tight">
+            <span className="hidden text-sm font-semibold tracking-tight 2xl:inline">
               Huzaifa Awan
             </span>
           </a>
@@ -86,7 +86,7 @@ export function Navbar() {
                   <a
                     href={link.href}
                     className={cn(
-                      "relative rounded-full px-3 py-2 text-sm transition-colors duration-200",
+                      "relative rounded-full px-2 py-2 text-xs transition-colors duration-200 xl:px-2.5 xl:text-sm",
                       isActive ? "text-ink" : "text-muted hover:text-ink",
                     )}
                   >
@@ -105,7 +105,7 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <LiveViewers />
+            <LiveViewers className="hidden 2xl:flex" />
             <a
               href="#contact"
               className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-medium text-black shadow-glow-sm transition-all duration-300 hover:bg-accent-hover hover:shadow-glow"
