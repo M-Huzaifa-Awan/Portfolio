@@ -19,7 +19,7 @@ export function Writing() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <SectionHeading
           className="mb-0"
-          eyebrow="Writing"
+          eyebrow="Writings"
           title={
             <>
               Notes on <span className="text-gradient">real software.</span>
@@ -31,7 +31,7 @@ export function Writing() {
           href="/blog"
           className="group inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-4 py-2 text-sm text-muted transition-colors hover:border-accent/40 hover:text-ink"
         >
-          All writing
+          All writings
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </Link>
       </div>

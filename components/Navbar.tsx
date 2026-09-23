@@ -8,6 +8,12 @@ import { LogoMark } from "./ui/LogoMark";
 import { LiveViewers } from "./LiveViewers";
 import { cn } from "@/lib/utils";
 
+const desktopNavSplit = Math.floor(NAV_LINKS.length / 2);
+const DESKTOP_NAV_ROWS = [
+  NAV_LINKS.slice(0, desktopNavSplit),
+  NAV_LINKS.slice(desktopNavSplit),
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -78,31 +84,42 @@ export function Navbar() {
             </span>
           </a>
 
-          <ul className="flex items-center gap-0.5">
-            {NAV_LINKS.map((link) => {
-              const isActive = active === link.href.slice(1);
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={cn(
-                      "relative rounded-full px-2 py-2 text-xs transition-colors duration-200 xl:px-2.5 xl:text-sm",
-                      isActive ? "text-ink" : "text-muted hover:text-ink",
-                    )}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="flex min-w-0 flex-col items-center gap-0.5">
+            {DESKTOP_NAV_ROWS.map((row, rowIndex) => (
+              <ul
+                key={rowIndex}
+                className="flex items-center justify-center gap-0.5"
+              >
+                {row.map((link) => {
+                  const isActive = active === link.href.slice(1);
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        className={cn(
+                          "relative block whitespace-nowrap rounded-full px-2 py-1.5 text-xs transition-colors duration-200 xl:px-2.5 xl:text-sm",
+                          isActive ? "text-ink" : "text-muted hover:text-ink",
+                        )}
+                      >
+                        {isActive && (
+                          <motion.span
+                            layoutId="nav-active"
+                            className="absolute inset-0 -z-10 rounded-full bg-white/[0.06] ring-1 ring-line"
+                            transition={{
+                              type: "spring",
+                              stiffness: 380,
+                              damping: 30,
+                            }}
+                          />
+                        )}
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            ))}
+          </div>
 
           <div className="flex items-center gap-3">
             <LiveViewers className="hidden 2xl:flex" />
@@ -175,7 +192,7 @@ export function Navbar() {
                 </span>
               </a>
 
-              <nav className="mt-6 flex flex-col gap-1">
+              <nav className="mt-6 flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto pr-1">
                 {NAV_LINKS.map((link) => {
                   const isActive = active === link.href.slice(1);
                   return (

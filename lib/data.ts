@@ -51,8 +51,9 @@ export const NAV_LINKS = [
   { label: "Reactions", href: "#portfolio-reactions" },
   { label: "LinkedIn Posts", href: "#linkedin-posts" },
   { label: "GitHub", href: "#github" },
-  { label: "Writing", href: "#writing" },
+  { label: "Writings", href: "#writing" },
   { label: "Contact", href: "#contact" },
+  { label: "Feedback", href: "#feedback" },
 ];
 
 export const HERO_STATS = [
