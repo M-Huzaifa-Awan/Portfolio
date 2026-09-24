@@ -97,7 +97,7 @@ export const SERVICES: Service[] = [
     short: "Websites",
     description:
       "A professional website for your business, a portal where your customers log in, or a dashboard where you see sales, bookings, and stock at a glance. Fast, clean, and it works just as well on a phone.",
-    points: ["Business websites", "Customer portals", "Live dashboards"],
+    points: ["Business websites", "Customer portals", "Live dashboards", "Umbraco CMS Development & Maintenance"],
   },
   {
     icon: Sparkles,
@@ -312,7 +312,7 @@ export type TechGroup = { heading: string; items: string[] };
 export const TECH_GROUPS: TechGroup[] = [
   {
     heading: "Backend",
-    items: ["C#", ".NET Core", ".NET 8", "ASP.NET", "Node.js", "REST APIs", "GraphQL", "SignalR"],
+    items: ["C#", ".NET Core", ".NET 8", "ASP.NET", "Umbraco CMS", "Node.js", "REST APIs", "GraphQL", "SignalR"],
   },
   {
     heading: "Frontend",
@@ -333,6 +333,7 @@ export const TECH_PILLS = [
   "ASP.NET",
   ".NET Core",
   "C#",
+  "Umbraco CMS",
   "React",
   "Next.js",
   "Node.js",

@@ -59,6 +59,11 @@ export function About() {
             I&apos;ll reach for whatever the problem actually needs: WebSockets
             for live preview, iTextSharp for dynamic PDFs, Stripe for
             subscriptions, a custom MCP server for AI tooling.
+            {" "}My .NET experience also includes Umbraco development and
+            customization: templates, document types, content blocks, custom
+            components, and CMS configuration. I&apos;m comfortable working with
+            and maintaining existing Umbraco codebases, handling metadata,
+            redirects, bug fixes, upgrades, and ongoing website maintenance.
           </p>
 
           <div className="grid grid-cols-2 gap-3 pt-4 sm:grid-cols-4">
