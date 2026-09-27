@@ -1,7 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import {
   BarChart3,
-  ChevronDown,
   Eye,
   Linkedin,
   MousePointerClick,
@@ -13,6 +12,7 @@ import postTwoImage from "@/2.png";
 import { Section } from "./ui/Section";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { AnalyticsDisclosure } from "./ui/AnalyticsDisclosure";
 
 type Demographic = {
   category: string;
@@ -53,7 +53,7 @@ const TOP_LINKEDIN_POSTS: LinkedInPostAnalytics[] = [
     image: postOneImage,
     imageAlt:
       "LinkedIn post showing security analytics for 854 denied requests to the portfolio",
-    impressions: "56,688",
+    impressions: "60,000+",
     membersReached: "38,011",
     inNetwork: 1,
     outOfNetwork: 99,
@@ -86,7 +86,7 @@ const TOP_LINKEDIN_POSTS: LinkedInPostAnalytics[] = [
     image: postTwoImage,
     imageAlt:
       "LinkedIn post showing a redesigned GitHub profile as a developer portfolio",
-    impressions: "34,723",
+    impressions: "35,000+",
     membersReached: "22,447",
     inNetwork: 2,
     outOfNetwork: 98,
@@ -141,7 +141,7 @@ function Metric({
 
 function AnalyticsDetails({ post }: { post: LinkedInPostAnalytics }) {
   return (
-    <div className="grid gap-4 border-t border-line p-5 sm:p-6 lg:grid-cols-2">
+    <div className="grid gap-4 border-t border-line p-5 sm:p-6">
       <section
         aria-labelledby={"discovery-" + post.id}
         className="rounded-2xl border border-line bg-white/[0.02] p-5"
@@ -363,16 +363,9 @@ export function TopLinkedInPosts() {
                 </div>
               </div>
 
-              <details className="group/details border-t border-line">
-                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-white/[0.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent sm:px-6 [&::-webkit-details-marker]:hidden">
-                  View full analytics
-                  <ChevronDown
-                    aria-hidden="true"
-                    className="h-4 w-4 text-muted transition-transform duration-200 group-open/details:rotate-180"
-                  />
-                </summary>
+              <AnalyticsDisclosure>
                 <AnalyticsDetails post={post} />
-              </details>
+              </AnalyticsDisclosure>
             </article>
           </Reveal>
         ))}
