@@ -6,6 +6,7 @@ import { Ghost, Send, CheckCircle2, Loader2, MapPin } from "lucide-react";
 import { Reveal } from "./ui/Reveal";
 import { Honeypot } from "./ui/Honeypot";
 import { Turnstile, turnstileEnabled } from "./ui/Turnstile";
+import { submitForm } from "@/lib/submit-form";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -40,10 +41,7 @@ export function Feedback() {
       ?.value;
 
     try {
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
+      const json = await submitForm({
           kind: "feedback",
           message,
           website,
@@ -51,20 +49,17 @@ export function Feedback() {
           turnstileToken: token,
           approx_location: place ?? "Unknown",
           page: typeof window !== "undefined" ? window.location.href : undefined,
-        }),
       });
-      const json = (await res.json()) as { success?: boolean };
-      if (res.ok && json.success) {
+      if (json.success) {
         setStatus("success");
         setMessage("");
-        setToken("");
-        setWidgetKey((k) => k + 1);
         openedAt.current = Date.now();
       } else setStatus("error");
     } catch {
       setStatus("error");
     } finally {
-      setTimeout(() => setStatus("idle"), 5000);
+      setToken("");
+      setWidgetKey((k) => k + 1);
     }
   };
 

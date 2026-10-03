@@ -18,6 +18,7 @@ import { Reveal } from "./ui/Reveal";
 import { Honeypot } from "./ui/Honeypot";
 import { Turnstile, turnstileEnabled } from "./ui/Turnstile";
 import { SITE } from "@/lib/data";
+import { submitForm } from "@/lib/submit-form";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -51,35 +52,17 @@ export function Contact() {
       ?.value;
 
     try {
-      const res = await fetch("/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
+      const json = await submitForm({
           kind: "contact",
           ...form,
           website,
           openedAt: openedAt.current,
           turnstileToken: token,
-        }),
       });
-      const json = (await res.json()) as { success?: boolean; error?: string };
 
-      if (res.status === 503) {
-        const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
-        const body = encodeURIComponent(
-          `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
-        );
-        window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
+      if (json.success) {
         setStatus("success");
         setForm({ name: "", email: "", message: "" });
-        return;
-      }
-
-      if (res.ok && json.success) {
-        setStatus("success");
-        setForm({ name: "", email: "", message: "" });
-        setToken("");
-        setWidgetKey((k) => k + 1);
         openedAt.current = Date.now();
       } else {
         setStatus("error");
@@ -89,7 +72,9 @@ export function Contact() {
       setStatus("error");
       setError(null);
     } finally {
-      setTimeout(() => setStatus("idle"), 5000);
+      // Verification tokens are single-use, including when delivery fails.
+      setToken("");
+      setWidgetKey((k) => k + 1);
     }
   };
 
@@ -251,7 +236,14 @@ export function Contact() {
                     exit={{ opacity: 0 }}
                     className="text-sm text-red-400"
                   >
-                    {error ?? `Something went wrong. Email ${SITE.email} directly.`}
+                    {error ?? "We couldn't send your message."}{" "}
+                    Your message is still here. Try again or{" "}
+                    <a
+                      className="underline underline-offset-4"
+                      href={`mailto:${SITE.email}?subject=${encodeURIComponent(`Portfolio enquiry from ${form.name}`)}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`}
+                    >
+                      send it using your email app
+                    </a>.
                   </motion.p>
                 )}
               </AnimatePresence>

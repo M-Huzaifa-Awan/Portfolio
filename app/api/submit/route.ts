@@ -5,14 +5,11 @@ import { turnstileConfigured, verifyTurnstile } from "@/lib/turnstile";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const MIN_AGE_MS = 2_500;
 const MAX_AGE_MS = 30 * 60 * 1000;
 const MAX_MESSAGE = 2_000;
 const MAX_NAME = 120;
 const MAX_EMAIL = 254;
-
-type Kind = "contact" | "feedback";
 
 function clientIp(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
@@ -113,27 +110,12 @@ export async function POST(request: Request) {
     payload.page = asString(body.page, 300);
   }
 
-  try {
-    const res = await fetch(WEB3FORMS_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-      cache: "no-store",
-    });
-    const text = await res.text();
-    let json: { success?: boolean; message?: string };
-    try {
-      json = JSON.parse(text) as { success?: boolean; message?: string };
-    } catch {
-      console.error("Web3Forms non-JSON:", res.status, text.slice(0, 500));
-      return NextResponse.json({ error: "Delivery failed." }, { status: 502 });
-    }
-    if (!json.success) {
-      console.error("Web3Forms rejected submit:", res.status, json);
-      return NextResponse.json({ error: "Delivery failed." }, { status: 502 });
-    }
-    return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "Delivery failed." }, { status: 502 });
-  }
+  // Web3Forms requires browser delivery on its free plan. This access key
+  // is a public form identifier, not a secret. Never return Turnstile secrets.
+  // These checks protect our form flow; provider spam filtering must also
+  // protect direct submissions made with the public key.
+  return NextResponse.json(
+    { delivery: payload },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }
